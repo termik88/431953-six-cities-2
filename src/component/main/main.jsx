@@ -112,7 +112,8 @@ const Main = (props) => {
 
               {places.map((it, i) => <PlaceCard
                 key={i}
-                place={it}
+                title = {it.title}
+                onClick = {{}}
               />)}
 
             </div>
@@ -130,5 +131,10 @@ const Main = (props) => {
 export default Main;
 
 Main.propTypes = {
-  places: PropTypes.array.isRequired
+  places: PropTypes
+    .arrayOf(PropTypes
+      .shape({
+        title: PropTypes.string.isRequired
+      }).isRequired
+    ).isRequired
 };
