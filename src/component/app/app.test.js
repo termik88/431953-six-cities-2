@@ -1,8 +1,8 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Main from './main.jsx';
+import App from './app.jsx';
 
-describe(`Main commponet test.`, () => {
+describe(`App commponet test.`, () => {
   it(`Correctly renders after relaunch`, () => {
     const mock = [
       {
@@ -23,7 +23,7 @@ describe(`Main commponet test.`, () => {
       }
     ];
     const test = renderer
-      .create(<Main
+      .create(<App
         places = {mock}
       />)
       .toJSON();
