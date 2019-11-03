@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Main commponet test. Correctly renders after relaunch 1`] = `
+exports[`App commponet test. Correctly renders after relaunch 1`] = `
 <div>
   <div
     style={

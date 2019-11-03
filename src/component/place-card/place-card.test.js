@@ -4,12 +4,22 @@ import PlaceCard from './place-card.jsx';
 
 describe(`PlaceCard component test.`, () => {
   it(`Correctly renders after relaunch`, () => {
-    const mock = `Canal View Prinsengracht`;
-    const clickHandler = jest.fn();
+    const mockDate = {
+      place: {
+        name: `Beautiful & luxurious studio at great location`,
+        src: `img/apartment-01.jpg`,
+        type: `Apartment`,
+        premium: true,
+        rating: 93,
+        price: 180,
+      },
+      onMouseEnter: jest.fn(),
+      onMouseLeave: jest.fn()
+    };
+
     const test = renderer
       .create(<PlaceCard
-        title = {mock}
-        onClick = {clickHandler}
+        {...mockDate}
       />)
       .toJSON();
 
