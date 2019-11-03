@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const PlaceCard = ({place, onMouseEnter, onMouseLeave}) => {
-
   const {
     name,
     src,

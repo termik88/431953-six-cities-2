@@ -4,22 +4,32 @@ import Adapter from 'enzyme-adapter-react-16';
 
 import PlaceCard from './place-card.jsx';
 
+Enzyme.configure({adapter: new Adapter()});
+
+const mockDate = {
+  place: {
+    name: `Beautiful & luxurious studio at great location`,
+    src: `img/apartment-01.jpg`,
+    type: `Apartment`,
+    premium: true,
+    rating: 93,
+    price: 180,
+  },
+  onMouseEnter: jest.fn(),
+  onMouseLeave: jest.fn()
+};
+
 describe(`PlaceCard component e2e test.`, () => {
+  const component = shallow(<PlaceCard
+    {...mockDate}
+  />);
 
-  Enzyme.configure({adapter: new Adapter()});
-
-  it(`Click on card correctly works link`, () => {
-    const mock = `Beautiful &amp; luxurious apartment at great location`;
-    const clickHandler = jest.fn();
-    const placeCard = shallow(<PlaceCard
-      title = {mock}
-      onClick = {clickHandler}
-    />);
-
-    const link = placeCard.find(`.place-card__name a`);
-    link.simulate(`click`);
-
-    expect(clickHandler).toHaveBeenCalledTimes(1);
+  it(`Card mouse on`, () => {
+    component
+      .find(`.place-card`)
+      .simulate(`mouseEnter`);
+    expect(mockDate.onMouseEnter).toHaveBeenCalled();
+    expect(mockDate.onMouseEnter).toHaveBeenCalledWith(mockDate.place);
   });
 });
 

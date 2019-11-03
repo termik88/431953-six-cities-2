@@ -13,15 +13,15 @@ class PlacesList extends PureComponent {
     this._onMouseLeave = this._onMouseLeave.bind(this);
   }
 
-  _onMouseEnter(value) {
+  _onMouseEnter(activePlace) {
     this.setState({
-      activePlace: value
-    }, console.log(value));
+      activePlace
+    });
   }
 
   _onMouseLeave() {
     this.setState({
-      activePlace: null
+      activePlace: {},
     });
   }
 

@@ -4,7 +4,7 @@ import App from './app.jsx';
 
 describe(`App commponet test.`, () => {
   it(`Correctly renders after relaunch`, () => {
-    const mock = [
+    const mockDate = [
       {
         name: `Canal View Prinsengracht`,
         src: `img/apartment-02.jpg`,
@@ -24,7 +24,7 @@ describe(`App commponet test.`, () => {
     ];
     const test = renderer
       .create(<App
-        places = {mock}
+        places = {mockDate}
       />)
       .toJSON();
 

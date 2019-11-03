@@ -1,8 +1,8 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Main from './main.jsx';
+import PlacesList from './places-list.jsx';
 
-describe(`Main commponet test.`, () => {
+describe(`PlacesList commponet test.`, () => {
   it(`Correctly renders after relaunch`, () => {
     const mockDate = [
       {
@@ -23,7 +23,7 @@ describe(`Main commponet test.`, () => {
       }
     ];
     const test = renderer
-      .create(<Main
+      .create(<PlacesList
         places = {mockDate}
       />)
       .toJSON();
