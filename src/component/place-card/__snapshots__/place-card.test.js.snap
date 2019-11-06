@@ -7,23 +7,16 @@ exports[`PlaceCard component test. Correctly renders after relaunch 1`] = `
   onMouseLeave={[MockFunction]}
 >
   <div
-    className="place-card__mark"
-  >
-    <span>
-      Premium
-    </span>
-  </div>
-  <div
     className="cities__image-wrapper place-card__image-wrapper"
   >
     <a
       href="#"
     >
       <img
-        alt="Place image"
+        alt="Beautiful & luxurious studio at great location"
         className="place-card__image"
         height="200"
-        src="img/apartment-01.jpg"
+        src="img/1.png"
         width="260"
       />
     </a>
@@ -41,7 +34,7 @@ exports[`PlaceCard component test. Correctly renders after relaunch 1`] = `
           className="place-card__price-value"
         >
           €
-          180
+          120
         </b>
         <span
           className="place-card__price-text"
@@ -78,7 +71,7 @@ exports[`PlaceCard component test. Correctly renders after relaunch 1`] = `
         <span
           style={
             Object {
-              "width": "93%",
+              "width": "4.8%",
             }
           }
         />
@@ -101,7 +94,7 @@ exports[`PlaceCard component test. Correctly renders after relaunch 1`] = `
     <p
       className="place-card__type"
     >
-      Apartment
+      apartment
     </p>
   </div>
 </article>

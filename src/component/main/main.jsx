@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 const Main = ({places}) => {
   return (
-    <div>
+    <React.Fragment>
       <div style={{display: `none`}}>
         <svg xmlns="http://www.w3.org/2000/svg">
           <symbol id="icon-arrow-select" viewBox="0 0 7 4">
@@ -121,18 +121,44 @@ const Main = ({places}) => {
         </div>
 
       </main>
-    </div>
+    </React.Fragment>
   );
 };
 
 Main.propTypes = {
   places: PropTypes.arrayOf(PropTypes.exact({
-    name: PropTypes.string,
-    src: PropTypes.string,
-    type: PropTypes.string,
-    premium: PropTypes.bool,
+    id: PropTypes.number,
+    city: PropTypes.exact({
+      name: PropTypes.string,
+      location: PropTypes.exact({
+        latitude: PropTypes.number,
+        longitude: PropTypes.number,
+        zoom: PropTypes.number
+      })
+    }),
+    previewImage: PropTypes.string,
+    images: PropTypes.arrayOf(PropTypes.string),
+    title: PropTypes.string,
+    isFavorite: PropTypes.bool,
+    isPremium: PropTypes.bool,
     rating: PropTypes.number,
+    type: PropTypes.string,
+    bedrooms: PropTypes.number,
+    maxAdults: PropTypes.number,
     price: PropTypes.number,
+    goods: PropTypes.arrayOf(PropTypes.string),
+    host: PropTypes.exact({
+      id: PropTypes.number,
+      isPro: PropTypes.bool,
+      name: PropTypes.string,
+      avatarUrl: PropTypes.string
+    }),
+    description: PropTypes.string,
+    location: PropTypes.exact({
+      latitude: PropTypes.number,
+      longitude: PropTypes.number,
+      zoom: PropTypes.number
+    })
   })).isRequired
 };
 

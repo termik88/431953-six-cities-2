@@ -3,17 +3,18 @@ import PropTypes from "prop-types";
 
 const PlaceCard = ({place, onMouseEnter, onMouseLeave}) => {
   const {
-    name,
-    src,
+    title,
+    previewImage,
     type,
-    premium,
+    isFavorite,
+    isPremium,
     rating,
     price
   } = place;
 
   return (
     <article className="cities__place-card place-card" onMouseEnter={() => onMouseEnter(place)} onMouseLeave={onMouseLeave}>
-      {premium && (
+      {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
@@ -22,10 +23,10 @@ const PlaceCard = ({place, onMouseEnter, onMouseLeave}) => {
         <a href="#">
           <img
             className="place-card__image"
-            src={src}
+            src={previewImage}
             width="260"
             height="200"
-            alt="Place image"
+            alt={title}
           />
         </a>
       </div>
@@ -35,7 +36,9 @@ const PlaceCard = ({place, onMouseEnter, onMouseLeave}) => {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button button" type="button">
+          <button className={isFavorite
+            ? `place-card__bookmark-button place-card__bookmark-button--active button`
+            : `place-card__bookmark-button button`} type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"/>
             </svg>
@@ -49,7 +52,7 @@ const PlaceCard = ({place, onMouseEnter, onMouseLeave}) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{name}</a>
+          <a href="#">{title}</a>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
@@ -61,13 +64,39 @@ export default PlaceCard;
 
 PlaceCard.propTypes = {
   place: PropTypes.exact({
-    name: PropTypes.string,
-    src: PropTypes.string,
-    type: PropTypes.string,
-    premium: PropTypes.bool,
+    id: PropTypes.number,
+    city: PropTypes.exact({
+      name: PropTypes.string,
+      location: PropTypes.exact({
+        latitude: PropTypes.number,
+        longitude: PropTypes.number,
+        zoom: PropTypes.number
+      })
+    }),
+    previewImage: PropTypes.string,
+    images: PropTypes.arrayOf(PropTypes.string),
+    title: PropTypes.string,
+    isFavorite: PropTypes.bool,
+    isPremium: PropTypes.bool,
     rating: PropTypes.number,
+    type: PropTypes.string,
+    bedrooms: PropTypes.number,
+    maxAdults: PropTypes.number,
     price: PropTypes.number,
-  }),
+    goods: PropTypes.arrayOf(PropTypes.string),
+    host: PropTypes.exact({
+      id: PropTypes.number,
+      isPro: PropTypes.bool,
+      name: PropTypes.string,
+      avatarUrl: PropTypes.string
+    }),
+    description: PropTypes.string,
+    location: PropTypes.exact({
+      latitude: PropTypes.number,
+      longitude: PropTypes.number,
+      zoom: PropTypes.number
+    })
+  }).isRequired,
   onMouseEnter: PropTypes.func,
   onMouseLeave: PropTypes.func
 };
