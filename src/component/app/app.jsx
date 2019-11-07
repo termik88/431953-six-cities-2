@@ -2,16 +2,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Main from '../main/main.jsx';
+import PlaceDetails from '../place-details/place-details.jsx';
 
-const App = ({places}) => {
-  return (
-    <Main
-      places = {places}
-    />
-  );
+const getPageScreen = ({places}) => {
+  switch (location.pathname) {
+    case `/`:
+      return <Main places={places} />;
+    case `/place-details`:
+      return <PlaceDetails place={places[0]} />;
+  }
+
+  return null;
 };
 
-App.propTypes = {
+const App = (props) => {
+  return <React.Fragment>{getPageScreen(props)}</React.Fragment>;
+};
+
+getPageScreen.propTypes = {
   places: PropTypes.arrayOf(PropTypes.exact({
     id: PropTypes.number,
     city: PropTypes.exact({

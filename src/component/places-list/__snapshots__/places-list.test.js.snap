@@ -13,7 +13,7 @@ exports[`PlacesList commponet test. Correctly renders after relaunch 1`] = `
       className="cities__image-wrapper place-card__image-wrapper"
     >
       <a
-        href="#"
+        href="place-details/1"
       >
         <img
           alt="Beautiful & luxurious studio at great location"
@@ -89,7 +89,7 @@ exports[`PlacesList commponet test. Correctly renders after relaunch 1`] = `
         className="place-card__name"
       >
         <a
-          href="#"
+          href="place-details/1"
         >
           Beautiful & luxurious studio at great location
         </a>

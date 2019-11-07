@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Main commponet test. Correctly renders after relaunch 1`] = `
-<div>
+Array [
   <div
     style={
       Object {
@@ -41,7 +41,7 @@ exports[`Main commponet test. Correctly renders after relaunch 1`] = `
         />
       </symbol>
     </svg>
-  </div>
+  </div>,
   <header
     className="header"
   >
@@ -93,7 +93,7 @@ exports[`Main commponet test. Correctly renders after relaunch 1`] = `
         </nav>
       </div>
     </div>
-  </header>
+  </header>,
   <main
     className="page__main page__main--index"
   >
@@ -270,7 +270,7 @@ exports[`Main commponet test. Correctly renders after relaunch 1`] = `
                 className="cities__image-wrapper place-card__image-wrapper"
               >
                 <a
-                  href="#"
+                  href="place-details/1"
                 >
                   <img
                     alt="Beautiful & luxurious studio at great location"
@@ -346,7 +346,7 @@ exports[`Main commponet test. Correctly renders after relaunch 1`] = `
                   className="place-card__name"
                 >
                   <a
-                    href="#"
+                    href="place-details/1"
                   >
                     Beautiful & luxurious studio at great location
                   </a>
@@ -369,6 +369,6 @@ exports[`Main commponet test. Correctly renders after relaunch 1`] = `
         </div>
       </div>
     </div>
-  </main>
-</div>
+  </main>,
+]
 `;
