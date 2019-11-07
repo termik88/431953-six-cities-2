@@ -1,12 +1,12 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import Main from './main.jsx';
+import PlaceDetails from './place-details.jsx';
 
-describe(`Main commponet test.`, () => {
+describe(`PlaceDetails component test.`, () => {
   it(`Correctly renders after relaunch`, () => {
-    const mockDate = [
-      {
+    const mockDate = {
+      place: {
         id: 1,
         city: {
           name: `Amsterdam`,
@@ -40,10 +40,11 @@ describe(`Main commponet test.`, () => {
           zoom: 8
         }
       }
-    ];
+    };
+
     const test = renderer
-      .create(<Main
-        places = {mockDate}
+      .create(<PlaceDetails
+        {...mockDate}
       />)
       .toJSON();
 
