@@ -1,9 +1,8 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import Map from './map.jsx';
 
-import PlacesList from './places-list.jsx';
-
-describe(`PlacesList component test.`, () => {
+describe(`Map component test.`, () => {
   it(`Correctly renders after relaunch`, () => {
     const mockDate = [
       {
@@ -16,8 +15,8 @@ describe(`PlacesList component test.`, () => {
             zoom: 10
           }
         },
-        previewImage: `img/1.png`,
-        images: [`img/1.png`, `img/2.png`],
+        previewImage: `img/apartment-01.jpg`,
+        images: [`img/apartment-01.jpg`, `img/apartment-02.jpg`, `img/apartment-03.jpg`],
         title: `Beautiful & luxurious studio at great location`,
         isFavorite: false,
         isPremium: false,
@@ -31,18 +30,18 @@ describe(`PlacesList component test.`, () => {
           id: 3,
           isPro: true,
           name: `Angelina`,
-          avatarUrl: `img/1.png`
+          avatarUrl: `img/avatar-angelina.jpg`
         },
         description: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.`,
         location: {
-          latitude: 52.35514938496378,
-          longitude: 4.673877537499948,
+          latitude: 52.3909553943508,
+          longitude: 4.85309666406198,
           zoom: 8
         }
       }
     ];
     const test = renderer
-      .create(<PlacesList
+      .create(<Map
         places = {mockDate}
       />)
       .toJSON();

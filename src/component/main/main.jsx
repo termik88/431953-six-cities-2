@@ -116,9 +116,11 @@ const Main = ({places}) => {
 
             </section>
             <div className="cities__right-section">
-              <Map
-                places = {places}
-              />
+              <section className="cities__map map">
+                <Map
+                  places = {places}
+                />
+              </section>
             </div>
           </div>
         </div>
