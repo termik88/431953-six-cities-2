@@ -1,13 +1,15 @@
 import React from 'react';
+import {ActionCreator} from '../../reducer.js';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Main from '../main/main.jsx';
 import PlaceDetails from '../place-details/place-details.jsx';
 
-const getPageScreen = ({places}) => {
+const getPageScreen = ({city, places, cities, placesSelected}) => {
   switch (location.pathname) {
     case `/`:
-      return <Main places={places} />;
+      return <Main places={places} cities={cities} />;
     case `/place-details`:
       return <PlaceDetails place={places[0]} />;
   }
@@ -56,4 +58,14 @@ getPageScreen.propTypes = {
   })).isRequired
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  city: state.city,
+  cities: state.cities,
+  places: state.places,
+  placesSelected: state.places
+});
+
+export {App};
+export default connect(mapStateToProps)(App);
+
+

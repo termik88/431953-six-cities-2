@@ -1,4 +1,4 @@
-const offers = [
+const placesSelected = [
   {
     id: 1,
     city: {
@@ -43,7 +43,7 @@ const offers = [
         zoom: 10
       }
     },
-    previewImage: `img/apartment-01.jpg`,
+    previewImage: `img/apartment-02.jpg`,
     images: [`img/apartment-01.jpg`, `img/apartment-02.jpg`, `img/apartment-03.jpg`],
     title: `Beautiful & luxurious studio at great location`,
     isFavorite: false,
@@ -79,7 +79,7 @@ const offers = [
     },
     previewImage: `img/apartment-01.jpg`,
     images: [`img/apartment-01.jpg`, `img/apartment-02.jpg`, `img/apartment-03.jpg`],
-    title: `Beautiful & luxurious studio at great location`,
+    title: `Studio at great location`,
     isFavorite: false,
     isPremium: false,
     rating: 4.8,
@@ -111,9 +111,9 @@ const offers = [
         zoom: 10
       }
     },
-    previewImage: `img/apartment-01.jpg`,
+    previewImage: `img/apartment-03.jpg`,
     images: [`img/apartment-01.jpg`, `img/apartment-02.jpg`, `img/apartment-03.jpg`],
-    title: `Beautiful & luxurious studio at great location`,
+    title: `Beautifuasdasdas asdas asda udio at great location`,
     isFavorite: false,
     isPremium: false,
     rating: 4.8,
@@ -137,4 +137,4 @@ const offers = [
   }
 ];
 
-export default offers;
+export default placesSelected;
