@@ -1,23 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {createStore} from 'redux';
 import {Provider} from 'react-redux';
-import {reducer} from './reducer.js';
+import store from "./store.js";
+import App from './component/app/app.jsx';
 
-import AppContainer from './component/app/app.jsx';
+import places from './mocks/places.js';
+import {ActionsCreator} from "./reducer";
 
-const store = createStore(
-    reducer,
-    window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
-);
+// eslint-disable-next-line no-shadow
+const init = (places) => {
 
-const init = () => {
+  store.dispatch(ActionsCreator.loadPlaces(places));
+
   ReactDOM.render(
       <Provider store={store}>
-        <AppContainer/>,
+        <App/>,
       </Provider>,
       document.querySelector(`#root`)
   );
 };
 
-init();
+init(places);

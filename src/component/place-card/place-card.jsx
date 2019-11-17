@@ -13,6 +13,8 @@ const PlaceCard = ({place, onMouseEnter, onMouseLeave}) => {
     price
   } = place;
 
+  const transformRatingToPercent = (ratingPlace) => ratingPlace / 5 * 100;
+
   return (
     <article className="cities__place-card place-card" onMouseEnter={() => onMouseEnter(place)} onMouseLeave={onMouseLeave}>
       {isPremium && (
@@ -53,7 +55,7 @@ const PlaceCard = ({place, onMouseEnter, onMouseLeave}) => {
         {rating && (
           <div className="place-card__rating rating">
             <div className="place-card__stars rating__stars">
-              <span style={{width: `${rating}%`}}/>
+              <span style={{width: `${transformRatingToPercent(rating)}%`}}/>
               <span className="visually-hidden">Rating</span>
             </div>
           </div>

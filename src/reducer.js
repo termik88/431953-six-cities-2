@@ -1,36 +1,49 @@
-import city from './mocks/city.js';
-import cities from './mocks/cities';
-import places from './mocks/places.js';
-import placesSelected from './mocks/places-selected.js';
+const getCities = () => [...new Set(places.map((place) => place.city.name))];
+
+const getPlacesSelected = (cityName) => places.filter((place) => place.city.name === cityName);
 
 const initialState = {
-  city,
-  cities,
-  places,
-  placesSelected
+  city: `Amsterdam`,
+  cities: [],
+  places: [],
+  placesSelected: []
 };
 
 const ActionType = {
-  CHANGE_CITY: `CHANGE_CITY`
+  CHANGE_CITY: `CHANGE_CITY`,
+  LOAD_PLACES: `LOAD_PLACES`
 };
 
-const ActionCreator = {
-  changeCity: (city) => ({
+const ActionsCreator = {
+  changeCity: (cityName) => ({
     type: ActionType.CHANGE_CITY,
-    payload: city,
+    payload: cityName,
+  }),
+
+  loadPlaces: (places) => ({
+    type: ActionType.LOAD_PLACES,
+    payload: places
   })
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.CHANGE_CITY:
-      return Object.assign({}, state, {city: action.payload});
+      return Object.assign({}, state, {
+        city: action.payload,
+        placesSelected: getPlacesSelected(action.payload)
+      });
+
+    case ActionType.LOAD_PLACES:
+      return Object.assign({}, state, {
+        places: action.payload
+      });
   }
 
   return state;
 };
 
 export {
-  ActionCreator,
+  ActionsCreator,
   reducer
 };
