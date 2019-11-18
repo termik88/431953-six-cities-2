@@ -1,42 +1,59 @@
-const getCities = () => [...new Set(places.map((place) => place.city.name))];
-
-const getPlacesSelected = (cityName) => places.filter((place) => place.city.name === cityName);
-
 const initialState = {
-  city: `Amsterdam`,
-  cities: [],
-  places: [],
+  cityCurrent: ``,
+  citiesList: [],
+  placesAll: [],
   placesSelected: []
 };
 
 const ActionType = {
-  CHANGE_CITY: `CHANGE_CITY`,
-  LOAD_PLACES: `LOAD_PLACES`
+  CHANGE_CITY_CURRENT: `CHANGE_CITY_CURRENT`,
+  SET_CITIES_LIST: `SET_CITIES_LIST`,
+  SET_PLACES_SELECTED: `SET_PLACES_SELECTED`,
+  LOAD_PLACES_ALL: `LOAD_PLACES_ALL`
 };
 
 const ActionsCreator = {
-  changeCity: (cityName) => ({
-    type: ActionType.CHANGE_CITY,
+  changeCityCurrent: (cityName) => ({
+    type: ActionType.CHANGE_CITY_CURRENT,
     payload: cityName,
   }),
 
-  loadPlaces: (places) => ({
-    type: ActionType.LOAD_PLACES,
-    payload: places
+  setCitiesList: (citiesList) => ({
+    type: ActionType.SET_CITIES_LIST,
+    payload: citiesList
+  }),
+
+  setPlacesSelected: (placesSelected) => ({
+    type: ActionType.SET_PLACES_SELECTED,
+    payload: placesSelected
+  }),
+
+  loadPlaces: (placesAll) => ({
+    type: ActionType.LOAD_PLACES_ALL,
+    payload: placesAll
   })
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionType.CHANGE_CITY:
+    case ActionType.CHANGE_CITY_CURRENT:
       return Object.assign({}, state, {
-        city: action.payload,
-        placesSelected: getPlacesSelected(action.payload)
+        cityCurrent: action.payload
       });
 
-    case ActionType.LOAD_PLACES:
+    case ActionType.SET_CITIES_LIST:
       return Object.assign({}, state, {
-        places: action.payload
+        citiesList: action.payload
+      });
+
+    case ActionType.SET_PLACES_SELECTED:
+      return Object.assign({}, state, {
+        placesSelected: action.payload
+      });
+
+    case ActionType.LOAD_PLACES_ALL:
+      return Object.assign({}, state, {
+        placesAll: action.payload
       });
   }
 

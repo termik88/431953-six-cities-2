@@ -1,4 +1,4 @@
-const places = [
+const placesAll = [
   {
     city: {
       name: `Dusseldorf`,
@@ -4571,4 +4571,4 @@ const places = [
   }
 ];
 
-export default places;
+export default placesAll;

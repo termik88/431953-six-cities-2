@@ -1,24 +1,22 @@
 import React from "react";
-import {ActionsCreator} from '../../reducer.js';
-import {connect} from "react-redux";
 import PropTypes from 'prop-types';
 
-const CitiesList = ({city, cities, onCityLinkClick}) => {
+const CitiesList = ({cityCurrent, citiesList, onChangeCity}) => {
 
   const handleClickCityName = (e) => {
     e.preventDefault();
-    onCityLinkClick(e.target.textContent);
+    onChangeCity(e.target.textContent);
   };
 
   return (
     <div className="tabs">
       <section className="locations container">
         <ul className="locations__list tabs__list">
-          {cities.map((it, i) => <li key={`${it}-${i}`} className="locations__item">
-            <a className={`locations__item-link tabs__item ${it === city ? `tabs__item--active` : ``}`}
+          {citiesList.map((cityName, i) => <li key={`${cityName}-${i}`} className="locations__item">
+            <a className={`locations__item-link tabs__item ${cityName === cityCurrent ? `tabs__item--active` : ``}`}
               href="#"
               onClick={handleClickCityName}>
-              <span>{it}</span>
+              <span>{cityName}</span>
             </a>
           </li>)}
         </ul>
@@ -28,22 +26,8 @@ const CitiesList = ({city, cities, onCityLinkClick}) => {
 };
 
 CitiesList.propTypes = {
-  city: PropTypes.string.isRequired,
-  cities: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired
-  }))
+  cityCurrent: PropTypes.string.isRequired,
+  cities: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
 };
 
-const mapStateToProps = (state) => ({
-  city: state.city,
-  cities: state.cities
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onCityLinkClick: (cityName) => {
-    dispatch(ActionsCreator.changeCity(cityName));
-  }
-});
-
-export {CitiesList};
-export default connect(mapStateToProps, mapDispatchToProps)(CitiesList);
+export default CitiesList;
