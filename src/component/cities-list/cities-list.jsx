@@ -1,11 +1,15 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import {ActionsCreator} from "../../reducer";
+import {connect} from "react-redux";
+import {getPlacesSelected} from "../../until";
 
-const CitiesList = ({cityCurrent, citiesList, onChangeCity}) => {
+const CitiesList = ({cityCurrent, citiesList, placesAll, changeCurrentCityAndPlaces}) => {
 
   const handleClickCityName = (e) => {
     e.preventDefault();
-    onChangeCity(e.target.textContent);
+    const placesSelected = getPlacesSelected(e.target.textContent, placesAll);
+    changeCurrentCityAndPlaces(e.target.textContent, placesSelected);
   };
 
   return (
@@ -30,4 +34,19 @@ CitiesList.propTypes = {
   citiesList: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
 };
 
-export default CitiesList;
+const mapStateToProps = (state, ownProps) =>
+  Object.assign({}, ownProps, {
+    cityCurrent: state.cityCurrent,
+    citiesList: state.citiesList,
+    placesAll: state.placesAll
+  });
+
+const mapDispatchToProps = (dispatch) => ({
+  changeCurrentCityAndPlaces: (citySelected, placesSelected) => {
+    dispatch(ActionsCreator.changeCityCurrent(citySelected));
+    dispatch(ActionsCreator.setPlacesSelected(placesSelected));
+  }
+});
+
+export {CitiesList};
+export default connect(mapStateToProps, mapDispatchToProps)(CitiesList);

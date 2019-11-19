@@ -1,22 +1,28 @@
 import React, {PureComponent} from 'react';
 import leaflet from 'leaflet';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 
 class Map extends PureComponent {
   constructor(props) {
     super(props);
+
+    this.state = {
+      map: null,
+      markersLayerGroup: null,
+    };
   }
 
   componentDidMount() {
-    const {places} = this.props;
+    const {placesSelected} = this.props;
 
     const icon = leaflet.icon({
       iconUrl: `img/pin.svg`,
       iconSize: [24, 30]
     });
 
-    const city = [52.38333, 4.9];
-    const zoom = 10;
+    const city = [placesSelected[0].city.location.latitude, placesSelected[0].city.location.longitude];
+    const zoom = placesSelected[0].city.location.zoom;
     const map = leaflet.map(`map`, {
       center: city,
       zoom,
@@ -29,11 +35,14 @@ class Map extends PureComponent {
       .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`)
       .addTo(map);
 
-    for (const place of places) {
+    for (const place of placesSelected) {
       leaflet
         .marker([place.location.latitude, place.location.longitude], {icon})
         .addTo(map);
     }
+  }
+
+  componentDidUpdate() {
   }
 
   render() {
@@ -43,10 +52,8 @@ class Map extends PureComponent {
   }
 }
 
-export default Map;
-
 Map.propTypes = {
-  places: PropTypes.arrayOf(PropTypes.exact({
+  placesSelected: PropTypes.arrayOf(PropTypes.exact({
     id: PropTypes.number,
     city: PropTypes.exact({
       name: PropTypes.string,
@@ -81,3 +88,12 @@ Map.propTypes = {
     })
   })).isRequired
 };
+
+export {Map};
+
+const mapStateToProps = (state, ownProps) =>
+  Object.assign({}, ownProps, {
+    placesSelected: state.placesSelected
+  });
+
+export default connect(mapStateToProps)(Map);
