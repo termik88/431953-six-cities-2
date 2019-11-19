@@ -3,7 +3,6 @@ import {ActionsCreator} from '../../reducer.js';
 import {connect} from 'react-redux';
 import PropTypes from "prop-types";
 
-import SvgBlock from "../svg-block/svg-block.jsx";
 import Header from "../header/header.jsx";
 import ContainerCitiesList from "../cities-list/cities-list.jsx";
 import PlacesList from "../places-list/places-list.jsx";
@@ -14,9 +13,14 @@ class Main extends PureComponent {
   constructor(props) {
     super(props);
   }
-  //
+
+  /*Решить как вносить стартовое состояние*/
   // componentDidMount() {
-  //   this.props.getInitialState(this.props.places);
+  //   const {placesAll} = this.props;
+  //   const citySelected = placesAll[0].city.name;
+  //   const citiesList = getCities(placesAll);
+  //   const placesSelected = getPlacesSelected(citySelected, placesAll);
+  //   this.props.getInitialState(citySelected, citiesList, placesSelected);
   // }
 
   replacePlaces(citySelected) {
@@ -27,8 +31,7 @@ class Main extends PureComponent {
 
   render() {
     return (
-      <React.Fragment>
-        <SvgBlock/>
+      <div className="page page--gray page--main">
         <Header/>
         <main className="page__main page__main--index">
           <h1 className="visually-hidden">Cities</h1>
@@ -79,7 +82,7 @@ class Main extends PureComponent {
           </div>
 
         </main>
-      </React.Fragment>
+      </div>
     );
   }
 }
@@ -123,18 +126,19 @@ Main.propTypes = {
 
 const mapStateToProps = (state, ownProps) =>
   Object.assign({}, ownProps, {
-    cityCurrent: state.city,
+    cityCurrent: state.cityCurrent,
     citiesList: state.citiesList,
     placesSelected: state.placesSelected,
     placesAll: state.placesAll
   });
 
 const mapDispatchToProps = (dispatch) => ({
-  getInitialState: (placesAll) => {
-    // dispatch(ActionsCreator.changeCity(places[0].city.name));
-    // dispatch(ActionsCreator.setCitiesList(getCities(places)));
-    // dispatch(ActionsCreator.setPlacesSelected(getPlacesSelected(places[0].city.name, places)));
-  },
+  /*Решить как вносить стартовое состояние*/
+  // getInitialState: (citySelected, citiesList, placesSelected) => {
+  // dispatch(ActionsCreator.changeCityCurrent(citySelected));
+  // dispatch(ActionsCreator.setCitiesList(citiesList));
+  // dispatch(ActionsCreator.setPlacesSelected(placesSelected));
+  // },
 
   changeCurrentCityAndPlaces: (citySelected, placesSelected) => {
     dispatch(ActionsCreator.changeCityCurrent(citySelected));

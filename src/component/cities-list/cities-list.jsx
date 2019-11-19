@@ -27,7 +27,7 @@ const CitiesList = ({cityCurrent, citiesList, onChangeCity}) => {
 
 CitiesList.propTypes = {
   cityCurrent: PropTypes.string.isRequired,
-  cities: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
+  citiesList: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
 };
 
 export default CitiesList;

@@ -18,9 +18,9 @@ const ActionsCreator = {
     payload: cityName,
   }),
 
-  setCitiesList: (citiesList) => ({
+  setCitiesList: (cities) => ({
     type: ActionType.SET_CITIES_LIST,
-    payload: citiesList
+    payload: cities
   }),
 
   setPlacesSelected: (placesSelected) => ({

@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
-import store from "./store.js";
-import App from './component/app/app.jsx';
-
-import placesAll from './mocks/places.js';
 import {ActionsCreator} from "./reducer";
+import store from "./store.js";
+
+import App from './component/app/app.jsx';
+import placesAll from './mocks/places.js';
 import {getCities, getPlacesSelected} from "./until";
 
 // eslint-disable-next-line no-shadow
