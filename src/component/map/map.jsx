@@ -14,63 +14,35 @@ class Map extends PureComponent {
   }
 
   componentDidMount() {
-    const {placesSelected} = this.props;
-
     const map = leaflet.map(`map`);
-    const city = [placesSelected[0].city.location.latitude, placesSelected[0].city.location.longitude];
-    const zoom = placesSelected[0].city.location.zoom;
-
-    map.setView(city, zoom);
 
     leaflet
       .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`)
       .addTo(map);
+
+    this.setState({map, markersGroup: leaflet.layerGroup().addTo(map)});
+  }
+
+  componentDidUpdate() {
+    const {markersGroup} = this.state;
+    const {placesSelected} = this.props;
+
+    const city = [placesSelected[0].city.location.latitude, placesSelected[0].city.location.longitude];
+    const zoom = placesSelected[0].city.location.zoom;
+
+    this.state.map.setView(city, zoom);
 
     const icon = leaflet.icon({
       iconUrl: `img/pin.svg`,
       iconSize: [24, 30]
     });
 
-    this.setState({
-      markersGroup: leaflet
-        .layerGroup(placesSelected.map((place) => leaflet
-          .marker([place.location.latitude, place.location.longitude], {icon})))
-        .addTo(map)
-    });
+    markersGroup.clearLayers();
 
-
-    this.setState({
-      map
-    });
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (this.props.placesSelected !== prevProps.placesSelected) {
-      this.setState({
-        markersGroup: this.state.markersGroup.clearLayers()
-      });
-
-      const {placesSelected} = this.props;
-
-      console.log(`sda`);
-
-      const icon = leaflet.icon({
-        iconUrl: `img/pin.svg`,
-        iconSize: [24, 30]
-      });
-
-      const city = [placesSelected[0].city.location.latitude, placesSelected[0].city.location.longitude];
-      const zoom = placesSelected[0].city.location.zoom;
-
-      this.state.map.setView(city, zoom);
-
-      this.setState({
-        markersGroup: leaflet
-          .layerGroup(placesSelected.map((place) => leaflet
-            .marker([place.location.latitude, place.location.longitude], {icon})))
-          .addTo(this.state.map)
-      });
-
+    for (let place of placesSelected) {
+      leaflet
+        .marker([place.location.latitude, place.location.longitude], {icon})
+        .addTo(markersGroup);
     }
   }
 

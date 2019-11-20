@@ -7,9 +7,11 @@ import {getPlacesSelected} from "../../until";
 const CitiesList = ({cityCurrent, citiesList, placesAll, changeCurrentCityAndPlaces}) => {
 
   const handleClickCityName = (e) => {
-    e.preventDefault();
-    const placesSelected = getPlacesSelected(e.target.textContent, placesAll);
-    changeCurrentCityAndPlaces(e.target.textContent, placesSelected);
+    if (cityCurrent !== e.target.textContent) {
+      e.preventDefault();
+      const placesSelected = getPlacesSelected(e.target.textContent, placesAll);
+      changeCurrentCityAndPlaces(e.target.textContent, placesSelected);
+    }
   };
 
   return (

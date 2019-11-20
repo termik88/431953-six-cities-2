@@ -48,8 +48,10 @@ const Main = ({cityCurrent, placesSelected}) => {
               />
             </section>
             <div className="cities__right-section">
+
               <Map/>
             </div>
+
           </div>
         </div>
 
