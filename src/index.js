@@ -1,16 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Provider} from 'react-redux';
+import {ActionsCreator} from "./reducer";
+import store from "./store.js";
 
 import App from './component/app/app.jsx';
-import Offers from './mocks/offers.js';
+import placesAll from './mocks/places.js';
+import {getCities, getPlacesSelected} from "./until";
 
-const init = (informationOffers) => {
+// eslint-disable-next-line no-shadow
+const init = (placesAll) => {
+
+  store.dispatch(ActionsCreator.loadPlaces(placesAll));
+  store.dispatch(ActionsCreator.changeCityCurrent(placesAll[0].city.name));
+  store.dispatch(ActionsCreator.setCitiesList(getCities(placesAll)));
+  store.dispatch(ActionsCreator.setPlacesSelected(getPlacesSelected(placesAll[0].city.name, placesAll)));
+
   ReactDOM.render(
-      <App
-        places = {informationOffers}
-      />,
+      <Provider store={store}>
+        <App/>,
+      </Provider>,
       document.querySelector(`#root`)
   );
 };
 
-init(Offers);
+init(placesAll);
