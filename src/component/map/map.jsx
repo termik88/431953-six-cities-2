@@ -1,48 +1,71 @@
 import React, {PureComponent} from 'react';
 import leaflet from 'leaflet';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
 
 class Map extends PureComponent {
   constructor(props) {
     super(props);
-
-    this.state = {
-      map: null,
-      markersGroup: null
-    };
+    this.map = null;
+    this.markersGroup = null;
   }
 
-  componentDidMount() {
-    const map = leaflet.map(`map`);
-
-    leaflet
-      .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`)
-      .addTo(map);
-
-    this.setState({map, markersGroup: leaflet.layerGroup().addTo(map)});
-  }
-
-  componentDidUpdate() {
-    const {markersGroup} = this.state;
-    const {placesSelected} = this.props;
-
-    const city = [placesSelected[0].city.location.latitude, placesSelected[0].city.location.longitude];
-    const zoom = placesSelected[0].city.location.zoom;
-
-    this.state.map.setView(city, zoom);
-
+  getPin() {
     const icon = leaflet.icon({
-      iconUrl: `img/pin.svg`,
+      iconUrl: `img/pin${this.props.active ? `-active` : ``}.svg`,
       iconSize: [24, 30]
     });
 
-    markersGroup.clearLayers();
+    return {icon};
+  }
+
+  renderMap() {
+    this.map = leaflet.map(`map`);
+
+    leaflet
+      .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`)
+      .addTo(this.map);
+
+    this.markersGroup = leaflet.layerGroup().addTo(this.map);
+  }
+
+  setOptionsMap(placesSelected) {
+    const city = [placesSelected[0].city.location.latitude, placesSelected[0].city.location.longitude];
+    const zoom = placesSelected[0].city.location.zoom;
+
+    this.map.setView(city, zoom);
+  }
+
+  renderPin(placesSelected) {
 
     for (let place of placesSelected) {
       leaflet
-        .marker([place.location.latitude, place.location.longitude], {icon})
-        .addTo(markersGroup);
+        .marker([place.location.latitude, place.location.longitude], this.getPin())
+        .addTo(this.markersGroup);
+    }
+  }
+
+  componentDidMount() {
+    this.renderMap();
+    this.setOptionsMap(this.props.placesSelected);
+    this.renderPin(this.props.placesSelected);
+
+    console.log(this.markersGroup);
+  }
+
+  componentDidUpdate(prevProps) {
+
+    if (this.props.placesSelected !== prevProps.placesSelected) {
+      this.setOptionsMap(this.props.placesSelected);
+
+
+      this.markersGroup.clearLayers();
+
+      this.renderPin(this.props.placesSelected);
+    }
+
+    if (this.props.placesSelected === prevProps.placesSelected) {
+      this.map.removeLayer([this.props.placesSelected.id[this.props.active].location.latitude,
+        this.props.placesSelected.id[this.props.active].location.longitude], this.getPin());
     }
   }
 
@@ -90,11 +113,4 @@ Map.propTypes = {
   })).isRequired
 };
 
-export {Map};
-
-const mapStateToProps = (state, ownProps) =>
-  Object.assign({}, ownProps, {
-    placesSelected: state.placesSelected
-  });
-
-export default connect(mapStateToProps)(Map);
+export default Map;

@@ -1,48 +1,26 @@
-import React, {PureComponent} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import PlaceCard from '../place-card/place-card.jsx';
 
-class PlacesList extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      activePlace: {}
-    };
+const PlacesList = (props) => {
+  const {placesSelected, onSelect} = props;
 
-    this._onMouseEnter = this._onMouseEnter.bind(this);
-    this._onMouseLeave = this._onMouseLeave.bind(this);
-  }
-
-  _onMouseEnter(activePlace) {
-    this.setState({
-      activePlace
-    });
-  }
-
-  _onMouseLeave() {
-    this.setState({
-      activePlace: {},
-    });
-  }
-
-  render() {
-    const {places} = this.props;
-
-    return (
-      <div className="cities__places-list places__list tabs__content">
-        {places.map((it) => <PlaceCard
-          key = {`place-${it.id}`}
-          place = {it}
-          onMouseEnter = {this._onMouseEnter}
-          onMouseLeave = {this._onMouseLeave}
-        />)}
-      </div>
-    );
-  }
-}
+  return (
+    <div className="cities__places-list places__list tabs__content">
+      {placesSelected.map((place) => (
+        <PlaceCard
+          key = {`place-${place.id}`}
+          place = {place}
+          onMouseEnter = {() => onSelect(place.id)}
+          onMouseLeave = {() => onSelect(null)}
+        />))}
+      {!placesSelected.length && `No places to stay available`}
+    </div>
+  );
+};
 
 PlacesList.propTypes = {
-  places: PropTypes.arrayOf(PropTypes.exact({
+  placesSelected: PropTypes.arrayOf(PropTypes.exact({
     id: PropTypes.number,
     city: PropTypes.exact({
       name: PropTypes.string,
@@ -75,7 +53,8 @@ PlacesList.propTypes = {
       longitude: PropTypes.number,
       zoom: PropTypes.number
     })
-  })).isRequired
+  })).isRequired,
+  onSelect: PropTypes.func.isRequired
 };
 
 export default PlacesList;

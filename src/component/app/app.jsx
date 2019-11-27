@@ -19,10 +19,10 @@ import Main from '../main/main.jsx';
 
 const App = () => {
   return (
-    <React.Fragment>
+    <>
       <SvgBlock/>
       <Main/>
-    </React.Fragment>
+    </>
   );
 };
 

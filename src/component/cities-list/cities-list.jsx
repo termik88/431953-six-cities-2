@@ -18,13 +18,15 @@ const CitiesList = ({cityCurrent, citiesList, placesAll, changeCurrentCityAndPla
     <div className="tabs">
       <section className="locations container">
         <ul className="locations__list tabs__list">
-          {citiesList.map((cityName, i) => <li key={`${cityName}-${i}`} className="locations__item">
-            <a className={`locations__item-link tabs__item ${cityName === cityCurrent ? `tabs__item--active` : ``}`}
-              href="#"
-              onClick={handleClickCityName}>
-              <span>{cityName}</span>
-            </a>
-          </li>)}
+          {citiesList.map((cityName, i) => (
+            <li key={`${cityName}-${i}`} className="locations__item">
+              <a className={`locations__item-link tabs__item ${cityName === cityCurrent ? `tabs__item--active` : ``}`}
+                href="#"
+                onClick={handleClickCityName}>
+                <span>{cityName}</span>
+              </a>
+            </li>
+          ))}
         </ul>
       </section>
     </div>
