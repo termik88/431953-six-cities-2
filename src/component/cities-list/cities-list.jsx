@@ -18,13 +18,15 @@ const CitiesList = ({cityCurrent, citiesList, placesAll, changeCurrentCityAndPla
     <div className="tabs">
       <section className="locations container">
         <ul className="locations__list tabs__list">
-          {citiesList.map((cityName, i) => <li key={`${cityName}-${i}`} className="locations__item">
-            <a className={`locations__item-link tabs__item ${cityName === cityCurrent ? `tabs__item--active` : ``}`}
-              href="#"
-              onClick={handleClickCityName}>
-              <span>{cityName}</span>
-            </a>
-          </li>)}
+          {citiesList.map((cityName, i) => (
+            <li key={`${cityName}-${i}`} className="locations__item">
+              <a className={`locations__item-link tabs__item ${cityName === cityCurrent ? `tabs__item--active` : ``}`}
+                href="#"
+                onClick={handleClickCityName}>
+                <span>{cityName}</span>
+              </a>
+            </li>
+          ))}
         </ul>
       </section>
     </div>
@@ -33,7 +35,42 @@ const CitiesList = ({cityCurrent, citiesList, placesAll, changeCurrentCityAndPla
 
 CitiesList.propTypes = {
   cityCurrent: PropTypes.string.isRequired,
-  citiesList: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
+  citiesList: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  placesAll: PropTypes.arrayOf(PropTypes.exact({
+    id: PropTypes.number,
+    city: PropTypes.exact({
+      name: PropTypes.string,
+      location: PropTypes.exact({
+        latitude: PropTypes.number,
+        longitude: PropTypes.number,
+        zoom: PropTypes.number
+      })
+    }),
+    previewImage: PropTypes.string,
+    images: PropTypes.arrayOf(PropTypes.string),
+    title: PropTypes.string,
+    isFavorite: PropTypes.bool,
+    isPremium: PropTypes.bool,
+    rating: PropTypes.number,
+    type: PropTypes.string,
+    bedrooms: PropTypes.number,
+    maxAdults: PropTypes.number,
+    price: PropTypes.number,
+    goods: PropTypes.arrayOf(PropTypes.string),
+    host: PropTypes.exact({
+      id: PropTypes.number,
+      isPro: PropTypes.bool,
+      name: PropTypes.string,
+      avatarUrl: PropTypes.string
+    }),
+    description: PropTypes.string,
+    location: PropTypes.exact({
+      latitude: PropTypes.number,
+      longitude: PropTypes.number,
+      zoom: PropTypes.number
+    })
+  })).isRequired,
+  changeCurrentCityAndPlaces: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state, ownProps) =>
@@ -50,5 +87,6 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-export {CitiesList};
-export default connect(mapStateToProps, mapDispatchToProps)(CitiesList);
+const CitiesListContainer = connect(mapStateToProps, mapDispatchToProps)(CitiesList);
+
+export {CitiesList, CitiesListContainer};

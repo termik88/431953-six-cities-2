@@ -3,7 +3,7 @@
 exports[`PlaceCard component test. Correctly renders after relaunch 1`] = `
 <article
   className="cities__place-card place-card"
-  onMouseEnter={[Function]}
+  onMouseEnter={[MockFunction]}
   onMouseLeave={[MockFunction]}
 >
   <div
@@ -71,7 +71,7 @@ exports[`PlaceCard component test. Correctly renders after relaunch 1`] = `
         <span
           style={
             Object {
-              "width": "4.8%",
+              "width": "96%",
             }
           }
         />

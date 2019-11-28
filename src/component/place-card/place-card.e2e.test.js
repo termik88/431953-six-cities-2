@@ -55,16 +55,6 @@ describe(`PlaceCard component e2e test.`, () => {
       .find(`.place-card`)
       .simulate(`mouseEnter`);
     expect(mockDate.onMouseEnter).toHaveBeenCalled();
-    expect(mockDate.onMouseEnter).toHaveBeenCalledWith(mockDate.place);
+    expect(mockDate.onMouseEnter).toHaveBeenCalled();
   });
 });
-
-
-/* const preventDefault = jest.fn();
-*  startButton.simulate(`click`, {preventDefault});
-*  expect(preventDefault).toHaveBeenCalledTimes(1);
-*  Такой тест проверит, что при нажатии на кнопку
-*  форма не отправляется на сервер и событие отменяется
-*  mount для глубокого сквозного теста
-*  simulate(`click`, {preventDefault()}) если mount
-* */

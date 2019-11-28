@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {transformRatingToPercent} from '../../until.js';
 
 const PlaceCard = ({place, onMouseEnter, onMouseLeave}) => {
   const {
@@ -13,10 +14,8 @@ const PlaceCard = ({place, onMouseEnter, onMouseLeave}) => {
     price
   } = place;
 
-  const transformRatingToPercent = (ratingPlace) => ratingPlace / 5 * 100;
-
   return (
-    <article className="cities__place-card place-card" onMouseEnter={() => onMouseEnter(place)} onMouseLeave={onMouseLeave}>
+    <article className="cities__place-card place-card" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
       {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
@@ -108,8 +107,8 @@ PlaceCard.propTypes = {
       zoom: PropTypes.number
     })
   }).isRequired,
-  onMouseEnter: PropTypes.func,
-  onMouseLeave: PropTypes.func
+  onMouseEnter: PropTypes.func.isRequired,
+  onMouseLeave: PropTypes.func.isRequired
 };
 
 export default PlaceCard;
