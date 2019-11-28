@@ -1,6 +1,6 @@
 import React from 'react';
 import SvgBlock from '../svg-block/svg-block.jsx';
-import Main from '../main/main.jsx';
+import {MainContainer} from '../main/main.jsx';
 
 // const getPageScreen = () => {
 //   switch (location.pathname) {
@@ -21,7 +21,7 @@ const App = () => {
   return (
     <>
       <SvgBlock/>
-      <Main/>
+      <MainContainer/>
     </>
   );
 };

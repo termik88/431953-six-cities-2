@@ -6,16 +6,8 @@ class Map extends PureComponent {
   constructor(props) {
     super(props);
     this.map = null;
+    this.markerCurrent = null;
     this.markersGroup = null;
-  }
-
-  getPin() {
-    const icon = leaflet.icon({
-      iconUrl: `img/pin${this.props.active ? `-active` : ``}.svg`,
-      iconSize: [24, 30]
-    });
-
-    return {icon};
   }
 
   renderMap() {
@@ -25,6 +17,7 @@ class Map extends PureComponent {
       .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`)
       .addTo(this.map);
 
+    this.markerCurrent = leaflet.layerGroup().addTo(this.map);
     this.markersGroup = leaflet.layerGroup().addTo(this.map);
   }
 
@@ -35,37 +28,46 @@ class Map extends PureComponent {
     this.map.setView(city, zoom);
   }
 
-  renderPin(placesSelected) {
+  getPin(isActive) {
+    const icon = leaflet.icon({
+      iconUrl: `img/pin${isActive ? `-active` : ``}.svg`,
+      iconSize: [24, 30]
+    });
 
+    return {icon};
+  }
+
+  renderPin(place, groupLayers, isActive) {
+    leaflet
+      .marker([place.location.latitude, place.location.longitude], this.getPin(isActive))
+      .addTo(groupLayers);
+  }
+
+  renderPins(placesSelected) {
     for (let place of placesSelected) {
-      leaflet
-        .marker([place.location.latitude, place.location.longitude], this.getPin())
-        .addTo(this.markersGroup);
+      this.renderPin(place, this.markersGroup, false);
     }
   }
 
   componentDidMount() {
     this.renderMap();
     this.setOptionsMap(this.props.placesSelected);
-    this.renderPin(this.props.placesSelected);
-
-    console.log(this.markersGroup);
+    this.renderPins(this.props.placesSelected);
   }
 
   componentDidUpdate(prevProps) {
-
     if (this.props.placesSelected !== prevProps.placesSelected) {
       this.setOptionsMap(this.props.placesSelected);
-
-
       this.markersGroup.clearLayers();
-
-      this.renderPin(this.props.placesSelected);
+      this.renderPins(this.props.placesSelected);
     }
 
-    if (this.props.placesSelected === prevProps.placesSelected) {
-      this.map.removeLayer([this.props.placesSelected.id[this.props.active].location.latitude,
-        this.props.placesSelected.id[this.props.active].location.longitude], this.getPin());
+    if (prevProps.active) {
+      this.markerCurrent.clearLayers();
+    }
+
+    if (this.props.active) {
+      this.renderPin(this.props.active, this.markerCurrent, true);
     }
   }
 
@@ -110,7 +112,16 @@ Map.propTypes = {
       longitude: PropTypes.number,
       zoom: PropTypes.number
     })
-  })).isRequired
+  })).isRequired,
+
+  active: PropTypes.exact({
+    id: PropTypes.number,
+    location: PropTypes.exact({
+      latitude: PropTypes.number,
+      longitude: PropTypes.number,
+      zoom: PropTypes.number
+    })
+  })
 };
 
 export default Map;

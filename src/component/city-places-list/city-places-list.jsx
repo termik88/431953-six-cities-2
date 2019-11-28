@@ -89,7 +89,14 @@ CityPlacesList.propTypes = {
     })
   })).isRequired,
   onSelect: PropTypes.func.isRequired,
-  active: PropTypes.number
+  active: PropTypes.exact({
+    id: PropTypes.number,
+    location: PropTypes.exact({
+      latitude: PropTypes.number,
+      longitude: PropTypes.number,
+      zoom: PropTypes.number
+    })
+  })
 };
 
 export default CityPlacesList;

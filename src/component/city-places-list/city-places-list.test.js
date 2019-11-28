@@ -1,11 +1,12 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import PlacesList from './places-list.jsx';
+import CityPlacesList from './city-places-list.jsx';
 
-describe(`PlacesList component test.`, () => {
+describe(`CityPlacesList component test.`, () => {
   it(`Correctly renders after relaunch`, () => {
     const mockDate = {
+      cityCurrent: `Amsterdam`,
       placesSelected: [
         {
           id: 1,
@@ -40,12 +41,19 @@ describe(`PlacesList component test.`, () => {
             longitude: 4.673877537499948,
             zoom: 8
           }
+        }],
+      onSelect: jest.fn(),
+      active: {
+        id: 1,
+        location: {
+          latitude: 52.370216,
+          longitude: 4.895168,
+          zoom: 10
         }
-      ],
-      onSelect: jest.fn()
+      }
     };
     const test = renderer
-      .create(<PlacesList
+      .create(<CityPlacesList
         {...mockDate}
       />)
       .toJSON();

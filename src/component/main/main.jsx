@@ -3,9 +3,9 @@ import {connect} from 'react-redux';
 import PropTypes from "prop-types";
 
 import Header from "../header/header.jsx";
-import ContainerCitiesList from "../cities-list/cities-list.jsx";
+import {CitiesListContainer} from "../cities-list/cities-list.jsx";
 import CityPlacesList from "../city-places-list/city-places-list.jsx";
-import withActiveItem from "../../hocs/with-active-card.jsx";
+import withActiveItem from "../../hocs/with-active-item.jsx";
 
 const CityPlacesListWrapped = withActiveItem(CityPlacesList);
 
@@ -15,7 +15,7 @@ const Main = ({cityCurrent, placesSelected}) => {
       <Header/>
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
-        <ContainerCitiesList/>
+        <CitiesListContainer/>
 
         <CityPlacesListWrapped
           cityCurrent = {cityCurrent}
@@ -71,5 +71,6 @@ const mapStateToProps = (state, ownProps) =>
     placesSelected: state.placesSelected,
   });
 
-export {Main};
-export default connect(mapStateToProps)(Main);
+const MainContainer = connect(mapStateToProps)(Main);
+
+export {Main, MainContainer};
