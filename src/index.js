@@ -1,20 +1,31 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {createStore, applyMiddleware} from "redux";
 import {Provider} from 'react-redux';
-import {ActionsCreator} from "./reducer";
-import store from "./store.js";
+import thunk from "redux-thunk";
+import {compose} from "recompose";
+import {reducer} from "./reducer.js";
+import {configureAPI} from './api.js';
+
+import {Operations} from "./reducer";
 
 import App from './component/app/app.jsx';
-import placesAll from './mocks/places.js';
-import {getCities, getPlacesSelected} from "./until";
 
-// eslint-disable-next-line no-shadow
-const init = (placesAll) => {
+const init = () => {
+  const api = configureAPI((...args) => store.dispatch(...args));
+  const store = createStore(
+      reducer,
+      compose(
+          applyMiddleware(thunk.withExtraArgument(api)),
+          window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
+      )
+  );
 
-  store.dispatch(ActionsCreator.loadPlaces(placesAll));
-  store.dispatch(ActionsCreator.changeCityCurrent(placesAll[0].city.name));
-  store.dispatch(ActionsCreator.setCitiesList(getCities(placesAll)));
-  store.dispatch(ActionsCreator.setPlacesSelected(getPlacesSelected(placesAll[0].city.name, placesAll)));
+  store.dispatch(Operations.loadPlacesAll());
+  // store.dispatch(ActionsCreator.changeCityCurrent(placesAll[0].city.name));
+  // store.dispatch(ActionsCreator.setCitiesList(getCities(placesAll)));
+  // store.dispatch(ActionsCreator.setPlacesSelected(getPlacesSelected(placesAll[0].city.name, placesAll)));
+
 
   ReactDOM.render(
       <Provider store={store}>
@@ -24,4 +35,4 @@ const init = (placesAll) => {
   );
 };
 
-init(placesAll);
+init();

@@ -2,14 +2,16 @@ const initialState = {
   cityCurrent: ``,
   citiesList: [],
   placesAll: [],
-  placesSelected: []
+  placesSelected: [],
+  isAuthorizationRequired: false
 };
 
 const ActionType = {
   CHANGE_CITY_CURRENT: `CHANGE_CITY_CURRENT`,
   SET_CITIES_LIST: `SET_CITIES_LIST`,
   SET_PLACES_SELECTED: `SET_PLACES_SELECTED`,
-  LOAD_PLACES_ALL: `LOAD_PLACES_ALL`
+  LOAD_PLACES_ALL: `LOAD_PLACES_ALL`,
+  REQUIRE_AUTHORIZATION: `REQUIRE_AUTHORIZATION`
 };
 
 const ActionsCreator = {
@@ -28,9 +30,14 @@ const ActionsCreator = {
     payload: placesSelected
   }),
 
-  loadPlaces: (placesAll) => ({
+  loadPlacesAll: (placesAll) => ({
     type: ActionType.LOAD_PLACES_ALL,
     payload: placesAll
+  }),
+
+  requiredAuthorization: (status) => ({
+    type: ActionType.REQUIRE_AUTHORIZATION,
+    payload: status
   })
 };
 
@@ -55,12 +62,28 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         placesAll: action.payload
       });
+
+    case ActionType.REQUIRE_AUTHORIZATION:
+      return Object.assign({}, state, {
+        isAuthorizationRequired: action.payload
+      });
   }
 
   return state;
 };
 
+const Operations = {
+  loadPlacesAll: () => (dispatch, _, api) => {
+    return api.get(`/hotels`)
+      .then((response) => {
+        const
+        dispatch(ActionsCreator.loadPlacesAll(response.data));
+      });
+  }
+};
+
 export {
+  Operations,
   ActionsCreator,
   reducer
 };
