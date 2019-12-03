@@ -4,11 +4,10 @@ import {createStore, applyMiddleware} from "redux";
 import {Provider} from 'react-redux';
 import thunk from "redux-thunk";
 import {compose} from "recompose";
-import {reducer} from "./reducer.js";
+
 import {configureAPI} from './api.js';
-
-import {Operations} from "./reducer";
-
+import reducer from "./reducer";
+import {Operations} from "./reducer/data/data.js";
 import App from './component/app/app.jsx';
 
 const init = () => {
@@ -22,10 +21,6 @@ const init = () => {
   );
 
   store.dispatch(Operations.loadPlacesAll());
-  // store.dispatch(ActionsCreator.changeCityCurrent(placesAll[0].city.name));
-  // store.dispatch(ActionsCreator.setCitiesList(getCities(placesAll)));
-  // store.dispatch(ActionsCreator.setPlacesSelected(getPlacesSelected(placesAll[0].city.name, placesAll)));
-
 
   ReactDOM.render(
       <Provider store={store}>

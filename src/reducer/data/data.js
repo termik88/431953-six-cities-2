@@ -1,9 +1,10 @@
+import {prepareOffers, getCities, getPlacesSelected} from "../../until";
+
 const initialState = {
   cityCurrent: ``,
   citiesList: [],
   placesAll: [],
   placesSelected: [],
-  isAuthorizationRequired: false
 };
 
 const ActionType = {
@@ -11,7 +12,6 @@ const ActionType = {
   SET_CITIES_LIST: `SET_CITIES_LIST`,
   SET_PLACES_SELECTED: `SET_PLACES_SELECTED`,
   LOAD_PLACES_ALL: `LOAD_PLACES_ALL`,
-  REQUIRE_AUTHORIZATION: `REQUIRE_AUTHORIZATION`
 };
 
 const ActionsCreator = {
@@ -34,11 +34,6 @@ const ActionsCreator = {
     type: ActionType.LOAD_PLACES_ALL,
     payload: placesAll
   }),
-
-  requiredAuthorization: (status) => ({
-    type: ActionType.REQUIRE_AUTHORIZATION,
-    payload: status
-  })
 };
 
 const reducer = (state = initialState, action) => {
@@ -62,11 +57,6 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         placesAll: action.payload
       });
-
-    case ActionType.REQUIRE_AUTHORIZATION:
-      return Object.assign({}, state, {
-        isAuthorizationRequired: action.payload
-      });
   }
 
   return state;
@@ -76,8 +66,15 @@ const Operations = {
   loadPlacesAll: () => (dispatch, _, api) => {
     return api.get(`/hotels`)
       .then((response) => {
-        const
-        dispatch(ActionsCreator.loadPlacesAll(response.data));
+        const placesAll = prepareOffers(response.data);
+        // const cityCurrent = placesAll[0].city.name;
+        // const citiesList = getCities(placesAll);
+        // const placesSelected = getPlacesSelected(placesAll[0].city.name, placesAll);
+        //
+        // dispatch(ActionsCreator.changeCityCurrent(cityCurrent[`DATaA`]));
+        // dispatch(ActionsCreator.setCitiesList(citiesList));
+        // dispatch(ActionsCreator.setPlacesSelected(placesSelected));
+        dispatch(ActionsCreator.loadPlacesAll(placesAll));
       });
   }
 };
