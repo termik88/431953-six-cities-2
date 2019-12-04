@@ -2,7 +2,7 @@ import React from "react";
 import {connect} from 'react-redux';
 import PropTypes from "prop-types";
 
-import {getCityCurrent, getPlacesSelected} from "../../reducer/data/selectors";
+import {getCityCurrentSelector, getPlacesSelectedSelector} from "../../reducer/data/selectors";
 
 import Header from "../header/header.jsx";
 import {CitiesListContainer} from "../cities-list/cities-list.jsx";
@@ -70,8 +70,8 @@ Main.propTypes = {
 
 const mapStateToProps = (state, ownProps) =>
   Object.assign({}, ownProps, {
-    cityCurrent: getCityCurrent(state),
-    placesSelected: getPlacesSelected(state)
+    cityCurrent: getCityCurrentSelector(state),
+    placesSelected: getPlacesSelectedSelector(state)
   });
 
 const MainContainer = connect(mapStateToProps)(Main);

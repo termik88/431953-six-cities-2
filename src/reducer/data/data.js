@@ -1,4 +1,4 @@
-import {prepareOffers, getCitiesList, getRandomCity, getPlacesSelected} from "../../until";
+// import {prepareOffers, getCitiesList, getRandomCity, getPlacesSelected} from "../../until";
 
 const initialState = {
   cityCurrent: ``,
@@ -24,9 +24,9 @@ const ActionsCreator = {
     payload: placesSelected
   }),
 
-  loadData: (placesAll, citiesList, cityCurrent, placesSelected) => ({
+  loadData: (placesAll) => ({
     type: ActionType.LOAD_DATA,
-    payload: {placesAll, citiesList, cityCurrent, placesSelected}
+    payload: placesAll
   }),
 };
 
@@ -44,10 +44,10 @@ const reducer = (state = initialState, action) => {
 
     case ActionType.LOAD_DATA:
       return Object.assign({}, state, {
-        placesAll: action.payload.placesAll,
-        citiesList: action.payload.citiesList,
-        cityCurrent: action.payload.cityCurrent,
-        placesSelected: action.payload.placesSelected
+        placesAll: action.payload,
+        // citiesList: action.payload.citiesList,
+        // cityCurrent: action.payload.cityCurrent,
+        // placesSelected: action.payload.placesSelected
       });
   }
 
@@ -59,12 +59,12 @@ const Operations = {
     return api.get(`/hotels`)
       .then((response) => {
         if (response.status === 200) {
-          const placesAll = prepareOffers(response.data);
-          const citiesList = getCitiesList(placesAll);
-          const cityCurrent = getRandomCity(citiesList);
-          const placesSelected = getPlacesSelected(cityCurrent, placesAll);
+          const placesAll = response.data;
+          // const citiesList = getCitiesList(placesAll);
+          // const cityCurrent = getRandomCity(citiesList);
+          // const placesSelected = getPlacesSelected(cityCurrent, placesAll);
 
-          dispatch(ActionsCreator.loadData(placesAll, citiesList, cityCurrent, placesSelected));
+          dispatch(ActionsCreator.loadData(placesAll));
         }
       });
   }

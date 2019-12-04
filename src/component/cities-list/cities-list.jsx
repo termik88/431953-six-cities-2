@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {ActionsCreator} from "../../reducer/data/data.js";
 import {connect} from "react-redux";
 
-import {getCityCurrent, getCitiesList, getPlacesAll} from "../../reducer/data/selectors";
+import {getCityCurrentSelector, getCitiesListSelector, getPlacesAllSelector} from "../../reducer/data/selectors";
 import {getPlacesSelected} from "../../until";
 
 const CitiesList = ({cityCurrent, citiesList, placesAll, changeCurrentCityAndPlaces}) => {
@@ -77,9 +77,9 @@ CitiesList.propTypes = {
 
 const mapStateToProps = (state, ownProps) =>
   Object.assign({}, ownProps, {
-    cityCurrent: getCityCurrent(state),
-    citiesList: getCitiesList(state),
-    placesAll: getPlacesAll(state)
+    cityCurrent: getCityCurrentSelector(state),
+    citiesList: getCitiesListSelector(state),
+    placesAll: getPlacesAllSelector(state)
   });
 
 const mapDispatchToProps = (dispatch) => ({

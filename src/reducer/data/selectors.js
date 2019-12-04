@@ -1,19 +1,26 @@
+import {prepareOffers, getCitiesList, getRandomCity, getPlacesSelected} from "../../until.js";
+import {createSelector} from "reselect";
 import NameSpace from "../name-spaces.js";
 
 const NAME_SPACE = NameSpace.DATA;
 
-export const getCityCurrent = (state) => {
-  return state[NAME_SPACE].cityCurrent;
+export const getPlacesAllSelector = (state) => {
+  return prepareOffers(state[NAME_SPACE].placesAll);
 };
 
-export const getCitiesList = (state) => {
-  return state[NAME_SPACE].citiesList;
-};
+export const getCitiesListSelector = createSelector(
+  getPlacesAllSelector,
+  (placesAll) => getCitiesList(placesAll)
+);
 
-export const getPlacesSelected = (state) => {
-  return state[NAME_SPACE].placesSelected;
-};
+export const getCityCurrentSelector = createSelector(
+  getCitiesListSelector,
+  (citiesList) => getRandomCity(citiesList)
+);
 
-export const getPlacesAll = (state) => {
-  return state[NAME_SPACE].placesAll;
-};
+export const getPlacesSelectedSelector = createSelector(
+  getCityCurrentSelector,
+  getPlacesAllSelector,
+  // eslint-disable-next-line no-shadow
+  (getCityCurrentSelector, getPlacesAllSelector) => getPlacesSelected(getCityCurrentSelector, getPlacesAllSelector)
+);
