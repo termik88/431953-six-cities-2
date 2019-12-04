@@ -1,11 +1,13 @@
-const getCities = (placesAll) => [...new Set(placesAll.map((place) => place.city.name))];
+export const getCitiesList = (placesAll) => [...new Set(placesAll.map((place) => place.city.name))];
 
-const getPlacesSelected = (cityName, placesAll) => placesAll.filter((place) => place.city.name === cityName);
+export const getRandomCity = (citiesList) => citiesList[Math.floor(Math.random() * Math.floor(citiesList.length))];
 
-const transformRatingToPercent = (ratingPlace) => {
+export const getPlacesSelected = (cityName, placesAll) => placesAll.filter((place) => place.city.name === cityName);
+
+export const transformRatingToPercent = (ratingPlace) => {
   const RATING_STARS = 5;
   const PERCENT = 100;
-  return ratingPlace / RATING_STARS * PERCENT;
+  return (Math.round(ratingPlace) / RATING_STARS * PERCENT);
 };
 
 const prepareUser = (user) => {
@@ -20,7 +22,7 @@ const prepareUser = (user) => {
 
 const prepareOffer = (offer) => {
   const newOffer = Object.assign({}, offer);
-  newOffer.preview = newOffer.preview_image;
+  newOffer.previewImage = newOffer.preview_image;
   newOffer.isFavorite = newOffer.is_favorite;
   newOffer.isPremium = newOffer.is_premium;
   newOffer.maxAdults = newOffer.max_adults;
@@ -33,8 +35,4 @@ const prepareOffer = (offer) => {
   return newOffer;
 };
 
-const prepareOffers = (offersList) => (
-  [...offersList].map((offer) => prepareOffer(offer))
-);
-
-export {getCities, getPlacesSelected, transformRatingToPercent, prepareOffers};
+export const prepareOffers = (offersList) => offersList.map((offer) => prepareOffer(offer));

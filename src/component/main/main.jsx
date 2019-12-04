@@ -2,6 +2,8 @@ import React from "react";
 import {connect} from 'react-redux';
 import PropTypes from "prop-types";
 
+import {getCityCurrent, getPlacesSelected} from "../../reducer/data/selectors";
+
 import Header from "../header/header.jsx";
 import {CitiesListContainer} from "../cities-list/cities-list.jsx";
 import CityPlacesList from "../city-places-list/city-places-list.jsx";
@@ -13,6 +15,7 @@ const Main = ({cityCurrent, placesSelected}) => {
   return (
     <div className="page page--gray page--main">
       <Header/>
+
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <CitiesListContainer/>
@@ -67,8 +70,8 @@ Main.propTypes = {
 
 const mapStateToProps = (state, ownProps) =>
   Object.assign({}, ownProps, {
-    cityCurrent: state.cityCurrent,
-    placesSelected: state.placesSelected,
+    cityCurrent: getCityCurrent(state),
+    placesSelected: getPlacesSelected(state)
   });
 
 const MainContainer = connect(mapStateToProps)(Main);

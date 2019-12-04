@@ -50,12 +50,17 @@ class Map extends PureComponent {
   }
 
   componentDidMount() {
+    console.log(`componentDidMount`);
     this.renderMap();
-    this.setOptionsMap(this.props.placesSelected);
-    this.renderPins(this.props.placesSelected);
+    // if (this.props.placesSelected.length !== 0) {
+    //   console.log(this.props.placesSelected.length);
+    //   this.setOptionsMap(this.props.placesSelected);
+    //   this.renderPins(this.props.placesSelected);
+    // }
   }
 
   componentDidUpdate(prevProps) {
+    console.log(`componentDidUpdate`);
     if (this.props.placesSelected !== prevProps.placesSelected) {
       this.setOptionsMap(this.props.placesSelected);
       this.markersGroup.clearLayers();
@@ -72,6 +77,7 @@ class Map extends PureComponent {
   }
 
   render() {
+    console.log(`render`);
     return <section className="cities__map map">
       <div style={{height: `100%`}} id="map"/>
     </section>;

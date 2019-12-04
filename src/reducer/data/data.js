@@ -1,4 +1,4 @@
-import {prepareOffers, getCities, getPlacesSelected} from "../../until";
+import {prepareOffers, getCitiesList, getRandomCity, getPlacesSelected} from "../../until";
 
 const initialState = {
   cityCurrent: ``,
@@ -9,9 +9,8 @@ const initialState = {
 
 const ActionType = {
   CHANGE_CITY_CURRENT: `CHANGE_CITY_CURRENT`,
-  SET_CITIES_LIST: `SET_CITIES_LIST`,
   SET_PLACES_SELECTED: `SET_PLACES_SELECTED`,
-  LOAD_PLACES_ALL: `LOAD_PLACES_ALL`,
+  LOAD_DATA: `LOAD_DATA`,
 };
 
 const ActionsCreator = {
@@ -20,19 +19,14 @@ const ActionsCreator = {
     payload: cityName,
   }),
 
-  setCitiesList: (cities) => ({
-    type: ActionType.SET_CITIES_LIST,
-    payload: cities
-  }),
-
   setPlacesSelected: (placesSelected) => ({
     type: ActionType.SET_PLACES_SELECTED,
     payload: placesSelected
   }),
 
-  loadPlacesAll: (placesAll) => ({
-    type: ActionType.LOAD_PLACES_ALL,
-    payload: placesAll
+  loadData: (placesAll, citiesList, cityCurrent, placesSelected) => ({
+    type: ActionType.LOAD_DATA,
+    payload: {placesAll, citiesList, cityCurrent, placesSelected}
   }),
 };
 
@@ -43,19 +37,17 @@ const reducer = (state = initialState, action) => {
         cityCurrent: action.payload
       });
 
-    case ActionType.SET_CITIES_LIST:
-      return Object.assign({}, state, {
-        citiesList: action.payload
-      });
-
     case ActionType.SET_PLACES_SELECTED:
       return Object.assign({}, state, {
         placesSelected: action.payload
       });
 
-    case ActionType.LOAD_PLACES_ALL:
+    case ActionType.LOAD_DATA:
       return Object.assign({}, state, {
-        placesAll: action.payload
+        placesAll: action.payload.placesAll,
+        citiesList: action.payload.citiesList,
+        cityCurrent: action.payload.cityCurrent,
+        placesSelected: action.payload.placesSelected
       });
   }
 
@@ -63,18 +55,17 @@ const reducer = (state = initialState, action) => {
 };
 
 const Operations = {
-  loadPlacesAll: () => (dispatch, _, api) => {
+  loadData: () => (dispatch, _, api) => {
     return api.get(`/hotels`)
       .then((response) => {
-        const placesAll = prepareOffers(response.data);
-        // const cityCurrent = placesAll[0].city.name;
-        // const citiesList = getCities(placesAll);
-        // const placesSelected = getPlacesSelected(placesAll[0].city.name, placesAll);
-        //
-        // dispatch(ActionsCreator.changeCityCurrent(cityCurrent[`DATaA`]));
-        // dispatch(ActionsCreator.setCitiesList(citiesList));
-        // dispatch(ActionsCreator.setPlacesSelected(placesSelected));
-        dispatch(ActionsCreator.loadPlacesAll(placesAll));
+        if (response.status === 200) {
+          const placesAll = prepareOffers(response.data);
+          const citiesList = getCitiesList(placesAll);
+          const cityCurrent = getRandomCity(citiesList);
+          const placesSelected = getPlacesSelected(cityCurrent, placesAll);
+
+          dispatch(ActionsCreator.loadData(placesAll, citiesList, cityCurrent, placesSelected));
+        }
       });
   }
 };

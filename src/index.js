@@ -20,7 +20,7 @@ const init = () => {
       )
   );
 
-  store.dispatch(Operations.loadPlacesAll());
+  store.dispatch(Operations.loadData());
 
   ReactDOM.render(
       <Provider store={store}>
