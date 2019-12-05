@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {transformRatingToPercent} from '../../until.js';
 
 const PlaceCard = ({place, onMouseEnter, onMouseLeave}) => {
   const {

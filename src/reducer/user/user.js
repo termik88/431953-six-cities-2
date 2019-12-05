@@ -1,3 +1,7 @@
+const REQUEST_URL = {
+  LOGIN: `/login`
+};
+
 const initialState = {
   isAuthorizationRequired: false
 };
@@ -24,7 +28,19 @@ const reducer = (state = initialState, action) => {
   return state;
 };
 
+const Operations = {
+  sendAuthorizationData: (email, password) => (dispatch, _, api) => {
+    return api.post(REQUEST_URL.LOGIN, email, password)
+      .then((response) => {
+        if (response.status === 200) {
+          console.log(response.data);
+        }
+      });
+  }
+};
+
 export {
   ActionsCreator,
+  Operations,
   reducer
 };

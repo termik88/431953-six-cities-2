@@ -7,7 +7,7 @@ import {getCitiesList, getCityCurrent, getPlacesSelected} from "../../reducer/da
 import Header from "../header/header.jsx";
 import CitiesList from "../cities-list/cities-list.jsx";
 import CityPlacesList from "../city-places-list/city-places-list.jsx";
-import withActiveItem from "../../hocs/with-active-item.jsx";
+import withActiveItem from "../../hocs/with-active-item/with-active-item.jsx";
 import {ActionsCreator} from "../../reducer/data/data";
 
 const CityPlacesListWrapped = withActiveItem(CityPlacesList);
@@ -18,7 +18,6 @@ const Main = ({cityCurrent, citiesList, placesSelected, changeCurrentCityAndPlac
       <Header/>
 
       <main className="page__main page__main--index">
-        <h1 className="visually-hidden">Cities</h1>
 
         <CitiesList
           cityCurrent = {cityCurrent}
@@ -84,9 +83,7 @@ const mapStateToProps = (state, ownProps) =>
   });
 
 const mapDispatchToProps = (dispatch) => ({
-  changeCurrentCityAndPlaces: (citySelected) => {
-    dispatch(ActionsCreator.changeCityCurrent(citySelected));
-  }
+  changeCurrentCityAndPlaces: (citySelected) => dispatch(ActionsCreator.changeCityCurrent(citySelected))
 });
 
 const MainContainer = connect(mapStateToProps, mapDispatchToProps)(Main);

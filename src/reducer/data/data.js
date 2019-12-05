@@ -1,5 +1,9 @@
 import {preparePlaces, getCitiesList, getRandomCity} from "../../until";
 
+const REQUEST_URL = {
+  HOTELS: `/hotels`
+};
+
 const initialState = {
   cityCurrent: ``,
   citiesList: [],
@@ -43,7 +47,7 @@ const reducer = (state = initialState, action) => {
 
 const Operations = {
   loadData: () => (dispatch, _, api) => {
-    return api.get(`/hotels`)
+    return api.get(REQUEST_URL.HOTELS)
       .then((response) => {
         if (response.status === 200) {
           const placesAll = preparePlaces(response.data);
