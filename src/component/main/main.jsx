@@ -2,23 +2,29 @@ import React from "react";
 import {connect} from 'react-redux';
 import PropTypes from "prop-types";
 
-import {getCityCurrentSelector, getPlacesSelectedSelector} from "../../reducer/data/selectors";
+import {getCitiesList, getCityCurrent, getPlacesSelected} from "../../reducer/data/selectors";
 
 import Header from "../header/header.jsx";
-import {CitiesListContainer} from "../cities-list/cities-list.jsx";
+import CitiesList from "../cities-list/cities-list.jsx";
 import CityPlacesList from "../city-places-list/city-places-list.jsx";
 import withActiveItem from "../../hocs/with-active-item.jsx";
+import {ActionsCreator} from "../../reducer/data/data";
 
 const CityPlacesListWrapped = withActiveItem(CityPlacesList);
 
-const Main = ({cityCurrent, placesSelected}) => {
+const Main = ({cityCurrent, citiesList, placesSelected, changeCurrentCityAndPlaces}) => {
   return (
     <div className="page page--gray page--main">
       <Header/>
 
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
-        <CitiesListContainer/>
+
+        <CitiesList
+          cityCurrent = {cityCurrent}
+          citiesList = {citiesList}
+          changeCurrentCityAndPlaces = {changeCurrentCityAndPlaces}
+        />
 
         <CityPlacesListWrapped
           cityCurrent = {cityCurrent}
@@ -66,14 +72,23 @@ Main.propTypes = {
       zoom: PropTypes.number
     })
   })).isRequired,
+  citiesList: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  changeCurrentCityAndPlaces: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state, ownProps) =>
   Object.assign({}, ownProps, {
-    cityCurrent: getCityCurrentSelector(state),
-    placesSelected: getPlacesSelectedSelector(state)
+    cityCurrent: getCityCurrent(state),
+    citiesList: getCitiesList(state),
+    placesSelected: getPlacesSelected(state),
   });
 
-const MainContainer = connect(mapStateToProps)(Main);
+const mapDispatchToProps = (dispatch) => ({
+  changeCurrentCityAndPlaces: (citySelected) => {
+    dispatch(ActionsCreator.changeCityCurrent(citySelected));
+  }
+});
+
+const MainContainer = connect(mapStateToProps, mapDispatchToProps)(Main);
 
 export {Main, MainContainer};

@@ -1,15 +1,13 @@
-// import {prepareOffers, getCitiesList, getRandomCity, getPlacesSelected} from "../../until";
+import {preparePlaces, getCitiesList, getRandomCity} from "../../until";
 
 const initialState = {
   cityCurrent: ``,
   citiesList: [],
   placesAll: [],
-  placesSelected: [],
 };
 
 const ActionType = {
   CHANGE_CITY_CURRENT: `CHANGE_CITY_CURRENT`,
-  SET_PLACES_SELECTED: `SET_PLACES_SELECTED`,
   LOAD_DATA: `LOAD_DATA`,
 };
 
@@ -19,14 +17,9 @@ const ActionsCreator = {
     payload: cityName,
   }),
 
-  setPlacesSelected: (placesSelected) => ({
-    type: ActionType.SET_PLACES_SELECTED,
-    payload: placesSelected
-  }),
-
-  loadData: (placesAll) => ({
+  loadData: (placesAll, citiesList, cityCurrent) => ({
     type: ActionType.LOAD_DATA,
-    payload: placesAll
+    payload: {placesAll, citiesList, cityCurrent}
   }),
 };
 
@@ -37,17 +30,11 @@ const reducer = (state = initialState, action) => {
         cityCurrent: action.payload
       });
 
-    case ActionType.SET_PLACES_SELECTED:
-      return Object.assign({}, state, {
-        placesSelected: action.payload
-      });
-
     case ActionType.LOAD_DATA:
       return Object.assign({}, state, {
-        placesAll: action.payload,
-        // citiesList: action.payload.citiesList,
-        // cityCurrent: action.payload.cityCurrent,
-        // placesSelected: action.payload.placesSelected
+        placesAll: action.payload.placesAll,
+        citiesList: action.payload.citiesList,
+        cityCurrent: action.payload.cityCurrent,
       });
   }
 
@@ -59,12 +46,11 @@ const Operations = {
     return api.get(`/hotels`)
       .then((response) => {
         if (response.status === 200) {
-          const placesAll = response.data;
-          // const citiesList = getCitiesList(placesAll);
-          // const cityCurrent = getRandomCity(citiesList);
-          // const placesSelected = getPlacesSelected(cityCurrent, placesAll);
+          const placesAll = preparePlaces(response.data);
+          const citiesList = getCitiesList(placesAll);
+          const cityCurrent = getRandomCity(citiesList);
 
-          dispatch(ActionsCreator.loadData(placesAll));
+          dispatch(ActionsCreator.loadData(placesAll, citiesList, cityCurrent));
         }
       });
   }

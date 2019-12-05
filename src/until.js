@@ -2,8 +2,6 @@ export const getCitiesList = (placesAll) => [...new Set(placesAll.map((place) =>
 
 export const getRandomCity = (citiesList) => citiesList[Math.floor(Math.random() * Math.floor(citiesList.length))];
 
-export const getPlacesSelected = (cityName, placesAll) => placesAll.filter((place) => place.city.name === cityName);
-
 const transformRatingToPercent = (ratingPlace) => {
   const RATING_STARS = 5;
   const PERCENT = 100;
