@@ -54,7 +54,7 @@ const PlaceCard = ({place, onMouseEnter, onMouseLeave}) => {
         {rating && (
           <div className="place-card__rating rating">
             <div className="place-card__stars rating__stars">
-              <span style={{width: `${transformRatingToPercent(rating)}%`}}/>
+              <span style={{width: `${rating}%`}}/>
               <span className="visually-hidden">Rating</span>
             </div>
           </div>
