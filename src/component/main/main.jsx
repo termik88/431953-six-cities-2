@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 import {getCitiesList, getCityCurrent, getPlacesSelected} from "../../reducer/data/selectors";
 
-import Header from "../header/header.jsx";
+import {HeaderContainer} from "../header/header.jsx";
 import CitiesList from "../cities-list/cities-list.jsx";
 import CityPlacesList from "../city-places-list/city-places-list.jsx";
 import withActiveItem from "../../hocs/with-active-item/with-active-item.jsx";
@@ -15,7 +15,7 @@ const CityPlacesListWrapped = withActiveItem(CityPlacesList);
 const Main = ({cityCurrent, citiesList, placesSelected, changeCurrentCityAndPlaces}) => {
   return (
     <div className="page page--gray page--main">
-      <Header/>
+      <HeaderContainer/>
 
       <main className="page__main page__main--index">
 

@@ -5,10 +5,6 @@ const withInputChange = (Component) => {
   class WithInputChange extends PureComponent {
     constructor(props) {
       super(props);
-      this.state = {
-        email: null,
-        password: null
-      };
 
       this.handleInputChange = this.handleInputChange.bind(this);
     }

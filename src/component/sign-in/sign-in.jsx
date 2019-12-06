@@ -2,25 +2,25 @@ import React from "react";
 import {connect} from 'react-redux';
 import PropTypes from "prop-types";
 
-import Header from "../header/header.jsx";
+import {HeaderContainer} from "../header/header.jsx";
 import {getCityCurrent} from "../../reducer/data/selectors.js";
 import {Operations} from "../../reducer/user/user.js";
 
 const SignIn = ({cityCurrent, email, password, onInputChange, handleSendAuthorizationData}) => {
   const handleSend = (evt) => {
     evt.preventDefault();
-    handleSendAuthorizationData(email, password);
+    handleSendAuthorizationData({email, password});
   };
 
   return (
     <div className="page page--gray page--login">
-      <Header/>
+      <HeaderContainer/>
 
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            <form className="login__form form" action="#" method="post">
+            <form onSubmit={handleSend} className="login__form form" action="#" method="post">
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
                 <input
@@ -41,7 +41,7 @@ const SignIn = ({cityCurrent, email, password, onInputChange, handleSendAuthoriz
                   placeholder="Password"
                   required=""/>
               </div>
-              <button className="login__submit form__submit button" type="submit" onClick={handleSend}>Sign in</button>
+              <button className="login__submit form__submit button" type="submit">Sign in</button>
             </form>
           </section>
           <section className="locations locations--login locations--current">

@@ -1,4 +1,4 @@
-import {preparePlaces, getCitiesList, getRandomCity} from "../../until";
+import {preparePlacesData, getCitiesList, getRandomCity} from "../../until.js";
 
 const REQUEST_URL = {
   HOTELS: `/hotels`
@@ -12,7 +12,7 @@ const initialState = {
 
 const ActionType = {
   CHANGE_CITY_CURRENT: `CHANGE_CITY_CURRENT`,
-  LOAD_DATA: `LOAD_DATA`,
+  LOAD_PLACES_DATA: `LOAD_PLACES_DATA`,
 };
 
 const ActionsCreator = {
@@ -22,7 +22,7 @@ const ActionsCreator = {
   }),
 
   loadData: (placesAll, citiesList, cityCurrent) => ({
-    type: ActionType.LOAD_DATA,
+    type: ActionType.LOAD_PLACES_DATA,
     payload: {placesAll, citiesList, cityCurrent}
   }),
 };
@@ -34,7 +34,7 @@ const reducer = (state = initialState, action) => {
         cityCurrent: action.payload
       });
 
-    case ActionType.LOAD_DATA:
+    case ActionType.LOAD_PLACES_DATA:
       return Object.assign({}, state, {
         placesAll: action.payload.placesAll,
         citiesList: action.payload.citiesList,
@@ -50,7 +50,7 @@ const Operations = {
     return api.get(REQUEST_URL.HOTELS)
       .then((response) => {
         if (response.status === 200) {
-          const placesAll = preparePlaces(response.data);
+          const placesAll = preparePlacesData(response.data);
           const citiesList = getCitiesList(placesAll);
           const cityCurrent = getRandomCity(citiesList);
 

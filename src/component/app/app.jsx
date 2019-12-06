@@ -5,8 +5,10 @@ import PropTypes from "prop-types";
 import SvgBlock from '../svg-block/svg-block.jsx';
 import {MainContainer} from '../main/main.jsx';
 import {SignInContainer} from "../sign-in/sign-in.jsx";
-import {Operations} from "../../reducer/data/data";
-import withInputChange from "../../hocs/with-input-change/with-input-change";
+
+import {Operations} from "../../reducer/data/data.js";
+import withInputChange from "../../hocs/with-input-change/with-input-change.js";
+import {getAuthorizationStatus} from "../../reducer/user/selector.js";
 
 const SignInWrapped = withInputChange(SignInContainer);
 
@@ -24,6 +26,15 @@ class App extends PureComponent {
   }
 
   getPageScreen() {
+    if (this.props.isAuthorizationRequired) {
+      return (
+        <>
+          <SvgBlock/>
+          <SignInWrapped/>
+        </>
+      );
+    }
+
     switch (location.pathname) {
       case `/`:
         return (
@@ -40,16 +51,18 @@ class App extends PureComponent {
           </>
         );
     }
+
     return null;
   }
 }
 
 App.propTypes = {
+  isAuthorizationRequired: PropTypes.bool.isRequired,
   loadData: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
-
+  isAuthorizationRequired: getAuthorizationStatus(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
