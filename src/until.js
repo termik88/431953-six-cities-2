@@ -8,7 +8,7 @@ const transformRatingToPercent = (ratingPlace) => {
   return (Math.round(ratingPlace) / RATING_STARS * PERCENT);
 };
 
-const prepareUser = (user) => {
+export const prepareUser = (user) => {
   const userData = Object.assign({}, user);
   userData.avatarUrl = userData.avatar_url;
   userData.isPro = userData.is_pro;
@@ -34,4 +34,4 @@ const preparePlace = (Places) => {
   return newPlaces;
 };
 
-export const preparePlaces = (PlacesList) => PlacesList.map((place) => preparePlace(place));
+export const preparePlacesData = (PlacesList) => PlacesList.map((place) => preparePlace(place));

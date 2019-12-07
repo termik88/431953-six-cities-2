@@ -7,8 +7,7 @@ import {compose} from "recompose";
 
 import {configureAPI} from './api.js';
 import reducer from "./reducer";
-import {Operations} from "./reducer/data/data.js";
-import App from './component/app/app.jsx';
+import {AppContainer} from './component/app/app.jsx';
 
 const init = () => {
   const api = configureAPI((...args) => store.dispatch(...args));
@@ -20,11 +19,9 @@ const init = () => {
       )
   );
 
-  store.dispatch(Operations.loadData());
-
   ReactDOM.render(
       <Provider store={store}>
-        <App/>,
+        <AppContainer/>,
       </Provider>,
       document.querySelector(`#root`)
   );

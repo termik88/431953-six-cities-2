@@ -2,23 +2,22 @@ import React from "react";
 import {connect} from 'react-redux';
 import PropTypes from "prop-types";
 
+import {ActionsCreator} from "../../reducer/data/data";
 import {getCitiesList, getCityCurrent, getPlacesSelected} from "../../reducer/data/selectors";
 
-import Header from "../header/header.jsx";
+import {HeaderContainer} from "../header/header.jsx";
 import CitiesList from "../cities-list/cities-list.jsx";
 import CityPlacesList from "../city-places-list/city-places-list.jsx";
-import withActiveItem from "../../hocs/with-active-item.jsx";
-import {ActionsCreator} from "../../reducer/data/data";
+import withActiveItem from "../../hocs/with-active-item/with-active-item.jsx";
 
 const CityPlacesListWrapped = withActiveItem(CityPlacesList);
 
 const Main = ({cityCurrent, citiesList, placesSelected, changeCurrentCityAndPlaces}) => {
   return (
     <div className="page page--gray page--main">
-      <Header/>
+      <HeaderContainer/>
 
       <main className="page__main page__main--index">
-        <h1 className="visually-hidden">Cities</h1>
 
         <CitiesList
           cityCurrent = {cityCurrent}
@@ -84,9 +83,7 @@ const mapStateToProps = (state, ownProps) =>
   });
 
 const mapDispatchToProps = (dispatch) => ({
-  changeCurrentCityAndPlaces: (citySelected) => {
-    dispatch(ActionsCreator.changeCityCurrent(citySelected));
-  }
+  changeCurrentCityAndPlaces: (citySelected) => dispatch(ActionsCreator.changeCityCurrent(citySelected))
 });
 
 const MainContainer = connect(mapStateToProps, mapDispatchToProps)(Main);

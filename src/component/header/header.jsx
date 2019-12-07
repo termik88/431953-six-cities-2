@@ -1,12 +1,19 @@
 import React from "react";
+import {connect} from "react-redux";
+import PropTypes from "prop-types";
 
-const Header = () => {
+import {getAuthorizationStatus, getUserData} from "../../reducer/user/selector";
+
+const Header = ({userData, isAuthorizationRequired}) => {
+  // console.log(isAuthorizationRequired);
+  // console.log(userData);
   return (
     <header className="header">
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
             <a className="header__logo-link header__logo-link--active">
+              {/* <a className="header__logo-link" href="main.html">*/}
               <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
             </a>
           </div>
@@ -16,7 +23,9 @@ const Header = () => {
                 <a className="header__nav-link header__nav-link--profile" href="#">
                   <div className="header__avatar-wrapper user__avatar-wrapper">
                   </div>
-                  <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                  {isAuthorizationRequired ?
+                    <span className="header__login">Sign in</span> :
+                    <span className="header__user-name user__name">{userData.email}</span>}
                 </a>
               </li>
             </ul>
@@ -27,4 +36,22 @@ const Header = () => {
   );
 };
 
-export default Header;
+Header.propTypes = {
+  userData: PropTypes.exact({
+    avatarUrl: PropTypes.string,
+    email: PropTypes.string,
+    id: PropTypes.string,
+    isPro: PropTypes.bool,
+    name: PropTypes.string
+  }).isRequired,
+  isAuthorizationRequired: PropTypes.bool.isRequired
+};
+
+const mapStateToProps = (state) => ({
+  isAuthorizationRequired: getAuthorizationStatus(state),
+  userData: getUserData(state)
+});
+
+const HeaderContainer = connect(mapStateToProps)(Header);
+
+export {Header, HeaderContainer};

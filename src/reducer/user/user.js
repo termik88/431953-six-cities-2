@@ -1,15 +1,27 @@
+import {prepareUser} from "../../until.js";
+
+const REQUEST_URL = {
+  LOGIN: `/login`
+};
+
 const initialState = {
-  isAuthorizationRequired: false
+  isAuthorizationRequired: true,
+  userData: {}
 };
 
 const ActionType = {
-  REQUIRE_AUTHORIZATION: `REQUIRE_AUTHORIZATION`
+  REQUIRE_AUTHORIZATION: `REQUIRE_AUTHORIZATION`,
+  LOAD_USER_DATA: `LOAD_USER_DATA`
 };
 
 const ActionsCreator = {
   requiredAuthorization: (status) => ({
     type: ActionType.REQUIRE_AUTHORIZATION,
     payload: status
+  }),
+  loadUserData: (userData) => ({
+    type: ActionType.LOAD_USER_DATA,
+    payload: userData
   })
 };
 
@@ -19,12 +31,29 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         isAuthorizationRequired: action.payload
       });
+    case ActionType.LOAD_USER_DATA:
+      return Object.assign({}, state, {
+        userData: action.payload
+      });
   }
 
   return state;
 };
 
+const Operations = {
+  sendAuthorizationData: (email, password) => (dispatch, _, api) => {
+    return api.post(REQUEST_URL.LOGIN, email, password)
+      .then((response) => {
+        if (response.status === 200) {
+          dispatch(ActionsCreator.requiredAuthorization(false));
+          dispatch(ActionsCreator.loadUserData(prepareUser(response.data)));
+        }
+      });
+  }
+};
+
 export {
   ActionsCreator,
+  Operations,
   reducer
 };
