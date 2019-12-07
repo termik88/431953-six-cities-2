@@ -2,13 +2,13 @@ import React from "react";
 import {connect} from 'react-redux';
 import PropTypes from "prop-types";
 
+import {ActionsCreator} from "../../reducer/data/data";
 import {getCitiesList, getCityCurrent, getPlacesSelected} from "../../reducer/data/selectors";
 
 import {HeaderContainer} from "../header/header.jsx";
 import CitiesList from "../cities-list/cities-list.jsx";
 import CityPlacesList from "../city-places-list/city-places-list.jsx";
 import withActiveItem from "../../hocs/with-active-item/with-active-item.jsx";
-import {ActionsCreator} from "../../reducer/data/data";
 
 const CityPlacesListWrapped = withActiveItem(CityPlacesList);
 

@@ -6,7 +6,7 @@ const REQUEST_URL = {
 
 const initialState = {
   isAuthorizationRequired: true,
-  userData: null
+  userData: {}
 };
 
 const ActionType = {

@@ -1,8 +1,12 @@
 import React from "react";
 import {connect} from "react-redux";
+import PropTypes from "prop-types";
+
 import {getAuthorizationStatus, getUserData} from "../../reducer/user/selector";
 
 const Header = ({userData, isAuthorizationRequired}) => {
+  // console.log(isAuthorizationRequired);
+  // console.log(userData);
   return (
     <header className="header">
       <div className="container">
@@ -30,6 +34,17 @@ const Header = ({userData, isAuthorizationRequired}) => {
       </div>
     </header>
   );
+};
+
+Header.propTypes = {
+  userData: PropTypes.exact({
+    avatarUrl: PropTypes.string,
+    email: PropTypes.string,
+    id: PropTypes.string,
+    isPro: PropTypes.bool,
+    name: PropTypes.string
+  }).isRequired,
+  isAuthorizationRequired: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state) => ({

@@ -2,13 +2,14 @@ import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from "prop-types";
 
+import {Operations} from "../../reducer/data/data.js";
+import {getAuthorizationStatus} from "../../reducer/user/selector.js";
+
 import SvgBlock from '../svg-block/svg-block.jsx';
 import {MainContainer} from '../main/main.jsx';
 import {SignInContainer} from "../sign-in/sign-in.jsx";
 
-import {Operations} from "../../reducer/data/data.js";
 import withInputChange from "../../hocs/with-input-change/with-input-change.js";
-import {getAuthorizationStatus} from "../../reducer/user/selector.js";
 
 const SignInWrapped = withInputChange(SignInContainer);
 
