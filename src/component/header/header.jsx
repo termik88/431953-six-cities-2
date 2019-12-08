@@ -6,16 +6,13 @@ import {Link} from "react-router-dom";
 import {getAuthorizationStatus, getUserData} from "../../reducer/user/selector";
 
 const Header = ({userData, isAuthorizationRequired}) => {
-  console.log(isAuthorizationRequired);
-  console.log(userData);
-  console.log(location);
   return (
     <header className="header">
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
             <Link className={`header__logo-link ${location.pathname === `/` ? `header__logo-link--active` : ``}`} to={`/`}>
-              <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
+              <img className="header__logo" src="../img/logo.svg" alt="6 cities logo" width="81" height="41"/>
             </Link>
           </div>
           <nav className="header__nav">

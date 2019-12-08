@@ -6,16 +6,17 @@ import {Route, Switch, Redirect} from "react-router-dom";
 import {Operations} from "../../reducer/data/data.js";
 import {getAuthorizationStatus} from "../../reducer/user/selector.js";
 
-import {SignInContainer} from "../sign-in/sign-in.jsx";
-import {MainContainer} from '../main/main.jsx';
-// import {PlaceDetails} from '../place-details/place-details.jsx';
-import Favorites from "../favorites/favorites.jsx";
-
 import withInputChange from "../../hocs/with-input-change/with-input-change.jsx";
 import withLayout from '../../hocs/with-layout/with-layout.jsx';
 
+import {SignInContainer} from "../sign-in/sign-in.jsx";
+import {MainContainer} from '../main/main.jsx';
+import {PlaceDetailsContainer} from '../place-details/place-details.jsx';
+import Favorites from "../favorites/favorites.jsx";
+
 const WrappedSignIn = withLayout(withInputChange(SignInContainer), `page page--gray page--login`);
 const WrappedMainContainer = withLayout(MainContainer, `page--gray page--main`);
+const WrappedPlaceDetailsContainer = withLayout(PlaceDetailsContainer, `page`);
 
 class App extends PureComponent {
   constructor(props) {
@@ -31,9 +32,9 @@ class App extends PureComponent {
     return (
       <Switch>
         <Route path='/' exact component = {WrappedMainContainer}/>
-        <Route path='/login' component = {WrappedSignIn} />
-        <Route path='/favorites' component = {Favorites}/>
-        {/*<Route path='/place-details/:id' exact component = {} />*/}
+        <Route path='/login' exact component = {WrappedSignIn} />
+        <Route path='/favorites' exact component = {Favorites}/>
+        <Route path='/place-details/:id' exact component = {WrappedPlaceDetailsContainer}/>
         <Route
           render = {() => (
             <h1>

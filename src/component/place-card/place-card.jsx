@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {Link} from "react-router-dom";
 
 const PlaceCard = ({place, onMouseEnter, onMouseLeave}) => {
   const {
@@ -14,24 +15,25 @@ const PlaceCard = ({place, onMouseEnter, onMouseLeave}) => {
   } = place;
 
   return (
-    <article className="cities__place-card place-card" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+    <article
+      className="cities__place-card place-card"
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}>
       {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       )}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href={`place-details/${id}` || `#`}>
-          {previewImage && title && (
-            <img
-              className="place-card__image"
-              src={previewImage}
-              width="260"
-              height="200"
-              alt={title}
-            />
-          )}
-        </a>
+        <Link to={`place-details/${id}` || `#`}>
+          <img
+            className="place-card__image"
+            src={previewImage}
+            width="260"
+            height="200"
+            alt={title}
+          />
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -50,22 +52,16 @@ const PlaceCard = ({place, onMouseEnter, onMouseLeave}) => {
             <span className="visually-hidden">To bookmarks</span>
           </button>
         </div>
-        {rating && (
-          <div className="place-card__rating rating">
-            <div className="place-card__stars rating__stars">
-              <span style={{width: `${rating}%`}}/>
-              <span className="visually-hidden">Rating</span>
-            </div>
+        <div className="place-card__rating rating">
+          <div className="place-card__stars rating__stars">
+            <span style={{width: `${rating}%`}}/>
+            <span className="visually-hidden">Rating</span>
           </div>
-        )}
-        {title && (
-          <h2 className="place-card__name">
-            <a href={`place-details/${id}` || `#`}>{title}</a>
-          </h2>
-        )}
-        {type && (
-          <p className="place-card__type">{type}</p>
-        )}
+        </div>
+        <h2 className="place-card__name">
+          <Link to={`place-details/${id}` || `#`}>{title}</Link>
+        </h2>
+        <p className="place-card__type">{type}</p>
       </div>
     </article>
   );
