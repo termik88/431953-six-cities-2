@@ -6,10 +6,12 @@ import {Link} from "react-router-dom";
 import {getCityCurrent} from "../../reducer/data/selectors.js";
 import {Operations} from "../../reducer/user/user.js";
 
-const SignIn = ({cityCurrent, email, password, onInputChange, handleSendAuthorizationData}) => {
+const SignIn = ({cityCurrent, email, password, isValidationInput, onInputChange, handleSendAuthorizationData, history}) => {
+  const handleRedirect = () => history.push(`/`);
+
   const handleSend = (evt) => {
     evt.preventDefault();
-    handleSendAuthorizationData({email, password});
+    handleSendAuthorizationData(email, password, handleRedirect);
   };
 
   return (
@@ -38,7 +40,10 @@ const SignIn = ({cityCurrent, email, password, onInputChange, handleSendAuthoriz
                 placeholder="Password"
                 required=""/>
             </div>
-            <button className="login__submit form__submit button" type="submit">Sign in</button>
+            <button
+              className="login__submit form__submit button"
+              type="submit"
+              disabled={!isValidationInput}>Sign in</button>
           </form>
         </section>
         <section className="locations locations--login locations--current">
@@ -66,7 +71,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  handleSendAuthorizationData: (email, password) => dispatch(Operations.sendAuthorizationData(email, password))
+  handleSendAuthorizationData: (email, password, handleRedirect) => dispatch(Operations.sendAuthorizationData(email, password, handleRedirect))
 });
 
 const SignInContainer = connect(mapStateToProps, mapDispatchToProps)(SignIn);

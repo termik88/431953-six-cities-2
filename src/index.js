@@ -4,14 +4,16 @@ import {createStore, applyMiddleware} from "redux";
 import {Provider} from 'react-redux';
 import thunk from "redux-thunk";
 import {compose} from "recompose";
-import {BrowserRouter} from "react-router-dom";
+import {Router} from "react-router";
+import {createBrowserHistory} from "history";
 
 import {configureAPI} from './api.js';
 import reducer from "./reducer";
 import {AppContainer} from './component/app/app.jsx';
 
 const init = () => {
-  const api = configureAPI((...args) => store.dispatch(...args));
+  const history = createBrowserHistory();
+  const api = configureAPI((path) => history.push(path));
   const store = createStore(
       reducer,
       compose(
@@ -22,9 +24,9 @@ const init = () => {
 
   ReactDOM.render(
       <Provider store={store}>
-        <BrowserRouter>
+        <Router history={history}>
           <AppContainer/>,
-        </BrowserRouter>
+        </Router>
       </Provider>,
       document.querySelector(`#root`)
   );

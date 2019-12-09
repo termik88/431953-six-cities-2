@@ -35,6 +35,7 @@ class App extends PureComponent {
         <Route path='/login' exact component = {WrappedSignIn} />
         <Route path='/favorites' exact component = {Favorites}/>
         <Route path='/place-details/:id' exact component = {WrappedPlaceDetailsContainer}/>
+        <Redirect to='/' />
         <Route
           render = {() => (
             <h1>
@@ -44,7 +45,6 @@ class App extends PureComponent {
             </h1>
           )}
         />
-        <Redirect to='/' />
       </Switch>
     );
   }

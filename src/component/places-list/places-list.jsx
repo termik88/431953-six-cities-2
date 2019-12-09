@@ -14,7 +14,6 @@ const PlacesList = (props) => {
           onMouseEnter = {() => onSelect({id: place.id, location: place.location})}
           onMouseLeave = {() => onSelect(null)}
         />))}
-      {!placesSelected.length && `No places to stay available`}
     </div>
   );
 };

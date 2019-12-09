@@ -1,5 +1,4 @@
 import axios from "axios";
-import {ActionsCreator} from './reducer/user/user';
 
 const Config = {
   BASE_URL: `https://htmlacademy-react-2.appspot.com/six-cities`,
@@ -7,7 +6,7 @@ const Config = {
   WITH_CREDENTIALS: true
 };
 
-const configureAPI = (dispatch) => {
+const configureAPI = (redirect) => {
   const api = axios.create({
     baseURL: Config.BASE_URL,
     timeout: Config.TIMEOUT,
@@ -15,9 +14,10 @@ const configureAPI = (dispatch) => {
   });
 
   const onSuccess = (response) => response;
+
   const onFail = (err) => {
-    if (err.response.status === 403) {
-      dispatch(ActionsCreator.requiredAuthorization());
+    if (err.response.status === 401) {
+      redirect(`/login`);
     }
     return err;
   };

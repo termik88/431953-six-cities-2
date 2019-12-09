@@ -41,15 +41,16 @@ const reducer = (state = initialState, action) => {
 };
 
 const Operations = {
-  sendAuthorizationData: (email, password) => (dispatch, _, api) => {
-    return api.post(REQUEST_URL.LOGIN, email, password)
+  sendAuthorizationData: (email, password, handleRedirect) => (dispatch, _, api) => {
+    return api.post(REQUEST_URL.LOGIN, {email, password})
       .then((response) => {
         if (response.status === 200) {
           dispatch(ActionsCreator.requiredAuthorization(false));
           dispatch(ActionsCreator.loadUserData(prepareUser(response.data)));
+          handleRedirect();
         }
       });
-  }
+  },
 };
 
 export {

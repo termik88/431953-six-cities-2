@@ -37,3 +37,8 @@ const preparePlace = (Places) => {
 };
 
 export const preparePlacesData = (PlacesList) => PlacesList.map((place) => preparePlace(place));
+
+export const isValidationEmail = (email) => {
+  const pattern = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+  return pattern.test(String(email).toLowerCase());
+};
