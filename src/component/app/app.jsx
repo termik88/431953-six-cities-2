@@ -11,12 +11,13 @@ import withLayout from '../../hocs/with-layout/with-layout.jsx';
 
 import {SignInContainer} from "../sign-in/sign-in.jsx";
 import {MainContainer} from '../main/main.jsx';
+import {FavoritesContainer} from "../favorites/favorites.jsx";
 import {PlaceDetailsContainer} from '../place-details/place-details.jsx';
-import Favorites from "../favorites/favorites.jsx";
 
 const WrappedSignIn = withLayout(withInputChange(SignInContainer), `page page--gray page--login`);
 const WrappedMainContainer = withLayout(MainContainer, `page--gray page--main`);
-const WrappedPlaceDetailsContainer = withLayout(PlaceDetailsContainer, `page`);
+const WrappedFavoriteContainer = withLayout(FavoritesContainer, `page--favorites`);
+const WrappedPlaceDetailsContainer = withLayout(PlaceDetailsContainer, ``);
 
 class App extends PureComponent {
   constructor(props) {
@@ -33,7 +34,7 @@ class App extends PureComponent {
       <Switch>
         <Route path='/' exact component = {WrappedMainContainer}/>
         <Route path='/login' exact component = {WrappedSignIn} />
-        <Route path='/favorites' exact component = {Favorites}/>
+        <Route path='/favorites' exact component = {WrappedFavoriteContainer}/>
         <Route path='/place-details/:id' exact component = {WrappedPlaceDetailsContainer}/>
         <Redirect to='/' />
         <Route

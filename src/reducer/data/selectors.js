@@ -20,3 +20,7 @@ export const getPlacesSelected = createSelector(
     getPlacesAll,
     (resultOne, resultTwo) => resultTwo.filter((place) => place.city.name === resultOne)
 );
+
+export const getFavoritesPlaces = (state) => {
+  return state[NAME_SPACE].placesFavorites;
+};

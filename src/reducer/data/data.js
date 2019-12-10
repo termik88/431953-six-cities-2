@@ -9,12 +9,14 @@ const initialState = {
   cityCurrent: ``,
   citiesList: [],
   placesAll: [],
+  placesFavorites: []
 };
 
 const ActionType = {
   CHANGE_CITY_CURRENT: `CHANGE_CITY_CURRENT`,
   LOAD_PLACES_DATA: `LOAD_PLACES_DATA`,
-  ADD_FAVORITE_PLACE: `ADD_FAVORITE_PLACE`
+  ADD_FAVORITE_PLACE: `ADD_FAVORITE_PLACE`,
+  LOAD_DATA_FAVORITES_PLACES: `LOAD_DATA_FAVORITES_PLACES`
 };
 
 const ActionsCreator = {
@@ -31,6 +33,11 @@ const ActionsCreator = {
   addFavoritePlace: (favoritePlace) => ({
     type: ActionType.ADD_FAVORITE_PLACE,
     payload: favoritePlace
+  }),
+
+  loadDataFavoritesPlaces: (favoritesPlaces) => ({
+    type: ActionType.LOAD_DATA_FAVORITES_PLACES,
+    payload: favoritesPlaces
   })
 };
 
@@ -56,6 +63,11 @@ const reducer = (state = initialState, action) => {
           }
           return item;
         })
+      });
+
+    case ActionType.LOAD_DATA_FAVORITES_PLACES:
+      return Object.assign({}, state, {
+        placesFavorites: action.payload
       });
   }
 
@@ -85,10 +97,11 @@ const Operations = {
       });
   },
 
-  loadFavoritesData: () => (dispatch, _, api) => {
+  getDataFavoritesPlaces: () => (dispatch, _, api) => {
     return api.get(REQUEST_URL.FAVORITE)
       .then((response) => {
         if (response.status === 200) {
+          dispatch(ActionsCreator.loadDataFavoritesPlaces(preparePlacesData(response.data)));
           console.log(preparePlacesData(response.data));
         }
       });

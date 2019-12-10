@@ -4,10 +4,19 @@ import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import {Operations} from "../../reducer/data/data";
 import {getAuthorizationStatus} from "../../reducer/user/selector";
+import {useHistory} from "react-router-dom";
 
-const PlaceCard = ({place, onMouseEnter, onMouseLeave, sendFavoriteData}) => {
+const PlaceCard = ({place, onMouseEnter, onMouseLeave, sendFavoriteData, getAuthorizationStatus, getDataFavoritesPlaces}) => {
+  let history = useHistory();
+
   const handleClick = (evt) => {
-    sendFavoriteData(id, +!isFavorite);
+    evt.preventDefault();
+    if (getAuthorizationStatus) {
+      history.push(`/login`);
+    } else {
+      sendFavoriteData(id, +!isFavorite);
+      getDataFavoritesPlaces();
+    }
   };
 
   const {
@@ -115,11 +124,12 @@ PlaceCard.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-
+  getAuthorizationStatus: getAuthorizationStatus(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
   sendFavoriteData: (id, status) => dispatch(Operations.sendFavoriteData(id, status)),
+  getDataFavoritesPlaces: () => dispatch(Operations.getDataFavoritesPlaces())
 });
 
 
