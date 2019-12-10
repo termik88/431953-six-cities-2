@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import {Operations} from "../../reducer/data/data";
+import {getAuthorizationStatus} from "../../reducer/user/selector";
 
 const PlaceCard = ({place, onMouseEnter, onMouseLeave, sendFavoriteData}) => {
   const handleClick = (evt) => {
-    evt.preventDefault();
     sendFavoriteData(id, +!isFavorite);
   };
 
@@ -119,7 +119,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  sendFavoriteData: (id, status) => dispatch(Operations.sendFavoriteData(id, status))
+  sendFavoriteData: (id, status) => dispatch(Operations.sendFavoriteData(id, status)),
 });
 
 

@@ -1,8 +1,8 @@
 import {preparePlacesData, preparePlace, getCitiesList, getRandomCity} from "../../until.js";
-import placesAll from "../../mocks/places";
 
 const REQUEST_URL = {
-  HOTELS: `/hotels`
+  HOTELS: `/hotels`,
+  FAVORITE: `/favorite`
 };
 
 const initialState = {
@@ -49,9 +49,13 @@ const reducer = (state = initialState, action) => {
       });
 
     case ActionType.ADD_FAVORITE_PLACE:
-      console.log(action.payload);
       return Object.assign({}, state, {
-        placesAll: [...new Set([...placesAll, ...[action.payload]])]
+        placesAll: state.placesAll.map((item) => {
+          if (item.id === action.payload.id) {
+            item.isFavorite = action.payload.isFavorite;
+          }
+          return item;
+        })
       });
   }
 
@@ -73,7 +77,7 @@ const Operations = {
   },
 
   sendFavoriteData: (id, status) => (dispatch, _, api) => {
-    return api.post(`/favorite/${id}/${status}`)
+    return api.post(`${REQUEST_URL.FAVORITE}/${id}/${status}`)
       .then((response) => {
         if (response.status === 200) {
           dispatch(ActionsCreator.addFavoritePlace(preparePlace(response.data)));
@@ -82,7 +86,7 @@ const Operations = {
   },
 
   loadFavoritesData: () => (dispatch, _, api) => {
-    return api.get(`/favorite`)
+    return api.get(REQUEST_URL.FAVORITE)
       .then((response) => {
         if (response.status === 200) {
           console.log(preparePlacesData(response.data));
