@@ -19,7 +19,7 @@ export const prepareUser = (user) => {
   return userData;
 };
 
-const preparePlace = (Places) => {
+export const preparePlace = (Places) => {
   const newPlaces = Object.assign({}, Places);
   newPlaces.previewImage = newPlaces.preview_image;
   newPlaces.isFavorite = newPlaces.is_favorite;

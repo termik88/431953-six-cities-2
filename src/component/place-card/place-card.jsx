@@ -1,8 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
+import {connect} from "react-redux";
+import {Operations} from "../../reducer/data/data";
 
-const PlaceCard = ({place, onMouseEnter, onMouseLeave}) => {
+const PlaceCard = ({place, onMouseEnter, onMouseLeave, sendFavoriteData}) => {
+  const handleClick = (evt) => {
+    evt.preventDefault();
+    sendFavoriteData(id, +!isFavorite);
+  };
+
   const {
     id,
     title,
@@ -43,9 +50,10 @@ const PlaceCard = ({place, onMouseEnter, onMouseLeave}) => {
             )}
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={isFavorite
-            ? `place-card__bookmark-button place-card__bookmark-button--active button`
-            : `place-card__bookmark-button button`} type="button">
+          <button
+            className={`place-card__bookmark-button button ${isFavorite ? `place-card__bookmark-button--active` : ``}`}
+            type="button"
+            onClick={handleClick}>
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"/>
             </svg>
@@ -106,4 +114,15 @@ PlaceCard.propTypes = {
   onMouseLeave: PropTypes.func.isRequired
 };
 
-export default PlaceCard;
+const mapStateToProps = (state) => ({
+
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  sendFavoriteData: (id, status) => dispatch(Operations.sendFavoriteData(id, status))
+});
+
+
+const PlaceCardContainer = connect(mapStateToProps, mapDispatchToProps)(PlaceCard);
+
+export {PlaceCard, PlaceCardContainer};

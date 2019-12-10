@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import PlaceCard from '../place-card/place-card.jsx';
+
+import {PlaceCardContainer} from '../place-card/place-card.jsx';
 
 const PlacesList = (props) => {
   const {placesSelected, onSelect} = props;
@@ -8,7 +9,7 @@ const PlacesList = (props) => {
   return (
     <div className="cities__places-list places__list tabs__content">
       {placesSelected.map((place) => (
-        <PlaceCard
+        <PlaceCardContainer
           key = {`place-${place.id}`}
           place = {place}
           onMouseEnter = {() => onSelect({id: place.id, location: place.location})}
