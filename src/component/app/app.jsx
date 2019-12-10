@@ -1,17 +1,22 @@
 import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from "prop-types";
+import {Route, Switch, Redirect} from "react-router-dom";
 
 import {Operations} from "../../reducer/data/data.js";
 import {getAuthorizationStatus} from "../../reducer/user/selector.js";
 
-import SvgBlock from '../svg-block/svg-block.jsx';
-import {MainContainer} from '../main/main.jsx';
+import withInputChange from "../../hocs/with-input-change/with-input-change.jsx";
+import withLayout from '../../hocs/with-layout/with-layout.jsx';
+
 import {SignInContainer} from "../sign-in/sign-in.jsx";
+import {MainContainer} from '../main/main.jsx';
+import {PlaceDetailsContainer} from '../place-details/place-details.jsx';
+import Favorites from "../favorites/favorites.jsx";
 
-import withInputChange from "../../hocs/with-input-change/with-input-change.js";
-
-const SignInWrapped = withInputChange(SignInContainer);
+const WrappedSignIn = withLayout(withInputChange(SignInContainer), `page page--gray page--login`);
+const WrappedMainContainer = withLayout(MainContainer, `page--gray page--main`);
+const WrappedPlaceDetailsContainer = withLayout(PlaceDetailsContainer, `page`);
 
 class App extends PureComponent {
   constructor(props) {
@@ -22,38 +27,26 @@ class App extends PureComponent {
     this.props.loadData();
   }
 
+
   render() {
-    return this.getPageScreen();
-  }
-
-  getPageScreen() {
-    if (this.props.isAuthorizationRequired) {
-      return (
-        <>
-          <SvgBlock/>
-          <SignInWrapped/>
-        </>
-      );
-    }
-
-    switch (location.pathname) {
-      case `/`:
-        return (
-          <>
-            <SvgBlock/>
-            <MainContainer/>
-          </>
-        );
-      case `/login`:
-        return (
-          <>
-            <SvgBlock/>
-            <SignInWrapped/>
-          </>
-        );
-    }
-
-    return null;
+    return (
+      <Switch>
+        <Route path='/' exact component = {WrappedMainContainer}/>
+        <Route path='/login' exact component = {WrappedSignIn} />
+        <Route path='/favorites' exact component = {Favorites}/>
+        <Route path='/place-details/:id' exact component = {WrappedPlaceDetailsContainer}/>
+        <Redirect to='/' />
+        <Route
+          render = {() => (
+            <h1>
+              404.
+              <br/>
+              <small>Page not found</small>
+            </h1>
+          )}
+        />
+      </Switch>
+    );
   }
 }
 

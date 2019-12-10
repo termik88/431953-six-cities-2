@@ -6,7 +6,7 @@ const withActiveItem = (Component) => {
     constructor(props) {
       super(props);
       this.state = {
-        active: props.active,
+        active: null,
       };
       this.handleSelectItem = this.handleSelectItem.bind(this);
     }
