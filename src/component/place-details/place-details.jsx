@@ -2,13 +2,17 @@ import React from "react";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 
-import {getPlacesSelected} from "../../reducer/data/selectors";
+import {getPlacesAll, getPlacesSelected} from "../../reducer/data/selectors";
 import {transformRatingToStarsNumber} from "../../until";
 
 const IMAGES_MAX = 6;
 
 const PlaceDetails = ({match, places}) => {
   const place = places.find((item) => item.id === +match.params.id);
+  console.log(`info from Places detail`);
+  console.log(places);
+  console.log(+match.params.id);
+  console.log(place);
   const {
     images,
     title,
@@ -336,7 +340,7 @@ const PlaceDetails = ({match, places}) => {
 // };
 
 const mapStateToProps = (state) => ({
-  places: getPlacesSelected(state)
+  places: getPlacesAll(state)
 });
 
 const mapDispatchToProps = () => ({});

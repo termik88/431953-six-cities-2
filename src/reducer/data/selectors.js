@@ -24,3 +24,7 @@ export const getPlacesSelected = createSelector(
 export const getFavoritesPlaces = (state) => {
   return state[NAME_SPACE].placesFavorites;
 };
+
+export const getCitiesListFavorites = (state) => {
+  return state[NAME_SPACE].citiesListFavorites;
+};
