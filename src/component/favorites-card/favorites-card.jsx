@@ -2,11 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
-import {Operations} from "../../reducer/data/data.js";
-import {getAuthorizationStatus} from "../../reducer/user/selector.js";
+import {Operations} from "../../reducer/data/data";
+import {getAuthorizationStatus} from "../../reducer/user/selector";
 import {useHistory} from "react-router-dom";
 
-const PlaceCard = ({place, onMouseEnter, onMouseLeave, sendFavoriteData, getAuthorizationStatus, getDataFavoritesPlaces}) => {
+const FavoritesCard = ({place, sendFavoriteData, getAuthorizationStatus, getDataFavoritesPlaces}) => {
   let history = useHistory();
 
   const handleClick = (evt) => {
@@ -32,26 +32,24 @@ const PlaceCard = ({place, onMouseEnter, onMouseLeave, sendFavoriteData, getAuth
 
   return (
     <article
-      className="cities__place-card place-card"
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}>
+      className="favorites__card place-card">
       {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       )}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className="favorites__image-wrapper place-card__image-wrapper">
         <Link to={`place-details/${id}` || `#`}>
           <img
             className="place-card__image"
             src={previewImage}
-            width="260"
-            height="200"
+            width="150"
+            height="110"
             alt={title}
           />
         </Link>
       </div>
-      <div className="place-card__info">
+      <div className="favorites__card-info place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             {price && (
@@ -84,7 +82,7 @@ const PlaceCard = ({place, onMouseEnter, onMouseLeave, sendFavoriteData, getAuth
   );
 };
 
-PlaceCard.propTypes = {
+FavoritesCard.propTypes = {
   place: PropTypes.exact({
     id: PropTypes.number,
     city: PropTypes.exact({
@@ -119,8 +117,6 @@ PlaceCard.propTypes = {
       zoom: PropTypes.number
     })
   }).isRequired,
-  onMouseEnter: PropTypes.func.isRequired,
-  onMouseLeave: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -133,6 +129,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 
-const PlaceCardContainer = connect(mapStateToProps, mapDispatchToProps)(PlaceCard);
+const FavoritesCardContainer = connect(mapStateToProps, mapDispatchToProps)(FavoritesCard);
 
-export {PlaceCard, PlaceCardContainer};
+export {FavoritesCard, FavoritesCardContainer};

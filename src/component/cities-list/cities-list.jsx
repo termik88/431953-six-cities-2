@@ -1,5 +1,8 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import {ActionsCreator} from "../../reducer/data/data";
+import {connect} from "react-redux";
+import {getCitiesList, getCityCurrent} from "../../reducer/data/selectors";
 
 const CitiesList = ({cityCurrent, citiesList, changeCurrentCityAndPlaces}) => {
 
@@ -36,4 +39,16 @@ CitiesList.propTypes = {
   changeCurrentCityAndPlaces: PropTypes.func.isRequired
 };
 
-export default CitiesList;
+const mapStateToProps = (state, ownProps) =>
+  Object.assign({}, ownProps, {
+    cityCurrent: getCityCurrent(state),
+    citiesList: getCitiesList(state),
+  });
+
+const mapDispatchToProps = (dispatch) => ({
+  changeCurrentCityAndPlaces: (citySelected) => dispatch(ActionsCreator.changeCityCurrent(citySelected))
+});
+
+const CitiesListContainer = connect(mapStateToProps, mapDispatchToProps)(CitiesList);
+
+export {CitiesList, CitiesListContainer};

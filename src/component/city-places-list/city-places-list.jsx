@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {connect} from "react-redux";
+
+import {getCityCurrent, getPlacesSelected} from "../../reducer/data/selectors.js";
 
 import PlacesList from '../places-list/places-list.jsx';
 import Map from "../map/map.jsx";
@@ -114,3 +117,13 @@ CityPlacesList.propTypes = {
 };
 
 export default CityPlacesList;
+
+const mapStateToProps = (state, ownProps) =>
+  Object.assign({}, ownProps, {
+    cityCurrent: getCityCurrent(state),
+    placesSelected: getPlacesSelected(state),
+  });
+
+const CityPlacesListContainer = connect(mapStateToProps)(CityPlacesList);
+
+export {CityPlacesList, CityPlacesListContainer};
