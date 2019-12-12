@@ -2,7 +2,7 @@ import React, {PureComponent} from 'react';
 import leaflet from 'leaflet';
 import PropTypes from 'prop-types';
 
-class Map extends PureComponent {
+class PropertyMap extends PureComponent {
   constructor(props) {
     super(props);
     this.map = null;
@@ -21,47 +21,47 @@ class Map extends PureComponent {
     this.markersGroup = leaflet.layerGroup().addTo(this.map);
   }
 
-  setOptionsMap(placesSelected) {
-    const city = [placesSelected[0].city.location.latitude, placesSelected[0].city.location.longitude];
-    const zoom = placesSelected[0].city.location.zoom;
+  setOptionsMap(offers) {
+    const city = [offers[0].city.location.latitude, offers[0].city.location.longitude];
+    const zoom = offers[0].city.location.zoom;
 
     this.map.setView(city, zoom);
   }
 
   getPin(isActive) {
     const icon = leaflet.icon({
-      iconUrl: `img/pin${isActive ? `-active` : ``}.svg`,
+      iconUrl: `../img/pin${isActive ? `-active` : ``}.svg`,
       iconSize: [24, 30]
     });
 
     return {icon};
   }
 
-  renderPin(place, groupLayers, isActive) {
+  renderPin(offer, groupLayers, isActive) {
     leaflet
-      .marker([place.location.latitude, place.location.longitude], this.getPin(isActive))
+      .marker([offer.location.latitude, offer.location.longitude], this.getPin(isActive))
       .addTo(groupLayers);
   }
 
-  renderPins(placesSelected) {
-    for (let place of placesSelected) {
-      this.renderPin(place, this.markersGroup, false);
+  renderPins(offers) {
+    for (let offer of offers) {
+      this.renderPin(offer, this.markersGroup, false);
     }
   }
 
   componentDidMount() {
     this.renderMap();
-    if (this.props.placesSelected.length !== 0) {
-      this.setOptionsMap(this.props.placesSelected);
-      this.renderPins(this.props.placesSelected);
+    if (this.props.offers.length !== 0) {
+      this.setOptionsMap(this.props.offers);
+      this.renderPins(this.props.offers);
     }
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.placesSelected !== prevProps.placesSelected) {
-      this.setOptionsMap(this.props.placesSelected);
+    if (this.props.offers !== prevProps.offers) {
+      this.setOptionsMap(this.props.offers);
       this.markersGroup.clearLayers();
-      this.renderPins(this.props.placesSelected);
+      this.renderPins(this.props.offers);
     }
 
     if (prevProps.active) {
@@ -74,14 +74,14 @@ class Map extends PureComponent {
   }
 
   render() {
-    return <section className="cities__map map">
+    return <section className={`${this.props.nameMap}__map map`}>
       <div style={{height: `100%`}} id="map"/>
     </section>;
   }
 }
 
 Map.propTypes = {
-  placesSelected: PropTypes.arrayOf(PropTypes.exact({
+  offers: PropTypes.arrayOf(PropTypes.exact({
     id: PropTypes.number,
     city: PropTypes.exact({
       name: PropTypes.string,
@@ -126,4 +126,4 @@ Map.propTypes = {
   })
 };
 
-export default Map;
+export default PropertyMap;

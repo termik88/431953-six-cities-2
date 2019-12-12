@@ -48,7 +48,8 @@ const CityPlacesList = ({cityCurrent, placesSelected, onSelect, active}) => {
             </section>
             <div className="cities__right-section">
               <Map
-                placesSelected = {placesSelected}
+                nameMap = {`cities`}
+                offers = {placesSelected}
                 active = {active}
               />
             </div>

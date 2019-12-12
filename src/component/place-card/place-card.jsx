@@ -6,7 +6,7 @@ import {Operations} from "../../reducer/data/data.js";
 import {getAuthorizationStatus} from "../../reducer/user/selector.js";
 import {useHistory} from "react-router-dom";
 
-const PlaceCard = ({place, onMouseEnter, onMouseLeave, sendFavoriteData, getAuthorizationStatus, getDataFavoritesPlaces}) => {
+const PlaceCard = ({place, onMouseEnter, onMouseLeave, sendFavoriteData, getAuthorizationStatus}) => {
   let history = useHistory();
 
   const handleClick = (evt) => {
@@ -15,7 +15,6 @@ const PlaceCard = ({place, onMouseEnter, onMouseLeave, sendFavoriteData, getAuth
       history.push(`/login`);
     } else {
       sendFavoriteData(id, +!isFavorite);
-      getDataFavoritesPlaces();
     }
   };
 
@@ -129,7 +128,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   sendFavoriteData: (id, status) => dispatch(Operations.sendFavoriteData(id, status)),
-  getDataFavoritesPlaces: () => dispatch(Operations.getDataFavoritesPlaces())
 });
 
 
