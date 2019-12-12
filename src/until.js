@@ -80,3 +80,14 @@ const prepareComment = (comment) => {
 
 export const prepareComments = (comments) => comments.map((comment) => prepareComment(comment));
 
+export const getPlacesNearest = (currentPoint, allPoints) => {
+  const distance = (x1, y1, x2, y2) => Math.sqrt(Math.pow(x2 - x1, 2) + (Math.pow(y2 - y1, 2)));
+  const filteredPoints = allPoints.filter((item) => item.city.name === currentPoint.city.name && item.id !== currentPoint.id);
+  return filteredPoints
+    .map((x) => x)
+    .sort((x, y) =>
+      Math.abs(distance(x.location.longitude, x.location.latitude, currentPoint.location.longitude, currentPoint.location.latitude))
+      - Math.abs(distance(y.location.longitude, y.location.latitude, currentPoint.location.longitude, currentPoint.location.latitude)))
+    .slice(0, 3);
+};
+

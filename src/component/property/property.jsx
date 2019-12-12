@@ -3,11 +3,11 @@ import {connect} from "react-redux";
 import PropTypes from "prop-types";
 
 import {getPlacesAll, getComments} from "../../reducer/data/selectors.js";
-import {transformRatingToStarsNumber} from "../../until.js";
+import {transformRatingToStarsNumber, getPlacesNearest} from "../../until.js";
 import {Operations} from "../../reducer/data/data.js";
 
 import Review from "../review/review.jsx";
-import {PlaceCardContainer as CardContainer} from "../place-card/place-card.jsx";
+import {CardContainer} from "../card/card.jsx";
 import Map from "../map/map.jsx";
 
 const IMAGES_MAX = 6;
@@ -23,7 +23,7 @@ class Property extends PureComponent {
 
   render() {
     const placeCurrent = this.props.places.find((item) => item.id === +this.props.match.params.id);
-    const placesNearest = this.props.places.filter((item) => item.city.name === placeCurrent.city.name).slice(0, 3);
+    const placesNearest = getPlacesNearest(placeCurrent, this.props.places);
 
     const {
       images,
@@ -138,39 +138,15 @@ class Property extends PureComponent {
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
 
-              <article className="near-places__card place-card">
-                <div className="near-places__image-wrapper place-card__image-wrapper">
-                  <a href="#">
-                    <img className="place-card__image" src="img/apartment-03.jpg" width="260" height="200" alt="Place image"/>
-                  </a>
-                </div>
-                <div className="place-card__info">
-                  <div className="place-card__price-wrapper">
-                    <div className="place-card__price">
-                      <b className="place-card__price-value">&euro;180</b>
-                      <span className="place-card__price-text">&#47;&nbsp;night</span>
-                    </div>
-                    <button className="place-card__bookmark-button button" type="button">
-                      <svg className="place-card__bookmark-icon" width="18" height="19">
-                        <use xlinkHref="#icon-bookmark"/>
-                      </svg>
-                      <span className="visually-hidden">To bookmarks</span>
-                    </button>
-                  </div>
-                  <div className="place-card__rating rating">
-                    <div className="place-card__stars rating__stars">
-                      <span style={{width: `100%`}}/>
-                      <span className="visually-hidden">Rating</span>
-                    </div>
-                  </div>
-                  <h2 className="place-card__name">
-                    <a href="#">Nice, cozy, warm big bed apartment</a>
-                  </h2>
-                  <p className="place-card__type">Apartment</p>
-                </div>
-              </article>
-
-              {/*<CardContainer/>*/}
+              {placesNearest.map((item) => (
+                <CardContainer
+                  key = {`card-${item.id}`}
+                  cardNameFirst = {`near-places__card`}
+                  cardNameSecond = {`near-places__image-wrapper`}
+                  place = {item}
+                />
+              ))
+              }
 
             </div>
           </section>

@@ -6,7 +6,7 @@ import {Operations} from "../../reducer/data/data.js";
 import {getAuthorizationStatus} from "../../reducer/user/selector.js";
 import {useHistory} from "react-router-dom";
 
-const PlaceCard = ({place, onMouseEnter, onMouseLeave, sendFavoriteData, getAuthorizationStatus}) => {
+const Card = ({cardNameFirst, cardNameSecond, place, onMouseEnter = () => {}, onMouseLeave = () => {}, sendFavoriteData, getAuthorizationStatus}) => {
   let history = useHistory();
 
   const handleClick = (evt) => {
@@ -31,7 +31,7 @@ const PlaceCard = ({place, onMouseEnter, onMouseLeave, sendFavoriteData, getAuth
 
   return (
     <article
-      className="cities__place-card place-card"
+      className={`${cardNameFirst} place-card`}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}>
       {isPremium && (
@@ -39,7 +39,7 @@ const PlaceCard = ({place, onMouseEnter, onMouseLeave, sendFavoriteData, getAuth
           <span>Premium</span>
         </div>
       )}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${cardNameSecond} place-card__image-wrapper`}>
         <Link to={`offer/${id}` || `#`}>
           <img
             className="place-card__image"
@@ -83,7 +83,7 @@ const PlaceCard = ({place, onMouseEnter, onMouseLeave, sendFavoriteData, getAuth
   );
 };
 
-PlaceCard.propTypes = {
+Card.propTypes = {
   place: PropTypes.exact({
     id: PropTypes.number,
     city: PropTypes.exact({
@@ -131,6 +131,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 
-const PlaceCardContainer = connect(mapStateToProps, mapDispatchToProps)(PlaceCard);
+const CardContainer = connect(mapStateToProps, mapDispatchToProps)(Card);
 
-export {PlaceCard, PlaceCardContainer};
+export {Card, CardContainer};

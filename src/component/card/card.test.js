@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import PlaceCard from './place-card.jsx';
+import PlaceCard from './card.jsx';
 
 describe(`PlaceCard component test.`, () => {
   it(`Correctly renders after relaunch`, () => {
