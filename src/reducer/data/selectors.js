@@ -28,3 +28,7 @@ export const getFavoritesPlaces = (state) => {
 export const getCitiesListFavorites = (state) => {
   return state[NAME_SPACE].citiesListFavorites;
 };
+
+export const getComments = (state) => {
+  return state[NAME_SPACE].comments;
+};

@@ -41,7 +41,7 @@ const PlaceCard = ({place, onMouseEnter, onMouseLeave, sendFavoriteData, getAuth
         </div>
       )}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to={`place-details/${id}` || `#`}>
+        <Link to={`offer/${id}` || `#`}>
           <img
             className="place-card__image"
             src={previewImage}
@@ -76,7 +76,7 @@ const PlaceCard = ({place, onMouseEnter, onMouseLeave, sendFavoriteData, getAuth
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`place-details/${id}` || `#`}>{title}</Link>
+          <Link to={`offer/${id}` || `#`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
