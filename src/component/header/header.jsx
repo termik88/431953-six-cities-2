@@ -23,7 +23,7 @@ const Header = ({userData, isAuthorizationRequired}) => {
                 {location.pathname !== `/login` ?
                   <Link
                     className="header__nav-link header__nav-link--profile"
-                    to={isAuthorizationRequired ? `/login` : `/favorites`}>
+                    to={`/favorites`}>
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
                     {isAuthorizationRequired ?

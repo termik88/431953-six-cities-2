@@ -2,8 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
-import {Operations} from "../../reducer/data/data";
-import {getAuthorizationStatus} from "../../reducer/user/selector";
+import {Operations} from "../../reducer/data/data.js";
+import {getAuthorizationStatus} from "../../reducer/user/selector.js";
 import {useHistory} from "react-router-dom";
 
 const PlaceCard = ({place, onMouseEnter, onMouseLeave, sendFavoriteData, getAuthorizationStatus, getDataFavoritesPlaces}) => {
