@@ -11,7 +11,7 @@ class PropertyMap extends PureComponent {
   }
 
   renderMap() {
-    this.map = leaflet.map(`map`);
+    this.map = leaflet.map(`map`, {zoomControl: false, scrollWheelZoom: false});
 
     leaflet
       .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`)

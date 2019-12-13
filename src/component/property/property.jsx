@@ -129,7 +129,11 @@ class Property extends PureComponent {
             </div>
           </div>
 
-          <Map nameMap = {`property`} offers = {placesNearest} active = {placeCurrent}/>
+          <Map
+            nameMap = {`property`}
+            offers = {placesNearest}
+            active = {placeCurrent}
+          />
 
         </section>
 
