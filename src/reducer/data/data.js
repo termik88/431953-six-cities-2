@@ -1,4 +1,5 @@
 import {preparePlaces, preparePlace, prepareComments, getCitiesList, getRandomCity} from "../../until.js";
+import {NAME_SPACE} from "./selectors";
 
 const REQUEST_URL = {
   HOTELS: `/hotels`,
@@ -34,10 +35,10 @@ const ActionsCreator = {
     payload: {placesAll, citiesList, cityCurrent}
   }),
 
-  // addFavoritePlace: (favoritePlace) => ({
-  //   type: ActionType.ADD_FAVORITE_PLACE,
-  //   payload: favoritePlace
-  // }),
+  addFavoritePlace: (favoritePlace) => ({
+    type: ActionType.ADD_FAVORITE_PLACE,
+    payload: favoritePlace
+  }),
 
   loadDataFavoritesPlaces: (placesFavorites, citiesListFavorites) => ({
     type: ActionType.LOAD_DATA_FAVORITES_PLACES,
@@ -51,41 +52,39 @@ const ActionsCreator = {
 };
 
 const reducer = (state = initialState, action) => {
+  const newState = Object.assign({}, state);
   switch (action.type) {
+
     case ActionType.CHANGE_CITY_CURRENT:
-      return Object.assign({}, state, {
-        cityCurrent: action.payload
-      });
+      newState.cityCurrent = action.payload;
+      return newState;
 
     case ActionType.LOAD_PLACES_DATA:
-      return Object.assign({}, state, {
-        placesAll: action.payload.placesAll,
-        citiesList: action.payload.citiesList,
-        cityCurrent: action.payload.cityCurrent,
-      });
+      newState.placesAll = [...action.payload.placesAll];
+      newState.citiesList = [...action.payload.citiesList];
+      newState.cityCurrent = action.payload.cityCurrent;
+      return newState;
 
-    // case ActionType.ADD_FAVORITE_PLACE:
-    //   return Object.assign({}, state, {
-    //     placesAll: action.payload
-    //   });
+    case ActionType.ADD_FAVORITE_PLACE:
+      newState.placesAll = [...action.payload];
+      return newState;
+
 
     case ActionType.LOAD_DATA_FAVORITES_PLACES:
-      return Object.assign({}, state, {
-        placesFavorites: action.payload.placesFavorites,
-        citiesListFavorites: action.payload.citiesListFavorites
-      });
+      newState.placesFavorites = [...action.payload.placesFavorites];
+      newState.citiesListFavorites = [...action.payload.citiesListFavorites];
+      return newState;
 
     case ActionType.LOAD_DATA_COMMENTS:
-      return Object.assign({}, state, {
-        comments: action.payload
-      });
+      newState.comments = [...action.payload];
+      return newState;
   }
 
   return state;
 };
 
 const Operations = {
-  loadData: () => (dispatch, _, api) => {
+  loadData: () => (dispatch, getState, api) => {
     return api.get(REQUEST_URL.HOTELS)
       .then((response) => {
         if (response.status === 200) {
@@ -102,7 +101,7 @@ const Operations = {
       .then((response) => {
         if (response.status === 200) {
           const placeNew = preparePlace(response.data);
-          const placesOld = getState().state.placesAll;
+          const placesOld = getState()[NAME_SPACE].placesAll;
           const placesNew = placesOld.map((item) => {
             if (item.id === placeNew.id) {
               item.isFavorite = placeNew.isFavorite;
@@ -110,12 +109,12 @@ const Operations = {
             return item;
           });
 
-          dispatch(ActionsCreator.loadData(placesNew));
+          dispatch(ActionsCreator.addFavoritePlace(placesNew));
         }
       });
   },
 
-  getDataFavoritesPlaces: () => (dispatch, _, api) => {
+  getDataFavoritesPlaces: () => (dispatch, getState, api) => {
     return api.get(REQUEST_URL.FAVORITES)
       .then((response) => {
         if (response.status === 200) {
@@ -126,7 +125,7 @@ const Operations = {
       });
   },
 
-  loadDataComments: (id) => (dispatch, _, api) => {
+  loadDataComments: (id) => (dispatch, getState, api) => {
     return api.get(`${REQUEST_URL.COMMENTS}/${id}`)
       .then((response) => {
         if (response.status === 200) {
