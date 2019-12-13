@@ -6,7 +6,7 @@ import {Operations} from "../../reducer/data/data.js";
 import {getAuthorizationStatus} from "../../reducer/user/selector.js";
 import {useHistory} from "react-router-dom";
 
-const Card = ({cardNameFirst, cardNameSecond, place, onMouseEnter = () => {}, onMouseLeave = () => {}, sendFavoriteData, getAuthorizationStatus}) => {
+const Card = ({cardName, place, onMouseEnter = () => {}, onMouseLeave = () => {}, sendFavoriteData, getAuthorizationStatus, getDataFavoritesPlaces}) => {
   let history = useHistory();
 
   const handleClick = (evt) => {
@@ -15,6 +15,7 @@ const Card = ({cardNameFirst, cardNameSecond, place, onMouseEnter = () => {}, on
       history.push(`/login`);
     } else {
       sendFavoriteData(id, +!isFavorite);
+      getDataFavoritesPlaces();
     }
   };
 
@@ -31,7 +32,7 @@ const Card = ({cardNameFirst, cardNameSecond, place, onMouseEnter = () => {}, on
 
   return (
     <article
-      className={`${cardNameFirst} place-card`}
+      className={`place-card place-card--${cardName}`}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}>
       {isPremium && (
@@ -39,7 +40,7 @@ const Card = ({cardNameFirst, cardNameSecond, place, onMouseEnter = () => {}, on
           <span>Premium</span>
         </div>
       )}
-      <div className={`${cardNameSecond} place-card__image-wrapper`}>
+      <div className={`place-card__image-wrapper place-card__image-wrapper--${cardName}`}>
         <Link to={`offer/${id}` || `#`}>
           <img
             className="place-card__image"
@@ -50,7 +51,7 @@ const Card = ({cardNameFirst, cardNameSecond, place, onMouseEnter = () => {}, on
           />
         </Link>
       </div>
-      <div className="place-card__info">
+      <div className={`place-card__info place-card__info--${cardName}`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             {price && (
@@ -118,8 +119,8 @@ Card.propTypes = {
       zoom: PropTypes.number
     })
   }).isRequired,
-  onMouseEnter: PropTypes.func.isRequired,
-  onMouseLeave: PropTypes.func.isRequired
+  onMouseEnter: PropTypes.func,
+  onMouseLeave: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
@@ -128,6 +129,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   sendFavoriteData: (id, status) => dispatch(Operations.sendFavoriteData(id, status)),
+  getDataFavoritesPlaces: () => dispatch(Operations.getDataFavoritesPlaces())
 });
 
 

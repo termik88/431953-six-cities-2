@@ -10,8 +10,7 @@ const PlacesList = (props) => {
     <div className="cities__places-list places__list tabs__content">
       {placesSelected.map((place) => (
         <CardContainer
-          cardNameFirst = {`cities__place-card`}
-          cardNameSecond = {`cities__image-wrapper`}
+          cardName = {`cities`}
           key = {`place-${place.id}`}
           place = {place}
           onMouseEnter = {() => onSelect({id: place.id, location: place.location})}

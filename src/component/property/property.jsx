@@ -141,8 +141,7 @@ class Property extends PureComponent {
               {placesNearest.map((item) => (
                 <CardContainer
                   key = {`card-${item.id}`}
-                  cardNameFirst = {`near-places__card`}
-                  cardNameSecond = {`near-places__image-wrapper`}
+                  cardName = {`near`}
                   place = {item}
                 />
               ))
