@@ -6,7 +6,7 @@ import {Operations} from "../../reducer/data/data.js";
 import {getAuthorizationStatus} from "../../reducer/user/selector.js";
 import {useHistory} from "react-router-dom";
 
-const PlaceCard = ({place, onMouseEnter, onMouseLeave, sendFavoriteData, getAuthorizationStatus, getDataFavoritesPlaces}) => {
+const Card = ({cardName, place, onMouseEnter = () => {}, onMouseLeave = () => {}, sendFavoriteData, getAuthorizationStatus, getDataFavoritesPlaces}) => {
   let history = useHistory();
 
   const handleClick = (evt) => {
@@ -32,7 +32,7 @@ const PlaceCard = ({place, onMouseEnter, onMouseLeave, sendFavoriteData, getAuth
 
   return (
     <article
-      className="cities__place-card place-card"
+      className={`place-card place-card--${cardName}`}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}>
       {isPremium && (
@@ -40,8 +40,8 @@ const PlaceCard = ({place, onMouseEnter, onMouseLeave, sendFavoriteData, getAuth
           <span>Premium</span>
         </div>
       )}
-      <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to={`place-details/${id}` || `#`}>
+      <div className={`place-card__image-wrapper place-card__image-wrapper--${cardName}`}>
+        <Link to={`offer/${id}` || `#`}>
           <img
             className="place-card__image"
             src={previewImage}
@@ -51,7 +51,7 @@ const PlaceCard = ({place, onMouseEnter, onMouseLeave, sendFavoriteData, getAuth
           />
         </Link>
       </div>
-      <div className="place-card__info">
+      <div className={`place-card__info place-card__info--${cardName}`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             {price && (
@@ -76,7 +76,7 @@ const PlaceCard = ({place, onMouseEnter, onMouseLeave, sendFavoriteData, getAuth
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`place-details/${id}` || `#`}>{title}</Link>
+          <Link to={`offer/${id}` || `#`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
@@ -84,7 +84,7 @@ const PlaceCard = ({place, onMouseEnter, onMouseLeave, sendFavoriteData, getAuth
   );
 };
 
-PlaceCard.propTypes = {
+Card.propTypes = {
   place: PropTypes.exact({
     id: PropTypes.number,
     city: PropTypes.exact({
@@ -119,8 +119,8 @@ PlaceCard.propTypes = {
       zoom: PropTypes.number
     })
   }).isRequired,
-  onMouseEnter: PropTypes.func.isRequired,
-  onMouseLeave: PropTypes.func.isRequired
+  onMouseEnter: PropTypes.func,
+  onMouseLeave: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
@@ -133,6 +133,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 
-const PlaceCardContainer = connect(mapStateToProps, mapDispatchToProps)(PlaceCard);
+const CardContainer = connect(mapStateToProps, mapDispatchToProps)(Card);
 
-export {PlaceCard, PlaceCardContainer};
+export {Card, CardContainer};

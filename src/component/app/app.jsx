@@ -12,12 +12,12 @@ import withAuthorization from "../../hocs/with-authorization/with-authorization.
 import Main from '../main/main.jsx';
 import {SignInContainer} from "../sign-in/sign-in.jsx";
 import {FavoritesContainer} from "../favorites/favorites.jsx";
-import {PlaceDetailsContainer} from '../place-details/place-details.jsx';
+import {PropertyContainer} from '../property/property.jsx';
 
 const WrappedSignIn = withLayout(withInputChange(SignInContainer), `page page--gray page--login`);
 const WrappedMain = withLayout(Main, `page--gray page--main`);
 const WrappedFavoritesContainer = withAuthorization(withLayout(FavoritesContainer, `page--favorites`));
-const WrappedPlaceDetailsContainer = withLayout(PlaceDetailsContainer, ``);
+const WrappedPropertyContainer = withLayout(PropertyContainer, ``);
 
 class App extends PureComponent {
   constructor(props) {
@@ -28,14 +28,13 @@ class App extends PureComponent {
     this.props.loadData();
   }
 
-
   render() {
     return (
       <Switch>
         <Route path='/' exact component = {WrappedMain}/>
         <Route path='/login' exact component = {WrappedSignIn} />
         <Route path='/favorites' exact component = {WrappedFavoritesContainer}/>
-        <Route path='/place-details/:id' exact component = {WrappedPlaceDetailsContainer}/>
+        <Route path='/offer/:id' exact component = {WrappedPropertyContainer}/>
         <Redirect to='/' />
         <Route
           render = {() => (

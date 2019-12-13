@@ -1,8 +1,9 @@
-import {preparePlacesData, preparePlace, getCitiesList, getRandomCity} from "../../until.js";
+import {preparePlaces, preparePlace, prepareComments, getCitiesList, getRandomCity} from "../../until.js";
 
 const REQUEST_URL = {
   HOTELS: `/hotels`,
-  FAVORITE: `/favorite`
+  FAVORITES: `/favorite`,
+  COMMENTS: `/comments`
 };
 
 const initialState = {
@@ -10,14 +11,16 @@ const initialState = {
   citiesList: [],
   placesAll: [],
   placesFavorites: [],
-  citiesListFavorites: []
+  citiesListFavorites: [],
+  comments: []
 };
 
 const ActionType = {
   CHANGE_CITY_CURRENT: `CHANGE_CITY_CURRENT`,
   LOAD_PLACES_DATA: `LOAD_PLACES_DATA`,
   ADD_FAVORITE_PLACE: `ADD_FAVORITE_PLACE`,
-  LOAD_DATA_FAVORITES_PLACES: `LOAD_DATA_FAVORITES_PLACES`
+  LOAD_DATA_FAVORITES_PLACES: `LOAD_DATA_FAVORITES_PLACES`,
+  LOAD_DATA_COMMENTS: `LOAD_DATA_COMMENTS`
 };
 
 const ActionsCreator = {
@@ -39,6 +42,11 @@ const ActionsCreator = {
   loadDataFavoritesPlaces: (placesFavorites, citiesListFavorites) => ({
     type: ActionType.LOAD_DATA_FAVORITES_PLACES,
     payload: {placesFavorites, citiesListFavorites}
+  }),
+
+  loadDataComments: (comments) => ({
+    type: ActionType.LOAD_DATA_COMMENTS,
+    payload: comments
   })
 };
 
@@ -71,6 +79,11 @@ const reducer = (state = initialState, action) => {
         placesFavorites: action.payload.placesFavorites,
         citiesListFavorites: action.payload.citiesListFavorites
       });
+
+    case ActionType.LOAD_DATA_COMMENTS:
+      return Object.assign({}, state, {
+        comments: action.payload
+      });
   }
 
   return state;
@@ -81,17 +94,16 @@ const Operations = {
     return api.get(REQUEST_URL.HOTELS)
       .then((response) => {
         if (response.status === 200) {
-          const placesAll = preparePlacesData(response.data);
+          const placesAll = preparePlaces(response.data);
           const citiesList = getCitiesList(placesAll);
           const cityCurrent = getRandomCity(citiesList);
-
           dispatch(ActionsCreator.loadData(placesAll, citiesList, cityCurrent));
         }
       });
   },
 
   sendFavoriteData: (id, status) => (dispatch, _, api) => {
-    return api.post(`${REQUEST_URL.FAVORITE}/${id}/${status}`)
+    return api.post(`${REQUEST_URL.FAVORITES}/${id}/${status}`)
       .then((response) => {
         if (response.status === 200) {
           dispatch(ActionsCreator.addFavoritePlace(preparePlace(response.data)));
@@ -100,17 +112,24 @@ const Operations = {
   },
 
   getDataFavoritesPlaces: () => (dispatch, _, api) => {
-    return api.get(REQUEST_URL.FAVORITE)
+    return api.get(REQUEST_URL.FAVORITES)
       .then((response) => {
         if (response.status === 200) {
-          const placesFavorites = preparePlacesData(response.data);
+          const placesFavorites = preparePlaces(response.data);
           const citiesListFavorites = getCitiesList(placesFavorites);
           dispatch(ActionsCreator.loadDataFavoritesPlaces(placesFavorites, citiesListFavorites));
-          console.log(placesFavorites);
-          console.log(citiesListFavorites);
         }
       });
   },
+
+  loadDataComments: (id) => (dispatch, _, api) => {
+    return api.get(`${REQUEST_URL.COMMENTS}/${id}`)
+      .then((response) => {
+        if (response.status === 200) {
+          dispatch(ActionsCreator.loadDataComments(prepareComments(response.data)));
+        }
+      });
+  }
 };
 
 export {
