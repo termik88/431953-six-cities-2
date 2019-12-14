@@ -7,7 +7,6 @@ import withActiveItem from "../../hocs/with-active-item/with-active-item.jsx";
 const WrappedCityPlacesListContainer = withActiveItem(CityPlacesListContainer);
 
 const Main = () => {
-  console.log(`rerender main`);
   return (
     <main className="page__main page__main--index">
       <CitiesListContainer/>

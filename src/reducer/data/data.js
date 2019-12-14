@@ -1,5 +1,5 @@
 import {preparePlaces, preparePlace, prepareComments, getCitiesList, getRandomCity} from "../../until.js";
-import {NAME_SPACE} from "./selectors";
+import {getPlacesAll} from "./selectors.js";
 
 const REQUEST_URL = {
   HOTELS: `/hotels`,
@@ -101,7 +101,7 @@ const Operations = {
       .then((response) => {
         if (response.status === 200) {
           const placeNew = preparePlace(response.data);
-          const placesOld = getState()[NAME_SPACE].placesAll;
+          const placesOld = getPlacesAll(getState());
           const placesNew = placesOld.map((item) => {
             if (item.id === placeNew.id) {
               item.isFavorite = placeNew.isFavorite;

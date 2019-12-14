@@ -1,7 +1,7 @@
 import {createSelector} from "reselect";
 import NameSpace from "../name-spaces.js";
 
-export const NAME_SPACE = NameSpace.DATA;
+const NAME_SPACE = NameSpace.DATA;
 
 export const getPlacesAll = (state) => {
   return state[NAME_SPACE].placesAll;

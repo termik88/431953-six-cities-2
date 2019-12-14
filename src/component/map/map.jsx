@@ -74,7 +74,6 @@ class PropertyMap extends PureComponent {
   }
 
   render() {
-    console.log(`rerender map`);
     return <section className={`${this.props.nameMap}__map map`}>
       <div style={{height: `100%`}} id="map"/>
     </section>;
