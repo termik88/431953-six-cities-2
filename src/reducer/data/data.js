@@ -96,7 +96,7 @@ const Operations = {
       });
   },
 
-  sendFavoriteData: (id, status) => (dispatch, getState, api) => {
+  sendFavoriteData: (id, status, promiseFunction) => (dispatch, getState, api) => {
     return api.post(`${REQUEST_URL.FAVORITES}/${id}/${status}`)
       .then((response) => {
         if (response.status === 200) {

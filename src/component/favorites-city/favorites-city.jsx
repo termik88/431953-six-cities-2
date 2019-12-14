@@ -5,7 +5,6 @@ import {Link} from "react-router-dom";
 import Card from "../card/card.jsx";
 
 const FavoritesCity = ({cityName, path, handleClickCityName, favoritesOffers}) => {
-
   return (
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">

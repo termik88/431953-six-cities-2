@@ -4,13 +4,12 @@ import {Link} from "react-router-dom";
 
 import {FavoriteButtonContainer} from "../favorite-button/favorite-button.jsx";
 
-const Card = ({cardName, place, onMouseEnter = () => {}, onMouseLeave = () => {}}) => {
+const Card = ({cardName, place, handleAction = () => {}}) => {
   const {
     id,
     title,
     previewImage,
     type,
-    isFavorite,
     isPremium,
     rating,
     price
@@ -19,8 +18,8 @@ const Card = ({cardName, place, onMouseEnter = () => {}, onMouseLeave = () => {}
   return (
     <article
       className={`place-card place-card--${cardName}`}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}>
+      onMouseEnter={() => handleAction({id: place.id, location: place.location})}
+      onMouseLeave={() => handleAction(null)}>
       {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
@@ -46,10 +45,7 @@ const Card = ({cardName, place, onMouseEnter = () => {}, onMouseLeave = () => {}
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
 
-          <FavoriteButtonContainer
-            id = {id}
-            isFavorite = {isFavorite}
-          />
+          <FavoriteButtonContainer id = {id}/>
 
         </div>
         <div className="place-card__rating rating">

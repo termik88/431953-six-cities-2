@@ -46,6 +46,10 @@ class Favorites extends PureComponent {
       </>
     );
   }
+
+  componentWillUnmount() {
+    this.props.getDataFavoritesPlaces();
+  }
 }
 
 const mapStateToProps = (state) => ({

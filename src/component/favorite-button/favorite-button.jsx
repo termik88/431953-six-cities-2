@@ -3,23 +3,21 @@ import {connect} from "react-redux";
 import {Operations} from "../../reducer/data/data.js";
 import {getAuthorizationStatus} from "../../reducer/user/selector.js";
 import {useHistory} from "react-router-dom";
+import {getPlacesAll} from "../../reducer/data/selectors";
 
-const FavoriteButton = ({buttonName = `place-card`, id, isFavorite, sendFavoriteData, getAuthorizationStatus}) => {
+const FavoriteButton = ({buttonName = `place-card`, id, placesAll, sendFavoriteData, getAuthorizationStatus}) => {
   let history = useHistory();
 
   const handleClick = (evt) => {
     evt.preventDefault();
-    console.log(`Click Handle`);
-    console.log(`id`);
-    console.log(id);
-    console.log(`isFavorite`);
-    console.log(isFavorite);
     if (getAuthorizationStatus) {
       history.push(`/login`);
     } else {
       sendFavoriteData(id, +!isFavorite);
     }
   };
+
+  const isFavorite = placesAll.find((item) => item.id === id).isFavorite;
 
   return (
     <button
@@ -38,7 +36,8 @@ const FavoriteButton = ({buttonName = `place-card`, id, isFavorite, sendFavorite
 };
 
 const mapStateToProps = (state) => ({
-  getAuthorizationStatus: getAuthorizationStatus(state)
+  getAuthorizationStatus: getAuthorizationStatus(state),
+  placesAll: getPlacesAll(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

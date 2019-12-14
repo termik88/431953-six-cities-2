@@ -7,7 +7,7 @@ import {getCityCurrent, getPlacesSelected} from "../../reducer/data/selectors.js
 import PlacesList from '../places-list/places-list.jsx';
 import Map from "../map/map.jsx";
 
-const CityPlacesList = ({cityCurrent, placesSelected, onSelect, active}) => {
+const CityPlacesList = ({cityCurrent, placesSelected, handleAction, active}) => {
   return (
     <div className="cities">
       {
@@ -42,7 +42,7 @@ const CityPlacesList = ({cityCurrent, placesSelected, onSelect, active}) => {
               </form>
               <PlacesList
                 placesSelected = {placesSelected}
-                onSelect = {onSelect}
+                handleAction = {handleAction}
                 active = {active}
               />
             </section>
@@ -106,7 +106,7 @@ CityPlacesList.propTypes = {
       zoom: PropTypes.number
     })
   })).isRequired,
-  onSelect: PropTypes.func.isRequired,
+  handleAction: PropTypes.func.isRequired,
   active: PropTypes.exact({
     id: PropTypes.number,
     location: PropTypes.exact({

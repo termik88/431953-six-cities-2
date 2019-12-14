@@ -14,14 +14,8 @@ import {FavoriteButtonContainer} from "../favorite-button/favorite-button.jsx";
 const IMAGES_MAX = 6;
 
 class Property extends PureComponent {
-  constructor(props) {
-    super(props);
-    console.log(`constructor !!!!!!!!!!!!!!!!!!!!!!!!!`);
-  }
-
   componentDidMount() {
     this.props.loadDataComments(this.props.match.params.id);
-    console.log(`componentDidMount !!!!!!!!!!!!!!!`);
   }
 
   render() {
@@ -43,9 +37,6 @@ class Property extends PureComponent {
       host,
       description
     } = placeCurrent;
-    console.log(`RENDER!!!!!!!!!!!!!!!!!!!!`);
-    console.log(`id ${id}`);
-    console.log(`favorite ${isFavorite}`);
     return (
       <main className="page__main page__main--property">
         <section className="property">

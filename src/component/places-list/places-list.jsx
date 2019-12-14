@@ -4,17 +4,16 @@ import PropTypes from "prop-types";
 import Card from '../card/card.jsx';
 
 const PlacesList = (props) => {
-  const {placesSelected, onSelect} = props;
+  const {placesSelected, handleAction} = props;
 
   return (
     <div className="cities__places-list places__list tabs__content">
       {placesSelected.map((place) => (
         <Card
-          cardName = {`cities`}
           key = {`place-${place.id}`}
+          cardName = {`cities`}
           place = {place}
-          onMouseEnter = {() => onSelect({id: place.id, location: place.location})}
-          onMouseLeave = {() => onSelect(null)}
+          handleAction = {handleAction}
         />))}
     </div>
   );
@@ -55,7 +54,7 @@ PlacesList.propTypes = {
       zoom: PropTypes.number
     })
   })).isRequired,
-  onSelect: PropTypes.func.isRequired
+  handleAction: PropTypes.func.isRequired
 };
 
 export default PlacesList;
