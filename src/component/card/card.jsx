@@ -1,24 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
-import {connect} from "react-redux";
-import {Operations} from "../../reducer/data/data.js";
-import {getAuthorizationStatus} from "../../reducer/user/selector.js";
-import {useHistory} from "react-router-dom";
 
-const Card = ({cardName, place, onMouseEnter = () => {}, onMouseLeave = () => {}, sendFavoriteData, getAuthorizationStatus, getDataFavoritesPlaces}) => {
-  let history = useHistory();
+import {FavoriteButtonContainer} from "../favorite-button/favorite-button.jsx";
 
-  const handleClick = (evt) => {
-    evt.preventDefault();
-    if (getAuthorizationStatus) {
-      history.push(`/login`);
-    } else {
-      sendFavoriteData(id, +!isFavorite);
-      getDataFavoritesPlaces();
-    }
-  };
-
+const Card = ({cardName, place, onMouseEnter = () => {}, onMouseLeave = () => {}}) => {
   const {
     id,
     title,
@@ -59,15 +45,12 @@ const Card = ({cardName, place, onMouseEnter = () => {}, onMouseLeave = () => {}
             )}
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button
-            className={`place-card__bookmark-button button ${isFavorite ? `place-card__bookmark-button--active` : ``}`}
-            type="button"
-            onClick={handleClick}>
-            <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"/>
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+
+          <FavoriteButtonContainer
+            id = {id}
+            isFavorite = {isFavorite}
+          />
+
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
@@ -123,16 +106,4 @@ Card.propTypes = {
   onMouseLeave: PropTypes.func,
 };
 
-const mapStateToProps = (state) => ({
-  getAuthorizationStatus: getAuthorizationStatus(state)
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  sendFavoriteData: (id, status) => dispatch(Operations.sendFavoriteData(id, status)),
-  getDataFavoritesPlaces: () => dispatch(Operations.getDataFavoritesPlaces())
-});
-
-
-const CardContainer = connect(mapStateToProps, mapDispatchToProps)(Card);
-
-export {Card, CardContainer};
+export default Card;

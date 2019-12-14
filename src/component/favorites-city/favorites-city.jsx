@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 import {Link} from "react-router-dom";
 
-import {CardContainer} from "../card/card.jsx";
+import Card from "../card/card.jsx";
 
 const FavoritesCity = ({cityName, path, handleClickCityName, favoritesOffers}) => {
 
@@ -21,7 +21,7 @@ const FavoritesCity = ({cityName, path, handleClickCityName, favoritesOffers}) =
       <div className="favorites__places">
 
         {favoritesOffers.map((place) => place.city.name === cityName ? (
-          <CardContainer
+          <Card
             key = {`place-${place.id}`}
             cardName = {`favorites`}
             place = {place}

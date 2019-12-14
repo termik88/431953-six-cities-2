@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import {CardContainer} from '../card/card.jsx';
+import Card from '../card/card.jsx';
 
 const PlacesList = (props) => {
   const {placesSelected, onSelect} = props;
@@ -9,7 +9,7 @@ const PlacesList = (props) => {
   return (
     <div className="cities__places-list places__list tabs__content">
       {placesSelected.map((place) => (
-        <CardContainer
+        <Card
           cardName = {`cities`}
           key = {`place-${place.id}`}
           place = {place}
