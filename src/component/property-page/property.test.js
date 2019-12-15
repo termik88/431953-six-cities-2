@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import {Property} from './property.jsx';
+import {PropertyPage} from './property-page.jsx';
 
 describe(`PlaceDetails component test.`, () => {
   it(`Correctly renders after relaunch`, () => {
@@ -43,7 +43,7 @@ describe(`PlaceDetails component test.`, () => {
     };
 
     const test = renderer
-      .create(<Property
+      .create(<PropertyPage
         {...mockDate}
       />)
       .toJSON();

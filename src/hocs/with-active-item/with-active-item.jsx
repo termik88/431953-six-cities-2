@@ -24,7 +24,7 @@ const withActiveItem = (Component) => {
         <Component
           {...this.props}
           active = {active}
-          onSelect={this.handleSelectItem}
+          handleAction={this.handleSelectItem}
         />
       );
     }

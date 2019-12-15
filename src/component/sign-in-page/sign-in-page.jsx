@@ -6,7 +6,7 @@ import {Link} from "react-router-dom";
 import {getCityCurrent} from "../../reducer/data/selectors.js";
 import {Operations} from "../../reducer/user/user.js";
 
-const SignIn = ({cityCurrent, email, password, isValidationInput, onInputChange, handleSendAuthorizationData, history}) => {
+const SignInPage = ({cityCurrent, email, password, isValidationInput, onInputChange, handleSendAuthorizationData, history}) => {
   const handleRedirect = () => history.push(`/`);
 
   const handleSend = (evt) => {
@@ -58,7 +58,7 @@ const SignIn = ({cityCurrent, email, password, isValidationInput, onInputChange,
   );
 };
 
-SignIn.propTypes = {
+SignInPage.propTypes = {
   cityCurrent: PropTypes.string.isRequired,
   email: PropTypes.string,
   password: PropTypes.string,
@@ -74,7 +74,7 @@ const mapDispatchToProps = (dispatch) => ({
   handleSendAuthorizationData: (email, password, handleRedirect) => dispatch(Operations.sendAuthorizationData(email, password, handleRedirect))
 });
 
-const SignInContainer = connect(mapStateToProps, mapDispatchToProps)(SignIn);
+const SignInPageContainer = connect(mapStateToProps, mapDispatchToProps)(SignInPage);
 
-export {SignIn, SignInContainer};
+export {SignInPage, SignInPageContainer};
 

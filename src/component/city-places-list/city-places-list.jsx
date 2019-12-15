@@ -2,12 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
 
-import {getCityCurrent, getPlacesSelected} from "../../reducer/data/selectors.js";
+import {getCityCurrent, getPlacesSelected, getSortMethodCurrent, getSortMethodsList} from "../../reducer/data/selectors.js";
+import {ActionsCreator} from "../../reducer/data/data.js";
 
+import SortMethodsList from "../sort-methods-list/sort-methods-list.jsx";
 import PlacesList from '../places-list/places-list.jsx';
 import Map from "../map/map.jsx";
 
-const CityPlacesList = ({cityCurrent, placesSelected, onSelect, active}) => {
+import withToggle from "../../hocs/with-toggle/with-toggle.jsx";
+
+const WrappedSortMethodsList = withToggle(SortMethodsList);
+
+const CityPlacesList = ({cityCurrent, placesSelected, handleAction, active, sortMethodsList, sortMethodCurrent, onChangeSortMethod}) => {
   return (
     <div className="cities">
       {
@@ -16,33 +22,16 @@ const CityPlacesList = ({cityCurrent, placesSelected, onSelect, active}) => {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{placesSelected.length} places to stay in {cityCurrent}</b>
-              <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
-                <span className="places__sorting-type" tabIndex="0">
-                  Popular
-                  <svg className="places__sorting-arrow" width="7" height="4">
-                    <use xlinkHref="#icon-arrow-select"/>
-                  </svg>
-                </span>
-                <ul className="places__options places__options--custom places__options--opened">
-                  <li className="places__option places__option--active" tabIndex="0">Popular</li>
-                  <li className="places__option" tabIndex="0">Price: low to high</li>
-                  <li className="places__option" tabIndex="0">Price: high to low</li>
-                  <li className="places__option" tabIndex="0">Top rated first</li>
-                </ul>
-                {/*
-                <select class="places__sorting-type" id="places-sorting">
-                  <option class="places__option" value="popular" selected="">Popular</option>
-                  <option class="places__option" value="to-high">Price: low to high</option>
-                  <option class="places__option" value="to-low">Price: high to low</option>
-                  <option class="places__option" value="top-rated">Top rated first</option>
-                </select>
-                */}
 
-              </form>
+              <WrappedSortMethodsList
+                sortMethodsList = {sortMethodsList}
+                sortMethodCurrent = {sortMethodCurrent}
+                onChangeSortMethod = {onChangeSortMethod}
+              />
+
               <PlacesList
                 placesSelected = {placesSelected}
-                onSelect = {onSelect}
+                handleAction = {handleAction}
                 active = {active}
               />
             </section>
@@ -106,7 +95,7 @@ CityPlacesList.propTypes = {
       zoom: PropTypes.number
     })
   })).isRequired,
-  onSelect: PropTypes.func.isRequired,
+  handleAction: PropTypes.func.isRequired,
   active: PropTypes.exact({
     id: PropTypes.number,
     location: PropTypes.exact({
@@ -123,8 +112,14 @@ const mapStateToProps = (state, ownProps) =>
   Object.assign({}, ownProps, {
     cityCurrent: getCityCurrent(state),
     placesSelected: getPlacesSelected(state),
+    sortMethodsList: getSortMethodsList(state),
+    sortMethodCurrent: getSortMethodCurrent(state)
   });
 
-const CityPlacesListContainer = connect(mapStateToProps)(CityPlacesList);
+const mapDispatchToProps = (dispatch) => ({
+  onChangeSortMethod: (method) => dispatch(ActionsCreator.changeSortMethod(method))
+});
+
+const CityPlacesListContainer = connect(mapStateToProps, mapDispatchToProps)(CityPlacesList);
 
 export {CityPlacesList, CityPlacesListContainer};

@@ -7,16 +7,13 @@ import {transformRatingToStarsNumber, getPlacesNearest} from "../../until.js";
 import {Operations} from "../../reducer/data/data.js";
 
 import Review from "../review/review.jsx";
-import {CardContainer} from "../card/card.jsx";
+import Card from "../card/card.jsx";
 import Map from "../map/map.jsx";
+import {FavoriteButtonContainer} from "../favorite-button/favorite-button.jsx";
 
 const IMAGES_MAX = 6;
 
-class Property extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
-
+class PropertyPage extends PureComponent {
   componentDidMount() {
     this.props.loadDataComments(this.props.match.params.id);
   }
@@ -26,6 +23,7 @@ class Property extends PureComponent {
     const placesNearest = getPlacesNearest(placeCurrent, this.props.places);
 
     const {
+      id,
       images,
       title,
       isFavorite,
@@ -36,10 +34,9 @@ class Property extends PureComponent {
       price,
       goods,
       type,
-      host: {id, isPro, name, avatarUrl},
+      host,
       description
     } = placeCurrent;
-
     return (
       <main className="page__main page__main--property">
         <section className="property">
@@ -60,16 +57,13 @@ class Property extends PureComponent {
               )}
               <div className="property__name-wrapper">
                 <h1 className="property__name">{title}</h1>
-                <button
-                  className={isFavorite
-                    ? `property__bookmark-button button`
-                    : `property__bookmark-button property__bookmark-button--active button`}
-                  type="button">
-                  <svg className="property__bookmark-icon" width="31" height="33">
-                    <use xlinkHref="#icon-bookmark"/>
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
+
+                <FavoriteButtonContainer
+                  buttonName = {`property`}
+                  id = {id}
+                  isFavorite = {isFavorite}
+                />
+
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
@@ -103,17 +97,17 @@ class Property extends PureComponent {
               </div>
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
-                <div key={id} className="property__host-user user">
+                <div key={host.id} className="property__host-user user">
                   <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
                     <img
                       className="property__avatar user__avatar"
-                      src={`../${avatarUrl}`}
+                      src={`../${host.avatarUrl}`}
                       width="74"
                       height="74"
                       alt="Host avatar"/>
                   </div>
-                  <span className="property__user-name">{name}</span>
-                  {isPro && (<span className="property__user-status">
+                  <span className="property__user-name">{host.name}</span>
+                  {host.isPro && (<span className="property__user-status">
                   Pro
                   </span>)}
                 </div>
@@ -143,7 +137,7 @@ class Property extends PureComponent {
             <div className="near-places__list places__list">
 
               {placesNearest.map((item) => (
-                <CardContainer
+                <Card
                   key = {`card-${item.id}`}
                   cardName = {`near`}
                   place = {item}
@@ -207,6 +201,6 @@ const mapDispatchToProps = (dispatch) => ({
   loadDataComments: (id) => dispatch(Operations.loadDataComments(id))
 });
 
-const PropertyContainer = connect(mapStateToProps, mapDispatchToProps)(Property);
+const PropertyPageContainer = connect(mapStateToProps, mapDispatchToProps)(PropertyPage);
 
-export {Property, PropertyContainer};
+export {PropertyPage, PropertyPageContainer};

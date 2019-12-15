@@ -9,21 +9,17 @@ import withInputChange from "../../hocs/with-input-change/with-input-change.jsx"
 import withLayout from '../../hocs/with-layout/with-layout.jsx';
 import withAuthorization from "../../hocs/with-authorization/with-authorization.jsx";
 
-import Main from '../main/main.jsx';
-import {SignInContainer} from "../sign-in/sign-in.jsx";
-import {FavoritesContainer} from "../favorites/favorites.jsx";
-import {PropertyContainer} from '../property/property.jsx';
+import MainPage from '../main-page/main-page.jsx';
+import {SignInPageContainer} from "../sign-in-page/sign-in-page.jsx";
+import {FavoritesPageContainer} from "../favorites-page/favorites-page.jsx";
+import {PropertyPageContainer} from '../property-page/property-page.jsx';
 
-const WrappedSignIn = withLayout(withInputChange(SignInContainer), `page page--gray page--login`);
-const WrappedMain = withLayout(Main, `page--gray page--main`);
-const WrappedFavoritesContainer = withAuthorization(withLayout(FavoritesContainer, `page--favorites`));
-const WrappedPropertyContainer = withLayout(PropertyContainer, ``);
+const WrappedSignInPageContainer = withLayout(withInputChange(SignInPageContainer), `page page--gray page--login`);
+const WrappedMainPage = withLayout(MainPage, `page--gray page--main`);
+const WrappedFavoritesPageContainer = withAuthorization(withLayout(FavoritesPageContainer, `page--favorites`));
+const WrappedPropertyPageContainer = withLayout(PropertyPageContainer, ``);
 
 class App extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     this.props.loadData();
   }
@@ -31,10 +27,10 @@ class App extends PureComponent {
   render() {
     return (
       <Switch>
-        <Route path='/' exact component = {WrappedMain}/>
-        <Route path='/login' exact component = {WrappedSignIn} />
-        <Route path='/favorites' exact component = {WrappedFavoritesContainer}/>
-        <Route path='/offer/:id' exact component = {WrappedPropertyContainer}/>
+        <Route path='/' exact component = {WrappedMainPage}/>
+        <Route path='/login' exact component = {WrappedSignInPageContainer} />
+        <Route path='/favorites' exact component = {WrappedFavoritesPageContainer}/>
+        <Route path='/offer/:id' exact component = {WrappedPropertyPageContainer}/>
         <Redirect to='/' />
         <Route
           render = {() => (

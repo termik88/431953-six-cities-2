@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 
-import {getAuthorizationStatus, getUserData} from "../../reducer/user/selector";
+import {getAuthorizationStatus, getUserData} from "../../reducer/user/selector.js";
 
 const Header = ({userData, isAuthorizationRequired}) => {
   return (
