@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import {Main} from './main.jsx';
+import {MainPage} from './main-page.jsx';
 
 describe(`Main component test.`, () => {
   it(`Correctly renders after relaunch`, () => {

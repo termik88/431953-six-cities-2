@@ -7,7 +7,28 @@ const REQUEST_URL = {
   COMMENTS: `/comments`
 };
 
+const sortMethodsList = [
+  {
+    name: `Popular`,
+    method: () => {},
+  },
+  {
+    name: `Price: low to high`,
+    method: (a, b) => a.price - b.price
+  },
+  {
+    name: `Price: high to low`,
+    method: (a, b) => b.price - a.price
+  },
+  {
+    name: `Top rated first`,
+    method: (a, b) => b.rating - a.rating
+  },
+];
+
 const initialState = {
+  sortMethodsList,
+  sortMethodCurrent: sortMethodsList[0],
   cityCurrent: ``,
   citiesList: [],
   placesAll: [],
@@ -17,6 +38,7 @@ const initialState = {
 };
 
 const ActionType = {
+  CHANGE_SORT_METHOD: `CHANGE_SORT_METHOD`,
   CHANGE_CITY_CURRENT: `CHANGE_CITY_CURRENT`,
   LOAD_PLACES_DATA: `LOAD_PLACES_DATA`,
   ADD_FAVORITE_PLACE: `ADD_FAVORITE_PLACE`,
@@ -25,6 +47,11 @@ const ActionType = {
 };
 
 const ActionsCreator = {
+  changeSortMethod: (method) => ({
+    type: ActionType.CHANGE_SORT_METHOD,
+    payload: method
+  }),
+
   changeCityCurrent: (cityName) => ({
     type: ActionType.CHANGE_CITY_CURRENT,
     payload: cityName,
@@ -54,6 +81,9 @@ const ActionsCreator = {
 const reducer = (state = initialState, action) => {
   const newState = Object.assign({}, state);
   switch (action.type) {
+    case ActionType.CHANGE_SORT_METHOD:
+      newState.sortMethodCurrent = action.payload;
+      return newState;
 
     case ActionType.CHANGE_CITY_CURRENT:
       newState.cityCurrent = action.payload;
@@ -96,7 +126,7 @@ const Operations = {
       });
   },
 
-  sendFavoriteData: (id, status, promiseFunction) => (dispatch, getState, api) => {
+  sendFavoriteData: (id, status) => (dispatch, getState, api) => {
     return api.post(`${REQUEST_URL.FAVORITES}/${id}/${status}`)
       .then((response) => {
         if (response.status === 200) {

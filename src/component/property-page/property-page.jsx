@@ -13,7 +13,7 @@ import {FavoriteButtonContainer} from "../favorite-button/favorite-button.jsx";
 
 const IMAGES_MAX = 6;
 
-class Property extends PureComponent {
+class PropertyPage extends PureComponent {
   componentDidMount() {
     this.props.loadDataComments(this.props.match.params.id);
   }
@@ -201,6 +201,6 @@ const mapDispatchToProps = (dispatch) => ({
   loadDataComments: (id) => dispatch(Operations.loadDataComments(id))
 });
 
-const PropertyContainer = connect(mapStateToProps, mapDispatchToProps)(Property);
+const PropertyPageContainer = connect(mapStateToProps, mapDispatchToProps)(PropertyPage);
 
-export {Property, PropertyContainer};
+export {PropertyPage, PropertyPageContainer};

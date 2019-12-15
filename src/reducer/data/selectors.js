@@ -3,6 +3,14 @@ import NameSpace from "../name-spaces.js";
 
 const NAME_SPACE = NameSpace.DATA;
 
+export const getSortMethodsList = (state) => {
+  return state[NAME_SPACE].sortMethodsList;
+};
+
+export const getSortMethodCurrent = (state) => {
+  return state[NAME_SPACE].sortMethodCurrent;
+};
+
 export const getPlacesAll = (state) => {
   return state[NAME_SPACE].placesAll;
 };
@@ -18,7 +26,8 @@ export const getCityCurrent = (state) => {
 export const getPlacesSelected = createSelector(
     getCityCurrent,
     getPlacesAll,
-    (resultOne, resultTwo) => resultTwo.filter((place) => place.city.name === resultOne)
+    getSortMethodCurrent,
+    (resultOne, resultTwo, resultThree) => resultTwo.filter((place) => place.city.name === resultOne).sort(resultThree.method)
 );
 
 export const getFavoritesPlaces = (state) => {

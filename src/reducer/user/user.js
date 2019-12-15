@@ -51,6 +51,15 @@ const Operations = {
         }
       });
   },
+
+  // checkAuthorization: () => (dispatch, _, api) => {
+  //   return api.get(REQUEST_URL.LOGIN)
+  //     .then((response) => {
+  //       if (response.status === 200) {
+  //         dispatch(ActionCreator.signIn(prepareUser(response.data)));
+  //       }
+  //     });
+  // }
 };
 
 export {

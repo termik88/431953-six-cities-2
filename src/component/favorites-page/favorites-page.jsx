@@ -8,7 +8,7 @@ import {ActionsCreator, Operations} from "../../reducer/data/data.js";
 import FavoritesFilled from "../favorites-filled/favorites-filled.jsx";
 import FavoritesEmpty from "../favorites-empty/favorites-empty.jsx";
 
-class Favorites extends PureComponent {
+class FavoritesPage extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -62,6 +62,6 @@ const mapDispatchToProps = (dispatch) => ({
   changeCurrentCityAndPlaces: (citySelected) => dispatch(ActionsCreator.changeCityCurrent(citySelected))
 });
 
-const FavoritesContainer = connect(mapStateToProps, mapDispatchToProps)(Favorites);
+const FavoritesPageContainer = connect(mapStateToProps, mapDispatchToProps)(FavoritesPage);
 
-export {Favorites, FavoritesContainer};
+export {FavoritesPage, FavoritesPageContainer};
