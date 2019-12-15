@@ -10,6 +10,7 @@ import Review from "../review/review.jsx";
 import Card from "../card/card.jsx";
 import Map from "../map/map.jsx";
 import {FavoriteButtonContainer} from "../favorite-button/favorite-button.jsx";
+import {getAuthorizationStatus} from "../../reducer/user/selector";
 
 const IMAGES_MAX = 6;
 
@@ -118,7 +119,10 @@ class PropertyPage extends PureComponent {
                 </div>
               </div>
 
-              <Review comments = {this.props.comments}/>
+              <Review
+                comments = {this.props.comments}
+                isAuthorizationRequired = {this.props.isAuthorizationRequired}
+              />
 
             </div>
           </div>
@@ -194,7 +198,8 @@ class PropertyPage extends PureComponent {
 
 const mapStateToProps = (state) => ({
   places: getPlacesAll(state),
-  comments: getComments(state)
+  comments: getComments(state),
+  isAuthorizationRequired: getAuthorizationStatus(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

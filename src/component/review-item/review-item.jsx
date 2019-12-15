@@ -7,6 +7,7 @@ const {
     date,
     commentText
   } = comment;
+
   return (
     <li className="reviews__item">
       <div key={id} className="reviews__user user">
