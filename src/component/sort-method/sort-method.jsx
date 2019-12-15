@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const SortMethod = ({i, method, sortMethodCurrent, onChangeSortMethod, handleToggle}) => {
+const SortMethod = ({i, method, sortMethodCurrent, changeSortMethod, handleToggle}) => {
   const handleClick = () => {
-    onChangeSortMethod(method);
+    changeSortMethod(method);
     handleToggle();
   };
 
