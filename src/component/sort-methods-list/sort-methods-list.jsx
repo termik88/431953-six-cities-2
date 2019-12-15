@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import SortMethod from "../sort-method/sort-method.jsx";
 
-const SortMethodsList = ({sortMethodCurrent, sortMethodsList, onChangeSortMethod, handleToggle, isOpen}) => {
+const SortMethodsList = ({sortMethodCurrent, sortMethodsList, changeSortMethod, handleToggle, isOpen}) => {
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by</span>
@@ -20,7 +20,7 @@ const SortMethodsList = ({sortMethodCurrent, sortMethodsList, onChangeSortMethod
             i = {i}
             method = {method}
             sortMethodCurrent = {sortMethodCurrent}
-            onChangeSortMethod = {onChangeSortMethod}
+            changeSortMethod = {changeSortMethod}
             handleToggle = {handleToggle}
           />
         ))
