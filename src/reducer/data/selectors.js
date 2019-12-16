@@ -41,3 +41,11 @@ export const getCitiesListFavorites = (state) => {
 export const getComments = (state) => {
   return state[NAME_SPACE].comments;
 };
+
+export const getIsLoading = (state) => {
+  return state[NAME_SPACE].isLoading;
+};
+
+export const getErrorInfo = (state) => {
+  return state[NAME_SPACE].error;
+};

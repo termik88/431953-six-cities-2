@@ -1,30 +1,18 @@
 import {preparePlaces, preparePlace, prepareComments, getCitiesList, getRandomCity} from "../../until.js";
-import {getPlacesAll} from "./selectors.js";
+import {getPlacesAll, getIsLoading} from "./selectors.js";
 
 const REQUEST_URL = {
+  HOME: `/`,
   HOTELS: `/hotels`,
   FAVORITES: `/favorite`,
   COMMENTS: `/comments`
 };
 
 const sortMethodsList = [
-  {
-    name: `Popular`,
-    method: () => {},
-  },
-  {
-    name: `Price: low to high`,
-    method: (a, b) => a.price - b.price
-  },
-  {
-    name: `Price: high to low`,
-    method: (a, b) => b.price - a.price
-  },
-  {
-    name: `Top rated first`,
-    method: (a, b) => b.rating - a.rating
-  },
-];
+  {name: `Popular`, method: () => {}},
+  {name: `Price: low to high`, method: (a, b) => a.price - b.price},
+  {name: `Price: high to low`, method: (a, b) => b.price - a.price},
+  {name: `Top rated first`, method: (a, b) => b.rating - a.rating}];
 
 const initialState = {
   sortMethodsList,
@@ -34,7 +22,9 @@ const initialState = {
   placesAll: [],
   placesFavorites: [],
   citiesListFavorites: [],
-  comments: []
+  comments: [],
+  isLoading: false,
+  error: ``
 };
 
 const ActionType = {
@@ -43,7 +33,9 @@ const ActionType = {
   LOAD_PLACES_DATA: `LOAD_PLACES_DATA`,
   ADD_FAVORITE_PLACE: `ADD_FAVORITE_PLACE`,
   LOAD_DATA_FAVORITES_PLACES: `LOAD_DATA_FAVORITES_PLACES`,
-  LOAD_DATA_COMMENTS: `LOAD_DATA_COMMENTS`
+  LOAD_DATA_COMMENTS: `LOAD_DATA_COMMENTS`,
+  CHANGE_LOADING_STATUS: `CHANGE_LOADING_STATUS`,
+  GET_ERROR_INFO: `GET_ERROR_INFO`
 };
 
 const ActionsCreator = {
@@ -75,6 +67,16 @@ const ActionsCreator = {
   loadDataComments: (comments) => ({
     type: ActionType.LOAD_DATA_COMMENTS,
     payload: comments
+  }),
+
+  changeLoadingStatus: (isLoading) => ({
+    type: ActionType.CHANGE_LOADING_STATUS,
+    payload: isLoading
+  }),
+
+  getErrorInfo: (error) => ({
+    type: ActionType.GET_ERROR_INFO,
+    payload: error
   })
 };
 
@@ -107,6 +109,14 @@ const reducer = (state = initialState, action) => {
 
     case ActionType.LOAD_DATA_COMMENTS:
       newState.comments = [...action.payload];
+      return newState;
+
+    case ActionType.CHANGE_LOADING_STATUS:
+      newState.isLoading = action.payload;
+      return newState;
+
+    case ActionType.GET_ERROR_INFO:
+      newState.error = action.payload;
       return newState;
   }
 
@@ -160,6 +170,17 @@ const Operations = {
       .then((response) => {
         if (response.status === 200) {
           dispatch(ActionsCreator.loadDataComments(prepareComments(response.data)));
+        }
+      });
+  },
+
+  sendComment: (id, comment) => (dispatch, getState, api) => {
+    dispatch(ActionsCreator.changeLoadingStatus(!getIsLoading(getState())));
+    return api.post(`${REQUEST_URL.COMMENTS}/${id}`, comment)
+      .then((response) => {
+        if (response.status === 200) {
+          dispatch(ActionsCreator.loadDataComments(prepareComments(response.data)));
+          dispatch(ActionsCreator.changeLoadingStatus(!getIsLoading(getState())));
         }
       });
   }

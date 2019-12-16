@@ -11,6 +11,7 @@ import Card from "../card/card.jsx";
 import Map from "../map/map.jsx";
 import {FavoriteButtonContainer} from "../favorite-button/favorite-button.jsx";
 import {getAuthorizationStatus} from "../../reducer/user/selector";
+import {getErrorInfo, getIsLoading} from "../../reducer/data/selectors";
 
 const IMAGES_MAX = 6;
 
@@ -43,10 +44,12 @@ class PropertyPage extends PureComponent {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
+
               {images.slice(0, IMAGES_MAX).map((it, i) =>
                 <div key={`image-${i}`} className="property__image-wrapper">
                   <img className="property__image" src={it} alt="Photo studio"/>
                 </div>)}
+
             </div>
           </div>
           <div className="property__container container">
@@ -120,8 +123,12 @@ class PropertyPage extends PureComponent {
               </div>
 
               <Review
+                placeId = {id}
                 comments = {this.props.comments}
                 isAuthorizationRequired = {this.props.isAuthorizationRequired}
+                onSendComment = {this.props.onSendComment}
+                isLoading = {this.props.isLoading}
+                errorInfo = {this.props.errorInfo}
               />
 
             </div>
@@ -146,8 +153,7 @@ class PropertyPage extends PureComponent {
                   cardName = {`near`}
                   place = {item}
                 />
-              ))
-              }
+              ))}
 
             </div>
           </section>
@@ -156,54 +162,25 @@ class PropertyPage extends PureComponent {
       </main>
     );
   }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.match.params.id !== prevProps.match.params.id) {
+      this.props.loadDataComments(this.props.match.params.id);
+    }
+  }
 }
-
-
-// Property.propTypes = {
-//   place: PropTypes.exact({
-//     id: PropTypes.number,
-//     city: PropTypes.exact({
-//       name: PropTypes.string,
-//       location: PropTypes.exact({
-//         latitude: PropTypes.number,
-//         longitude: PropTypes.number,
-//         zoom: PropTypes.number
-//       })
-//     }),
-//     previewImage: PropTypes.string,
-//     images: PropTypes.arrayOf(PropTypes.string),
-//     title: PropTypes.string,
-//     isFavorite: PropTypes.bool,
-//     isPremium: PropTypes.bool,
-//     rating: PropTypes.number,
-//     type: PropTypes.string,
-//     bedrooms: PropTypes.number,
-//     maxAdults: PropTypes.number,
-//     price: PropTypes.number,
-//     goods: PropTypes.arrayOf(PropTypes.string),
-//     host: PropTypes.exact({
-//       id: PropTypes.number,
-//       isPro: PropTypes.bool,
-//       name: PropTypes.string,
-//       avatarUrl: PropTypes.string
-//     }),
-//     description: PropTypes.string,
-//     location: PropTypes.exact({
-//       latitude: PropTypes.number,
-//       longitude: PropTypes.number,
-//       zoom: PropTypes.number
-//     })
-//   }).isRequired
-// };
 
 const mapStateToProps = (state) => ({
   places: getPlacesAll(state),
   comments: getComments(state),
-  isAuthorizationRequired: getAuthorizationStatus(state)
+  isAuthorizationRequired: getAuthorizationStatus(state),
+  isLoading: getIsLoading(state),
+  errorInfo: getErrorInfo(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  loadDataComments: (id) => dispatch(Operations.loadDataComments(id))
+  loadDataComments: (id) => dispatch(Operations.loadDataComments(id)),
+  onSendComment: (id, comment) => dispatch(Operations.sendComment(id, comment))
 });
 
 const PropertyPageContainer = connect(mapStateToProps, mapDispatchToProps)(PropertyPage);

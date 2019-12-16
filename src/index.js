@@ -13,7 +13,7 @@ import {AppContainer} from './component/app/app.jsx';
 
 const init = () => {
   const history = createBrowserHistory();
-  const api = configureAPI((path) => history.push(path));
+  const api = configureAPI((...args) => store.dispatch(...args), (path) => history.push(path));
   const store = createStore(
       reducer,
       compose(
