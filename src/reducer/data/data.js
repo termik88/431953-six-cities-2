@@ -183,6 +183,10 @@ const Operations = {
           dispatch(ActionsCreator.changeLoadingStatus(!getIsLoading(getState())));
           callBack();
         }
+      })
+      .catch((err) => {
+        dispatch(ActionsCreator.changeLoadingStatus(false));
+        dispatch(ActionsCreator.getErrorInfo(err.message));
       });
   }
 };

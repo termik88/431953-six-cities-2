@@ -20,7 +20,7 @@ const ReviewForm = ({isActive, review, isValidationReviewForm, onInputChange, ha
       <div className="reviews__rating-form form__rating">
         {stars.map((star) => (
           <ReviewFormStart
-            key = {`key-star-${star.number}-${!isActive}`}
+            key = {`key-star-${star.number}-${isActive}`}
             star = {star}
             onInputChange = {onInputChange}
             isLoading = {isLoading}
@@ -43,7 +43,7 @@ const ReviewForm = ({isActive, review, isValidationReviewForm, onInputChange, ha
           onClick={handleSendComment}
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={!isValidationReviewForm || isLoading}>Submit</button>
+          disabled={!isValidationReviewForm}>Submit</button>
       </div>
       { errorInfo && <span style={{color: `red`}}>{errorInfo}</span> }
     </form>

@@ -2,7 +2,7 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 
 const ReviewTextLength = {
-  MIN: 1,
+  MIN: 50,
   MAX: 300
 };
 
@@ -24,6 +24,7 @@ const withComment = (Component) => {
     }
 
     getInitialState() {
+      this.setState({isActive: -1});
       this.setState(initialState);
     }
 

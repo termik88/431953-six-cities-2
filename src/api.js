@@ -17,10 +17,10 @@ const configureAPI = (dispatch, redirect) => {
   const onSuccess = (response) => response;
 
   const onFail = (err) => {
-    if (err.response.status === 400) {
-      dispatch(ActionsCreator.changeLoadingStatus(false));
-      dispatch(ActionsCreator.getErrorInfo(err.message));
-    }
+    // if (err.response.status === 400) {
+    //   dispatch(ActionsCreator.changeLoadingStatus(false));
+    //   dispatch(ActionsCreator.getErrorInfo(err.message));
+    // }
 
     if (err.response.status === 401) {
       redirect(`/login`);
