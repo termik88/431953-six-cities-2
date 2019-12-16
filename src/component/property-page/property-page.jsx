@@ -180,7 +180,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   loadDataComments: (id) => dispatch(Operations.loadDataComments(id)),
-  onSendComment: (id, comment) => dispatch(Operations.sendComment(id, comment))
+  onSendComment: (id, comment, callBack) => dispatch(Operations.sendComment(id, comment, callBack))
 });
 
 const PropertyPageContainer = connect(mapStateToProps, mapDispatchToProps)(PropertyPage);

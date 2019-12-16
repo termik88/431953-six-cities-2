@@ -24,6 +24,7 @@ const configureAPI = (dispatch, redirect) => {
 
     if (err.response.status === 401) {
       redirect(`/login`);
+      dispatch(ActionsCreator.changeLoadingStatus(false));
     }
     return err;
   };

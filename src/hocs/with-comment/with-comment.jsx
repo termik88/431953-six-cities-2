@@ -2,21 +2,29 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 
 const ReviewTextLength = {
-  MIN: 50,
+  MIN: 1,
   MAX: 300
+};
+
+const initialState = {
+  rating: ``,
+  review: ``,
+  isActive: false
 };
 
 const withComment = (Component) => {
   class WithComment extends PureComponent {
     constructor(props) {
       super(props);
-      this.state = {
-        rating: ``,
-        review: ``,
-      };
+      this.state = initialState;
 
       this.handleInputChange = this.handleInputChange.bind(this);
       this.handleSendComment = this.handleSendComment.bind(this);
+      this.getInitialState = this.getInitialState.bind(this);
+    }
+
+    getInitialState() {
+      this.setState(initialState);
     }
 
     handleInputChange(active) {
@@ -31,7 +39,7 @@ const withComment = (Component) => {
 
     handleSendComment(evt) {
       evt.preventDefault();
-      this.props.onSendComment(this.props.placeId, {rating: +this.state.rating, comment: this.state.review});
+      this.props.onSendComment(this.props.placeId, {rating: +this.state.rating, comment: this.state.review}, this.getInitialState);
     }
 
     render() {

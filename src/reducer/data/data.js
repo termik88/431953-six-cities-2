@@ -142,14 +142,14 @@ const Operations = {
         if (response.status === 200) {
           const placeNew = preparePlace(response.data);
           const placesOld = getPlacesAll(getState());
-          const placesNew = placesOld.map((item) => {
+          const placesModified = placesOld.map((item) => {
             if (item.id === placeNew.id) {
               item.isFavorite = placeNew.isFavorite;
             }
             return item;
           });
 
-          dispatch(ActionsCreator.addFavoritePlace(placesNew));
+          dispatch(ActionsCreator.addFavoritePlace(placesModified));
         }
       });
   },
@@ -174,13 +174,14 @@ const Operations = {
       });
   },
 
-  sendComment: (id, comment) => (dispatch, getState, api) => {
+  sendComment: (id, comment, callBack) => (dispatch, getState, api) => {
     dispatch(ActionsCreator.changeLoadingStatus(!getIsLoading(getState())));
     return api.post(`${REQUEST_URL.COMMENTS}/${id}`, comment)
       .then((response) => {
         if (response.status === 200) {
           dispatch(ActionsCreator.loadDataComments(prepareComments(response.data)));
           dispatch(ActionsCreator.changeLoadingStatus(!getIsLoading(getState())));
+          callBack();
         }
       });
   }

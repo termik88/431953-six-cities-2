@@ -10,7 +10,7 @@ const stars = [
   {number: `1`, title: `terribly`},
 ];
 
-const ReviewForm = ({isValidationReviewForm, onInputChange, handleSendComment, isLoading, errorInfo}) => {
+const ReviewForm = ({isActive, review, isValidationReviewForm, onInputChange, handleSendComment, isLoading, errorInfo}) => {
   return (
     <form
       className="reviews__form form"
@@ -18,9 +18,9 @@ const ReviewForm = ({isValidationReviewForm, onInputChange, handleSendComment, i
       method="post">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
-        {stars.map((star, i) => (
+        {stars.map((star) => (
           <ReviewFormStart
-            key = {`key-star-${i}-${star.number}`}
+            key = {`key-star-${star.number}-${!isActive}`}
             star = {star}
             onInputChange = {onInputChange}
             isLoading = {isLoading}
@@ -28,6 +28,7 @@ const ReviewForm = ({isValidationReviewForm, onInputChange, handleSendComment, i
       </div>
       <textarea
         onChange={onInputChange}
+        value={review}
         className="reviews__textarea form__textarea"
         id="review"
         name="review"
@@ -42,7 +43,7 @@ const ReviewForm = ({isValidationReviewForm, onInputChange, handleSendComment, i
           onClick={handleSendComment}
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={!isValidationReviewForm}>Submit</button>
+          disabled={!isValidationReviewForm || isLoading}>Submit</button>
       </div>
       { errorInfo && <span style={{color: `red`}}>{errorInfo}</span> }
     </form>
