@@ -57,7 +57,7 @@ const MONTHS = [
   `December`,
 ];
 
-const getMonthYear = (date) => {
+export const getMonthYear = (date) => {
   if (!date) {
     return ``;
   }
@@ -71,7 +71,6 @@ const prepareComment = (comment) => {
   const newComment = Object.assign({}, comment);
   newComment.rating = transformRatingToPercent(newComment.rating);
   newComment.commentText = newComment.comment;
-  newComment.date = getMonthYear(newComment.date);
   delete newComment.comment;
   newComment.user = prepareUser(newComment.user);
 

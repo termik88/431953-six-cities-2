@@ -16,17 +16,18 @@ const configureAPI = (dispatch, redirect) => {
 
   const onSuccess = (response) => response;
 
-  const onFail = (err) => {
-    // if (err.response.status === 400) {
-    //   dispatch(ActionsCreator.changeLoadingStatus(false));
-    //   dispatch(ActionsCreator.getErrorInfo(err.message));
-    // }
+  const onFail = (error) => {
+    if (error.response.status === 400) {
+      dispatch(ActionsCreator.changeLoadingStatus(false));
+      dispatch(ActionsCreator.getErrorInfo(`Check the correctness of the entered data.`));
+    }
 
-    if (err.response.status === 401) {
+    if (error.response.status === 401) {
       redirect(`/login`);
       dispatch(ActionsCreator.changeLoadingStatus(false));
+      dispatch(ActionsCreator.getErrorInfo(``));
     }
-    return err;
+    return error;
   };
 
   api.interceptors.response.use(onSuccess, onFail);

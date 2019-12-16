@@ -43,7 +43,7 @@ const ReviewForm = ({isActive, review, isValidationReviewForm, onInputChange, ha
           onClick={handleSendComment}
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={!isValidationReviewForm}>Submit</button>
+          disabled={!isValidationReviewForm || isLoading}>Submit</button>
       </div>
       { errorInfo && <span style={{color: `red`}}>{errorInfo}</span> }
     </form>

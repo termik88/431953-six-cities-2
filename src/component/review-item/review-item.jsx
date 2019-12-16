@@ -1,4 +1,5 @@
 import React from "react";
+import {getMonthYear} from "../../until.js";
 
 const ReviewItem = ({comment}) => {
 const {
@@ -27,7 +28,7 @@ const {
         <p className="reviews__text">
           {commentText}
         </p>
-        <time className="reviews__time" dateTime="2019-04-24">{date}</time>
+        <time className="reviews__time" dateTime="2019-04-24">{getMonthYear(date)}</time>
       </div>
     </li>
   );

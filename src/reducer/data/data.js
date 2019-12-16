@@ -181,12 +181,13 @@ const Operations = {
         if (response.status === 200) {
           dispatch(ActionsCreator.loadDataComments(prepareComments(response.data)));
           dispatch(ActionsCreator.changeLoadingStatus(!getIsLoading(getState())));
+          dispatch(ActionsCreator.getErrorInfo(``));
           callBack();
         }
       })
-      .catch((err) => {
-        dispatch(ActionsCreator.changeLoadingStatus(false));
-        dispatch(ActionsCreator.getErrorInfo(err.message));
+      .catch((error) => {
+        dispatch(ActionsCreator.changeLoadingStatus(!getIsLoading(getState())));
+        dispatch(ActionsCreator.getErrorInfo(error.message));
       });
   }
 };
