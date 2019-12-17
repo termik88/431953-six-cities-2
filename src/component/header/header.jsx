@@ -1,6 +1,6 @@
 import React from "react";
-import {connect} from "react-redux";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 
 import {getAuthorizationStatus, getUserData} from "../../reducer/user/selector.js";

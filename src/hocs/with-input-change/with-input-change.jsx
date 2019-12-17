@@ -36,8 +36,8 @@ const withInputChange = (Component) => {
   }
 
   WithInputChange.propTypes = {
-    email: PropTypes.string.isRequired,
-    password: PropTypes.string.isRequired,
+    email: PropTypes.string,
+    password: PropTypes.string,
   };
 
   return WithInputChange;
