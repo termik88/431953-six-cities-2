@@ -8,16 +8,17 @@ import {Operations as OperationsUser} from "../../reducer/user/user.js";
 
 import withInputChange from "../../hocs/with-input-change/with-input-change.jsx";
 import withLayout from '../../hocs/with-layout/with-layout.jsx';
-import withAuthorization from "../../hocs/with-authorization/with-authorization.jsx";
+import withAuthorizationFalse from "../../hocs/with-authorization-false/with-authorization-false.jsx";
+import withAuthorizationTrue from "../../hocs/with-authorization-true/with-authorization-true.jsx";
 
 import MainPage from '../main-page/main-page.jsx';
 import {SignInPageContainer} from "../sign-in-page/sign-in-page.jsx";
 import {FavoritesPageContainer} from "../favorites-page/favorites-page.jsx";
 import {PropertyPageContainer} from '../property-page/property-page.jsx';
 
-const WrappedSignInPageContainer = withLayout(withInputChange(SignInPageContainer), `page page--gray page--login`);
+const WrappedSignInPageContainer = withAuthorizationTrue(withLayout(withInputChange(SignInPageContainer), `page page--gray page--login`));
 const WrappedMainPage = withLayout(MainPage, `page--gray page--main`);
-const WrappedFavoritesPageContainer = withAuthorization(withLayout(FavoritesPageContainer, `page--favorites`));
+const WrappedFavoritesPageContainer = withAuthorizationFalse(withLayout(FavoritesPageContainer, `page--favorites`));
 const WrappedPropertyPageContainer = withLayout(PropertyPageContainer, ``);
 
 class App extends PureComponent {
@@ -34,15 +35,6 @@ class App extends PureComponent {
         <Route path='/favorites' exact component = {WrappedFavoritesPageContainer}/>
         <Route path='/offer/:id' exact component = {WrappedPropertyPageContainer}/>
         <Redirect to='/' />
-        <Route
-          render = {() => (
-            <h1>
-              404.
-              <br/>
-              <small>Page not found</small>
-            </h1>
-          )}
-        />
       </Switch>
     );
   }

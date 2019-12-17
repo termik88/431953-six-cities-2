@@ -4,8 +4,8 @@ import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 import {getAuthorizationStatus} from "../../reducer/user/selector.js";
 
-const withAuthorization = (Component) => {
-  class WithAuthorization extends React.Component {
+const withAuthorizationFalse = (Component) => {
+  class WithAuthorizationFalse extends React.Component {
 
     render() {
       return this.props.isAuthorizationRequired ?
@@ -18,15 +18,15 @@ const withAuthorization = (Component) => {
     isAuthorizationRequired: !getAuthorizationStatus(state)
   });
 
-  WithAuthorization.propTypes = {
+  WithAuthorizationFalse.propTypes = {
     isAuthorizationRequired: PropTypes.bool.isRequired,
   };
 
-  return connect(mapStateToProps)(WithAuthorization);
+  return connect(mapStateToProps)(WithAuthorizationFalse);
 };
 
-withAuthorization.propTypes = {
+withAuthorizationFalse.propTypes = {
   Component: PropTypes.element.isRequired,
 };
 
-export default withAuthorization;
+export default withAuthorizationFalse;
