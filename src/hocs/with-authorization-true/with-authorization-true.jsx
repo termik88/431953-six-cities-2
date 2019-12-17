@@ -5,7 +5,7 @@ import {Redirect} from 'react-router-dom';
 import {getAuthorizationStatus} from "../../reducer/user/selector.js";
 
 const withAuthorizationTrue = (Component) => {
-  class WithAuthorizationFalse extends React.Component {
+  class WithAuthorizationTrue extends React.Component {
 
     render() {
       return this.props.isAuthorizationRequired ?
@@ -18,11 +18,11 @@ const withAuthorizationTrue = (Component) => {
     isAuthorizationRequired: getAuthorizationStatus(state)
   });
 
-  WithAuthorizationFalse.propTypes = {
+  WithAuthorizationTrue.propTypes = {
     isAuthorizationRequired: PropTypes.bool.isRequired,
   };
 
-  return connect(mapStateToProps)(WithAuthorizationFalse);
+  return connect(mapStateToProps)(WithAuthorizationTrue);
 };
 
 withAuthorizationTrue.propTypes = {

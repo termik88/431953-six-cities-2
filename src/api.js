@@ -25,7 +25,7 @@ const configureAPI = (dispatch, redirect) => {
     }
 
     if (error.response.status === ClientErrorResponses.UNAUTHORIZED) {
-      redirect(BrowserPaths.LOGIN);
+      redirect(BrowserPaths.SIG_IN);
       dispatch(ActionsCreatorData.changeLoadingStatus(false));
       dispatch(ActionsCreatorUser.requiredAuthorization(true));
     }
