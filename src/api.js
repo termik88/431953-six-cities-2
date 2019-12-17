@@ -1,7 +1,13 @@
 import axios from "axios";
 import {ActionsCreator as ActionsCreatorData} from "./reducer/data/data.js";
 import {ActionsCreator as ActionsCreatorUser} from "./reducer/user/user.js";
-import {ConfigApi, RequestUrl, ClientErrorResponses} from "./constants/constants.js";
+import {BrowserPaths, ClientErrorResponses} from "./constants/constants.js";
+
+export const ConfigApi = {
+  BASE_URL: `https://htmlacademy-react-2.appspot.com/six-cities`,
+  TIMEOUT: 5000,
+  WITH_CREDENTIALS: true
+};
 
 const configureAPI = (dispatch, redirect) => {
   const api = axios.create({
@@ -19,7 +25,7 @@ const configureAPI = (dispatch, redirect) => {
     }
 
     if (error.response.status === ClientErrorResponses.UNAUTHORIZED) {
-      redirect(RequestUrl.LOGIN);
+      redirect(BrowserPaths.LOGIN);
       dispatch(ActionsCreatorData.changeLoadingStatus(false));
       dispatch(ActionsCreatorUser.requiredAuthorization(true));
     }

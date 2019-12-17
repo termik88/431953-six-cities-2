@@ -1,6 +1,6 @@
 import {preparePlaces, preparePlace, prepareComments, getCitiesList, getRandomCity} from "../../until.js";
 import {getPlacesAll, getIsLoading} from "./selectors.js";
-import {RequestUrl, SuccessfulResponses} from "../../constants/constants.js";
+import {RequestUrls, SuccessfulResponses} from "../../constants/constants.js";
 
 const sortMethodsList = [
   {name: `Popular`, method: () => {}},
@@ -21,7 +21,7 @@ const initialState = {
   error: ``
 };
 
-const ActionType = {
+const ActionTypes = {
   CHANGE_SORT_METHOD: `CHANGE_SORT_METHOD`,
   CHANGE_CITY_CURRENT: `CHANGE_CITY_CURRENT`,
   LOAD_PLACES_DATA: `LOAD_PLACES_DATA`,
@@ -34,42 +34,42 @@ const ActionType = {
 
 const ActionsCreator = {
   changeSortMethod: (method) => ({
-    type: ActionType.CHANGE_SORT_METHOD,
+    type: ActionTypes.CHANGE_SORT_METHOD,
     payload: method
   }),
 
   changeCityCurrent: (cityName) => ({
-    type: ActionType.CHANGE_CITY_CURRENT,
+    type: ActionTypes.CHANGE_CITY_CURRENT,
     payload: cityName,
   }),
 
   loadData: (placesAll, citiesList, cityCurrent) => ({
-    type: ActionType.LOAD_PLACES_DATA,
+    type: ActionTypes.LOAD_PLACES_DATA,
     payload: {placesAll, citiesList, cityCurrent}
   }),
 
   addFavoritePlace: (favoritePlace) => ({
-    type: ActionType.ADD_FAVORITE_PLACE,
+    type: ActionTypes.ADD_FAVORITE_PLACE,
     payload: favoritePlace
   }),
 
   loadDataFavoritesPlaces: (placesFavorites, citiesListFavorites) => ({
-    type: ActionType.LOAD_DATA_FAVORITES_PLACES,
+    type: ActionTypes.LOAD_DATA_FAVORITES_PLACES,
     payload: {placesFavorites, citiesListFavorites}
   }),
 
   loadDataComments: (comments) => ({
-    type: ActionType.LOAD_DATA_COMMENTS,
+    type: ActionTypes.LOAD_DATA_COMMENTS,
     payload: comments
   }),
 
   changeLoadingStatus: (isLoading) => ({
-    type: ActionType.CHANGE_LOADING_STATUS,
+    type: ActionTypes.CHANGE_LOADING_STATUS,
     payload: isLoading
   }),
 
   getErrorInfo: (error) => ({
-    type: ActionType.GET_ERROR_INFO,
+    type: ActionTypes.GET_ERROR_INFO,
     payload: error
   })
 };
@@ -77,39 +77,39 @@ const ActionsCreator = {
 const reducer = (state = initialState, action) => {
   const newState = Object.assign({}, state);
   switch (action.type) {
-    case ActionType.CHANGE_SORT_METHOD:
+    case ActionTypes.CHANGE_SORT_METHOD:
       newState.sortMethodCurrent = Object.assign({}, action.payload);
       return newState;
 
-    case ActionType.CHANGE_CITY_CURRENT:
+    case ActionTypes.CHANGE_CITY_CURRENT:
       newState.cityCurrent = action.payload;
       return newState;
 
-    case ActionType.LOAD_PLACES_DATA:
+    case ActionTypes.LOAD_PLACES_DATA:
       newState.placesAll = [...action.payload.placesAll];
       newState.citiesList = [...action.payload.citiesList];
       newState.cityCurrent = action.payload.cityCurrent;
       return newState;
 
-    case ActionType.ADD_FAVORITE_PLACE:
+    case ActionTypes.ADD_FAVORITE_PLACE:
       newState.placesAll = [...action.payload];
       return newState;
 
 
-    case ActionType.LOAD_DATA_FAVORITES_PLACES:
+    case ActionTypes.LOAD_DATA_FAVORITES_PLACES:
       newState.placesFavorites = [...action.payload.placesFavorites];
       newState.citiesListFavorites = [...action.payload.citiesListFavorites];
       return newState;
 
-    case ActionType.LOAD_DATA_COMMENTS:
+    case ActionTypes.LOAD_DATA_COMMENTS:
       newState.comments = [...action.payload];
       return newState;
 
-    case ActionType.CHANGE_LOADING_STATUS:
+    case ActionTypes.CHANGE_LOADING_STATUS:
       newState.isLoading = action.payload;
       return newState;
 
-    case ActionType.GET_ERROR_INFO:
+    case ActionTypes.GET_ERROR_INFO:
       newState.error = action.payload;
       return newState;
   }
@@ -119,7 +119,7 @@ const reducer = (state = initialState, action) => {
 
 const Operations = {
   loadData: () => (dispatch, getState, api) => {
-    return api.get(RequestUrl.HOTELS)
+    return api.get(RequestUrls.HOTELS)
       .then((response) => {
         if (response.status === SuccessfulResponses.OK) {
           const placesAll = preparePlaces(response.data);
@@ -131,7 +131,7 @@ const Operations = {
   },
 
   sendFavoriteData: (id, status) => (dispatch, getState, api) => {
-    return api.post(`${RequestUrl.FAVORITES}/${id}/${status}`)
+    return api.post(`${RequestUrls.FAVORITES}/${id}/${status}`)
       .then((response) => {
         if (response.status === SuccessfulResponses.OK) {
           const placeNew = preparePlace(response.data);
@@ -149,7 +149,7 @@ const Operations = {
   },
 
   getDataFavoritesPlaces: () => (dispatch, getState, api) => {
-    return api.get(RequestUrl.FAVORITES)
+    return api.get(RequestUrls.FAVORITES)
       .then((response) => {
         if (response.status === SuccessfulResponses.OK) {
           const placesFavorites = preparePlaces(response.data);
@@ -160,7 +160,7 @@ const Operations = {
   },
 
   loadDataComments: (id) => (dispatch, getState, api) => {
-    return api.get(`${RequestUrl.COMMENTS}/${id}`)
+    return api.get(`${RequestUrls.COMMENTS}/${id}`)
       .then((response) => {
         if (response.status === SuccessfulResponses.OK) {
           dispatch(ActionsCreator.loadDataComments(prepareComments(response.data)));
@@ -170,7 +170,7 @@ const Operations = {
 
   sendComment: (id, comment, callBack) => (dispatch, getState, api) => {
     dispatch(ActionsCreator.changeLoadingStatus(!getIsLoading(getState())));
-    return api.post(`${RequestUrl.COMMENTS}/${id}`, comment)
+    return api.post(`${RequestUrls.COMMENTS}/${id}`, comment)
       .then((response) => {
         if (response.status === SuccessfulResponses.OK) {
           dispatch(ActionsCreator.loadDataComments(prepareComments(response.data)));

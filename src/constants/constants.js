@@ -1,15 +1,15 @@
-export const RequestUrl = {
-  HOME: `/`,
+export const RequestUrls = {
   LOGIN: `/login`,
   HOTELS: `/hotels`,
   FAVORITES: `/favorite`,
   COMMENTS: `/comments`
 };
 
-export const ConfigApi = {
-  BASE_URL: `https://htmlacademy-react-2.appspot.com/six-cities`,
-  TIMEOUT: 5000,
-  WITH_CREDENTIALS: true
+export const BrowserPaths = {
+  MAIN: `/`,
+  SIG_IN: `/login`,
+  PLACE: `/offer`,
+  FAVORITES: `/favorites`,
 };
 
 export const SuccessfulResponses = {

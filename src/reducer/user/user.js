@@ -1,5 +1,5 @@
 import {prepareUser} from "../../until.js";
-import {RequestUrl, SuccessfulResponses} from "../../constants/constants.js";
+import {RequestUrls, SuccessfulResponses} from "../../constants/constants.js";
 
 const initialState = {
   isAuthorizationRequired: true,
@@ -39,19 +39,19 @@ const reducer = (state = initialState, action) => {
 };
 
 const Operations = {
-  sendAuthorizationData: (email, password, handleRedirect) => (dispatch, getState, api) => {
-    return api.post(RequestUrl.LOGIN, {email, password})
+  sendAuthorizationData: (email, password, collback) => (dispatch, getState, api) => {
+    return api.post(RequestUrls.LOGIN, {email, password})
       .then((response) => {
         if (response.status === SuccessfulResponses.OK) {
           dispatch(ActionsCreator.loadUserData(prepareUser(response.data)));
           dispatch(ActionsCreator.requiredAuthorization(false));
-          handleRedirect();
+          collback();
         }
       });
   },
 
   checkAuthorization: () => (dispatch, getState, api) => {
-    return api.get(RequestUrl.LOGIN)
+    return api.get(RequestUrls.LOGIN)
       .then((response) => {
         if (response.status === SuccessfulResponses.OK) {
           dispatch(ActionsCreator.loadUserData(prepareUser(response.data)));

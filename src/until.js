@@ -5,7 +5,6 @@ export const getRandomCity = (citiesList) => citiesList[Math.floor(Math.random()
 const RATING_STARS = 5;
 const PERCENT = 100;
 const transformRatingToPercent = (ratingPlace) => Math.round(ratingPlace) / RATING_STARS * PERCENT;
-
 export const transformRatingToStarsNumber = (ratingPlace) => ratingPlace * RATING_STARS / PERCENT;
 
 export const prepareUser = (user) => {
@@ -18,21 +17,21 @@ export const prepareUser = (user) => {
   return userData;
 };
 
-export const preparePlace = (places) => {
-  const newPlaces = Object.assign({}, places);
-  newPlaces.previewImage = newPlaces.preview_image;
-  newPlaces.isFavorite = newPlaces.is_favorite;
-  newPlaces.isPremium = newPlaces.is_premium;
-  newPlaces.maxAdults = newPlaces.max_adults;
-  newPlaces.rating = transformRatingToPercent(newPlaces.rating);
-  newPlaces.type = newPlaces.type[0].toUpperCase() + newPlaces.type.slice(1);
-  delete newPlaces.preview_image;
-  delete newPlaces.is_favorite;
-  delete newPlaces.is_premium;
-  delete newPlaces.max_adults;
-  newPlaces.host = prepareUser(newPlaces.host);
+export const preparePlace = (place) => {
+  const newPlace = Object.assign({}, place);
+  newPlace.previewImage = newPlace.preview_image;
+  newPlace.isFavorite = newPlace.is_favorite;
+  newPlace.isPremium = newPlace.is_premium;
+  newPlace.maxAdults = newPlace.max_adults;
+  newPlace.rating = transformRatingToPercent(newPlace.rating);
+  newPlace.type = newPlace.type[0].toUpperCase() + newPlace.type.slice(1);
+  delete newPlace.preview_image;
+  delete newPlace.is_favorite;
+  delete newPlace.is_premium;
+  delete newPlace.max_adults;
+  newPlace.host = prepareUser(newPlace.host);
 
-  return newPlaces;
+  return newPlace;
 };
 
 export const preparePlaces = (placesList) => placesList.map((place) => preparePlace(place));

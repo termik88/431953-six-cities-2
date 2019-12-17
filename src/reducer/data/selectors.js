@@ -39,7 +39,6 @@ export const getCitiesListFavorites = (state) => {
 };
 
 export const getComments = (state) => {
-
   return state[NAME_SPACE].comments.sort((a, b) => new Date(b.date) - new Date(a.date));
 };
 
