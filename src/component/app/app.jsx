@@ -3,7 +3,8 @@ import {connect} from 'react-redux';
 import PropTypes from "prop-types";
 import {Route, Switch, Redirect} from "react-router-dom";
 
-import {Operations} from "../../reducer/data/data.js";
+import {Operations as OperationsData} from "../../reducer/data/data.js";
+import {Operations as OperationsUser} from "../../reducer/user/user.js";
 
 import withInputChange from "../../hocs/with-input-change/with-input-change.jsx";
 import withLayout from '../../hocs/with-layout/with-layout.jsx';
@@ -21,7 +22,8 @@ const WrappedPropertyPageContainer = withLayout(PropertyPageContainer, ``);
 
 class App extends PureComponent {
   componentDidMount() {
-    this.props.loadData();
+    this.props.onLoadData();
+    this.props.onCheckAuthorization();
   }
 
   render() {
@@ -47,11 +49,13 @@ class App extends PureComponent {
 }
 
 App.propTypes = {
-  loadData: PropTypes.func.isRequired
+  onLoadData: PropTypes.func.isRequired,
+  onCheckAuthorization: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  loadData: () => dispatch(Operations.loadData())
+  onLoadData: () => dispatch(OperationsData.loadData()),
+  onCheckAuthorization: () => dispatch(OperationsUser.checkAuthorization())
 });
 
 const AppContainer = connect(null, mapDispatchToProps)(App);

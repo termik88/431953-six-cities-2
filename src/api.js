@@ -1,31 +1,27 @@
 import axios from "axios";
-import {ActionsCreator} from "./reducer/data/data.js";
-
-const Config = {
-  BASE_URL: `https://htmlacademy-react-2.appspot.com/six-cities`,
-  TIMEOUT: 5000,
-  WITH_CREDENTIALS: true
-};
+import {ActionsCreator as ActionsCreatorData} from "./reducer/data/data.js";
+import {ActionsCreator as ActionsCreatorUser} from "./reducer/user/user.js";
+import {ConfigApi, RequestUrl, ClientErrorResponses} from "./constants/constants.js";
 
 const configureAPI = (dispatch, redirect) => {
   const api = axios.create({
-    baseURL: Config.BASE_URL,
-    timeout: Config.TIMEOUT,
-    withCredentials: Config.WITH_CREDENTIALS
+    baseURL: ConfigApi.BASE_URL,
+    timeout: ConfigApi.TIMEOUT,
+    withCredentials: ConfigApi.WITH_CREDENTIALS
   });
 
   const onSuccess = (response) => response;
 
   const onFail = (error) => {
-    if (error.response.status === 400) {
-      dispatch(ActionsCreator.changeLoadingStatus(false));
-      dispatch(ActionsCreator.getErrorInfo(`Check the correctness of the entered data.`));
+    if (error.response.status === ClientErrorResponses.BAD_REQUEST) {
+      dispatch(ActionsCreatorData.changeLoadingStatus(false));
+      dispatch(ActionsCreatorData.getErrorInfo(`Check the correctness of the entered data.`));
     }
 
-    if (error.response.status === 401) {
-      redirect(`/login`);
-      dispatch(ActionsCreator.changeLoadingStatus(false));
-      dispatch(ActionsCreator.getErrorInfo(``));
+    if (error.response.status === ClientErrorResponses.UNAUTHORIZED) {
+      redirect(RequestUrl.LOGIN);
+      dispatch(ActionsCreatorData.changeLoadingStatus(false));
+      dispatch(ActionsCreatorUser.requiredAuthorization(true));
     }
     return error;
   };

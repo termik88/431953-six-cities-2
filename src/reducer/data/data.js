@@ -1,12 +1,6 @@
 import {preparePlaces, preparePlace, prepareComments, getCitiesList, getRandomCity} from "../../until.js";
 import {getPlacesAll, getIsLoading} from "./selectors.js";
-
-const REQUEST_URL = {
-  HOME: `/`,
-  HOTELS: `/hotels`,
-  FAVORITES: `/favorite`,
-  COMMENTS: `/comments`
-};
+import {RequestUrl, SuccessfulResponses} from "../../constants/constants.js";
 
 const sortMethodsList = [
   {name: `Popular`, method: () => {}},
@@ -84,7 +78,7 @@ const reducer = (state = initialState, action) => {
   const newState = Object.assign({}, state);
   switch (action.type) {
     case ActionType.CHANGE_SORT_METHOD:
-      newState.sortMethodCurrent = action.payload;
+      newState.sortMethodCurrent = Object.assign({}, action.payload);
       return newState;
 
     case ActionType.CHANGE_CITY_CURRENT:
@@ -125,9 +119,9 @@ const reducer = (state = initialState, action) => {
 
 const Operations = {
   loadData: () => (dispatch, getState, api) => {
-    return api.get(REQUEST_URL.HOTELS)
+    return api.get(RequestUrl.HOTELS)
       .then((response) => {
-        if (response.status === 200) {
+        if (response.status === SuccessfulResponses.OK) {
           const placesAll = preparePlaces(response.data);
           const citiesList = getCitiesList(placesAll);
           const cityCurrent = getRandomCity(citiesList);
@@ -137,9 +131,9 @@ const Operations = {
   },
 
   sendFavoriteData: (id, status) => (dispatch, getState, api) => {
-    return api.post(`${REQUEST_URL.FAVORITES}/${id}/${status}`)
+    return api.post(`${RequestUrl.FAVORITES}/${id}/${status}`)
       .then((response) => {
-        if (response.status === 200) {
+        if (response.status === SuccessfulResponses.OK) {
           const placeNew = preparePlace(response.data);
           const placesOld = getPlacesAll(getState());
           const placesModified = placesOld.map((item) => {
@@ -155,9 +149,9 @@ const Operations = {
   },
 
   getDataFavoritesPlaces: () => (dispatch, getState, api) => {
-    return api.get(REQUEST_URL.FAVORITES)
+    return api.get(RequestUrl.FAVORITES)
       .then((response) => {
-        if (response.status === 200) {
+        if (response.status === SuccessfulResponses.OK) {
           const placesFavorites = preparePlaces(response.data);
           const citiesListFavorites = getCitiesList(placesFavorites);
           dispatch(ActionsCreator.loadDataFavoritesPlaces(placesFavorites, citiesListFavorites));
@@ -166,9 +160,9 @@ const Operations = {
   },
 
   loadDataComments: (id) => (dispatch, getState, api) => {
-    return api.get(`${REQUEST_URL.COMMENTS}/${id}`)
+    return api.get(`${RequestUrl.COMMENTS}/${id}`)
       .then((response) => {
-        if (response.status === 200) {
+        if (response.status === SuccessfulResponses.OK) {
           dispatch(ActionsCreator.loadDataComments(prepareComments(response.data)));
         }
       });
@@ -176,18 +170,18 @@ const Operations = {
 
   sendComment: (id, comment, callBack) => (dispatch, getState, api) => {
     dispatch(ActionsCreator.changeLoadingStatus(!getIsLoading(getState())));
-    return api.post(`${REQUEST_URL.COMMENTS}/${id}`, comment)
+    return api.post(`${RequestUrl.COMMENTS}/${id}`, comment)
       .then((response) => {
-        if (response.status === 200) {
+        if (response.status === SuccessfulResponses.OK) {
           dispatch(ActionsCreator.loadDataComments(prepareComments(response.data)));
           dispatch(ActionsCreator.changeLoadingStatus(!getIsLoading(getState())));
           dispatch(ActionsCreator.getErrorInfo(``));
           callBack();
         }
       })
-      .catch((error) => {
+      .catch(() => {
         dispatch(ActionsCreator.changeLoadingStatus(!getIsLoading(getState())));
-        dispatch(ActionsCreator.getErrorInfo(error.message));
+        dispatch(ActionsCreator.getErrorInfo(`An error has occurred.`));
       });
   }
 };
