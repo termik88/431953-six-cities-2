@@ -1,15 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from "react-redux";
-
-import {ActionsCreator} from "../../reducer/data/data.js";
-import {getCityCurrent, getPlacesSelected, getSortMethodCurrent, getSortMethodsList} from "../../reducer/data/selectors.js";
-
-import withToggle from "../../hocs/with-toggle/with-toggle.jsx";
 
 import Map from "../map/map.jsx";
 import PlacesList from '../places-list/places-list.jsx';
 import SortMethodsList from "../sort-methods-list/sort-methods-list.jsx";
+
+import withToggle from "../../hocs/with-toggle/with-toggle.jsx";
 
 const WrappedSortMethodsList = withToggle(SortMethodsList);
 
@@ -118,18 +114,4 @@ CityPlacesList.propTypes = {
   onChangeSortMethod: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state, ownProps) =>
-  Object.assign({}, ownProps, {
-    cityCurrent: getCityCurrent(state),
-    placesSelected: getPlacesSelected(state),
-    sortMethodsList: getSortMethodsList(state),
-    sortMethodCurrent: getSortMethodCurrent(state)
-  });
-
-const mapDispatchToProps = (dispatch) => ({
-  onChangeSortMethod: (method) => dispatch(ActionsCreator.changeSortMethod(method))
-});
-
-const CityPlacesListContainer = connect(mapStateToProps, mapDispatchToProps)(CityPlacesList);
-
-export {CityPlacesList, CityPlacesListContainer};
+export default CityPlacesList;

@@ -2,7 +2,7 @@ import React, {PureComponent} from 'react';
 import leaflet from 'leaflet';
 import PropTypes from 'prop-types';
 
-class PropertyMap extends PureComponent {
+class Map extends PureComponent {
   constructor(props) {
     super(props);
     this.map = null;
@@ -116,14 +116,16 @@ Map.propTypes = {
     })
   })).isRequired,
 
-  active: PropTypes.exact({
+  active: PropTypes.shape({
     id: PropTypes.number,
-    location: PropTypes.exact({
+    location: PropTypes.shape({
       latitude: PropTypes.number,
       longitude: PropTypes.number,
       zoom: PropTypes.number
     })
-  })
+  }),
+
+  nameMap: PropTypes.string.isRequired
 };
 
-export default PropertyMap;
+export default Map;
