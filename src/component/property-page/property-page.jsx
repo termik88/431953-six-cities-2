@@ -136,7 +136,7 @@ class PropertyPage extends PureComponent {
 
           <Map
             nameMap = {`property`}
-            offers = {placesNearest}
+            places = {placesNearest}
             active = {placeCurrent}
           />
 

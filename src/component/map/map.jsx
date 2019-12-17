@@ -21,9 +21,9 @@ class PropertyMap extends PureComponent {
     this.markersGroup = leaflet.layerGroup().addTo(this.map);
   }
 
-  setOptionsMap(offers) {
-    const city = [offers[0].city.location.latitude, offers[0].city.location.longitude];
-    const zoom = offers[0].city.location.zoom;
+  setOptionsMap(places) {
+    const city = [places[0].city.location.latitude, places[0].city.location.longitude];
+    const zoom = places[0].city.location.zoom;
 
     this.map.setView(city, zoom);
   }
@@ -37,31 +37,31 @@ class PropertyMap extends PureComponent {
     return {icon};
   }
 
-  renderPin(offer, groupLayers, isActive) {
+  renderPin(place, groupLayers, isActive) {
     leaflet
-      .marker([offer.location.latitude, offer.location.longitude], this.getPin(isActive))
+      .marker([place.location.latitude, place.location.longitude], this.getPin(isActive))
       .addTo(groupLayers);
   }
 
-  renderPins(offers) {
-    for (let offer of offers) {
-      this.renderPin(offer, this.markersGroup, false);
+  renderPins(places) {
+    for (let place of places) {
+      this.renderPin(place, this.markersGroup, false);
     }
   }
 
   componentDidMount() {
     this.renderMap();
-    if (this.props.offers.length !== 0) {
-      this.setOptionsMap(this.props.offers);
-      this.renderPins(this.props.offers);
+    if (this.props.places.length !== 0) {
+      this.setOptionsMap(this.props.places);
+      this.renderPins(this.props.places);
     }
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.offers !== prevProps.offers) {
-      this.setOptionsMap(this.props.offers);
+    if (this.props.places !== prevProps.places) {
+      this.setOptionsMap(this.props.places);
       this.markersGroup.clearLayers();
-      this.renderPins(this.props.offers);
+      this.renderPins(this.props.places);
     }
 
     if (prevProps.active) {
@@ -81,7 +81,7 @@ class PropertyMap extends PureComponent {
 }
 
 Map.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.exact({
+  places: PropTypes.arrayOf(PropTypes.exact({
     id: PropTypes.number,
     city: PropTypes.exact({
       name: PropTypes.string,

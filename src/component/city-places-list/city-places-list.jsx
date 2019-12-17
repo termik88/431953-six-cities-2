@@ -41,7 +41,7 @@ const CityPlacesList = ({cityCurrent, placesSelected, handleAction, active, sort
             <div className="cities__right-section">
               <Map
                 nameMap = {`cities`}
-                offers = {placesSelected}
+                places = {placesSelected}
                 active = {active}
               />
             </div>
