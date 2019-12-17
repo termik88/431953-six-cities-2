@@ -1,16 +1,17 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import ReviewFormStart from "../review-form-star/review-form-start.jsx";
 
 const stars = [
-  {number: `5`, title: `perfect`},
-  {number: `4`, title: `good`},
-  {number: `3`, title: `not bad`},
-  {number: `2`, title: `badly`},
-  {number: `1`, title: `terribly`},
+  {number: 5, title: `perfect`},
+  {number: 4, title: `good`},
+  {number: 3, title: `not bad`},
+  {number: 2, title: `badly`},
+  {number: 1, title: `terribly`},
 ];
 
-const ReviewForm = ({isActive, review, isValidationReviewForm, onInputChange, handleSendComment, isLoading, errorInfo}) => {
+const ReviewForm = ({isActive, review, isValidationReviewForm, handleInputChange, handleSendComment, isLoading, errorInfo}) => {
   return (
     <form
       className="reviews__form form"
@@ -22,12 +23,12 @@ const ReviewForm = ({isActive, review, isValidationReviewForm, onInputChange, ha
           <ReviewFormStart
             key = {`key-star-${star.number}-${isActive}`}
             star = {star}
-            onInputChange = {onInputChange}
+            handleInputChange = {handleInputChange}
             isLoading = {isLoading}
           />))}
       </div>
       <textarea
-        onChange={onInputChange}
+        onChange={handleInputChange}
         value={review}
         className="reviews__textarea form__textarea"
         id="review"
@@ -48,6 +49,16 @@ const ReviewForm = ({isActive, review, isValidationReviewForm, onInputChange, ha
       { errorInfo && <span style={{color: `red`}}>{errorInfo}</span> }
     </form>
   );
+};
+
+ReviewForm.propTypes = {
+  review: PropTypes.string.isRequired,
+  isActive: PropTypes.node.isRequired,
+  isValidationReviewForm: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  errorInfo: PropTypes.string.isRequired,
+  handleInputChange: PropTypes.func.isRequired,
+  handleSendComment: PropTypes.func.isRequired
 };
 
 export default ReviewForm;

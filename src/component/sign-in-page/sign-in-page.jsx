@@ -2,16 +2,19 @@ import React from "react";
 import {connect} from 'react-redux';
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 
+import {BrowserPaths} from "../../constants/constants.js";
 import {getCityCurrent} from "../../reducer/data/selectors.js";
 import {Operations} from "../../reducer/user/user.js";
 
-const SignInPage = ({cityCurrent, email, password, isValidationInput, onInputChange, handleSendAuthorizationData, history}) => {
-  const handleRedirect = () => history.push(`/`);
+const SignInPage = ({cityCurrent, email, password, isValidationInput, onInputChange, onSendAuthorizationData}) => {
+  const history = useHistory();
+  const handleRedirect = () => history.push(BrowserPaths.MAIN);
 
   const handleSend = (evt) => {
     evt.preventDefault();
-    handleSendAuthorizationData(email, password, handleRedirect);
+    onSendAuthorizationData(email, password, handleRedirect);
   };
 
   return (
@@ -63,7 +66,8 @@ SignInPage.propTypes = {
   email: PropTypes.string,
   password: PropTypes.string,
   onInputChange: PropTypes.func.isRequired,
-  handleSendAuthorizationData: PropTypes.func.isRequired
+  onSendAuthorizationData: PropTypes.func.isRequired,
+  isValidationInput: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -71,7 +75,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  handleSendAuthorizationData: (email, password, handleRedirect) => dispatch(Operations.sendAuthorizationData(email, password, handleRedirect))
+  onSendAuthorizationData: (email, password, handleRedirect) => dispatch(Operations.sendAuthorizationData(email, password, handleRedirect))
 });
 
 const SignInPageContainer = connect(mapStateToProps, mapDispatchToProps)(SignInPage);

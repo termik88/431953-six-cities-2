@@ -1,17 +1,17 @@
 import React, {PureComponent} from "react";
-import {connect} from "react-redux";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
 
-import {getPlacesAll, getComments} from "../../reducer/data/selectors.js";
 import {transformRatingToStarsNumber, getPlacesNearest} from "../../until.js";
+
+import {getAuthorizationStatus} from "../../reducer/user/selector.js";
+import {getPlacesAll, getComments, getErrorInfo, getIsLoading} from "../../reducer/data/selectors.js";
 import {Operations} from "../../reducer/data/data.js";
 
 import Review from "../review/review.jsx";
 import Card from "../card/card.jsx";
 import Map from "../map/map.jsx";
 import {FavoriteButtonContainer} from "../favorite-button/favorite-button.jsx";
-import {getAuthorizationStatus} from "../../reducer/user/selector";
-import {getErrorInfo, getIsLoading} from "../../reducer/data/selectors";
 
 const IMAGES_MAX = 6;
 
@@ -169,6 +169,66 @@ class PropertyPage extends PureComponent {
     }
   }
 }
+
+PropertyPage.propTypes = {
+  places: PropTypes.arrayOf(PropTypes.exact({
+    id: PropTypes.number,
+    city: PropTypes.exact({
+      name: PropTypes.string,
+      location: PropTypes.exact({
+        latitude: PropTypes.number,
+        longitude: PropTypes.number,
+        zoom: PropTypes.number
+      })
+    }),
+    previewImage: PropTypes.string,
+    images: PropTypes.arrayOf(PropTypes.string),
+    title: PropTypes.string,
+    isFavorite: PropTypes.bool,
+    isPremium: PropTypes.bool,
+    rating: PropTypes.number,
+    type: PropTypes.string,
+    bedrooms: PropTypes.number,
+    maxAdults: PropTypes.number,
+    price: PropTypes.number,
+    goods: PropTypes.arrayOf(PropTypes.string),
+    host: PropTypes.exact({
+      id: PropTypes.number,
+      isPro: PropTypes.bool,
+      name: PropTypes.string,
+      avatarUrl: PropTypes.string
+    }),
+    description: PropTypes.string,
+    location: PropTypes.exact({
+      latitude: PropTypes.number,
+      longitude: PropTypes.number,
+      zoom: PropTypes.number
+    })
+  })).isRequired,
+  comments: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    user: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      isPro: PropTypes.bool.isRequired,
+      name: PropTypes.string.isRequired,
+      avatarUrl: PropTypes.string.isRequired,
+    }).isRequired,
+    rating: PropTypes.number.isRequired,
+    comment: PropTypes.string,
+    date: PropTypes.string.isRequired,
+  })),
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired
+    })
+  }),
+  isAuthorizationRequired: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  errorInfo: PropTypes.string.isRequired,
+  onSendComment: PropTypes.func.isRequired,
+  loadDataComments: PropTypes.func.isRequired,
+
+};
 
 const mapStateToProps = (state) => ({
   places: getPlacesAll(state),

@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
+
+import {BrowserPaths} from "../../constants/constants.js";
+
 import {getAuthorizationStatus} from "../../reducer/user/selector.js";
 
 const withAuthorizationFalse = (Component) => {
@@ -10,7 +13,7 @@ const withAuthorizationFalse = (Component) => {
     render() {
       return this.props.isAuthorizationRequired ?
         <Component {...this.props} /> :
-        <Redirect to="/login"/>;
+        <Redirect to={BrowserPaths.SIG_IN}/>;
     }
   }
 

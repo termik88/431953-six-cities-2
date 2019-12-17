@@ -1,8 +1,10 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import {getMonthYear} from "../../until.js";
 
 const ReviewItem = ({comment}) => {
-const {
+  const {
     user: {id, name, avatarUrl, isPro},
     rating,
     date,
@@ -33,5 +35,21 @@ const {
     </li>
   );
 };
+
+ReviewItem.propTypes = {
+  comment: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    user: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      isPro: PropTypes.bool.isRequired,
+      name: PropTypes.string.isRequired,
+      avatarUrl: PropTypes.string.isRequired,
+    }).isRequired,
+    rating: PropTypes.number.isRequired,
+    commentText: PropTypes.string,
+    date: PropTypes.string.isRequired,
+  }),
+};
+
 
 export default ReviewItem;

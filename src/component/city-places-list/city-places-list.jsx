@@ -118,8 +118,6 @@ CityPlacesList.propTypes = {
   onChangeSortMethod: PropTypes.func.isRequired
 };
 
-export default CityPlacesList;
-
 const mapStateToProps = (state, ownProps) =>
   Object.assign({}, ownProps, {
     cityCurrent: getCityCurrent(state),

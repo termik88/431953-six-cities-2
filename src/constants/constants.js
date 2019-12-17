@@ -20,3 +20,5 @@ export const ClientErrorResponses = {
   BAD_REQUEST: 400,
   UNAUTHORIZED: 401
 };
+
+export const MAX_COMMENTS_NUMBER = 10;

@@ -33,7 +33,7 @@ const withComment = (Component) => {
     }
 
     isValidationForm() {
-      return this.state.rating &&
+      return !!this.state.rating &&
         this.state.review.length >= ReviewTextLength.MIN &&
         this.state.review.length <= ReviewTextLength.MAX;
     }
@@ -48,7 +48,7 @@ const withComment = (Component) => {
         <Component
           {...this.props}
           {...this.state}
-          onInputChange = {this.handleInputChange}
+          handleInputChange = {this.handleInputChange}
           isValidationReviewForm = {this.isValidationForm()}
           handleSendComment = {this.handleSendComment}
         />
@@ -57,8 +57,10 @@ const withComment = (Component) => {
   }
 
   WithComment.propTypes = {
+    placeId: PropTypes.number.isRequired,
     review: PropTypes.string,
     rating: PropTypes.string,
+    onSendComment: PropTypes.func.isRequired
   };
 
   return WithComment;

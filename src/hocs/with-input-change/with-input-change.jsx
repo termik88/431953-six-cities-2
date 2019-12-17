@@ -20,7 +20,7 @@ const withInputChange = (Component) => {
     }
 
     isValidationInput() {
-      return isValidationEmail(this.state.email) && this.state.password;
+      return !!(isValidationEmail(this.state.email) && this.state.password);
     }
 
     render() {

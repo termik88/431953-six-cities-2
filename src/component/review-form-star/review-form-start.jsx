@@ -1,6 +1,7 @@
 import React from "react";
+import PropTypes from "prop-types";
 
-const ReviewFormStart = ({star, onInputChange, isLoading}) => {
+const ReviewFormStart = ({star, handleInputChange, isLoading}) => {
   const {
     number,
     title
@@ -9,7 +10,7 @@ const ReviewFormStart = ({star, onInputChange, isLoading}) => {
   return (
     <>
       <input
-        onChange = {onInputChange}
+        onChange = {handleInputChange}
         className="form__rating-input visually-hidden"
         name="rating"
         value={number}
@@ -29,6 +30,15 @@ const ReviewFormStart = ({star, onInputChange, isLoading}) => {
       </label>
     </>
   );
+};
+
+ReviewFormStart.propTypes = {
+  star: PropTypes.shape({
+    number: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired
+  }),
+  handleInputChange: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired
 };
 
 export default ReviewFormStart;

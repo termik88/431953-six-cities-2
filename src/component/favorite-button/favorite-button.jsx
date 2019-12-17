@@ -20,12 +20,12 @@ const heightIcon = {
 };
 
 const FavoriteButton = ({buttonName = `place-card`, id, placesAll, onSendFavoriteData, isAuthorizationStatus}) => {
-  let history = useHistory();
+  const history = useHistory();
 
   const handleClick = (evt) => {
     evt.preventDefault();
     if (isAuthorizationStatus) {
-      history.push(BrowserPaths.MAIN);
+      history.push(BrowserPaths.SIG_IN);
     } else {
       onSendFavoriteData(id, +!isFavorite);
     }
