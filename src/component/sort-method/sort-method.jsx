@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const SortMethod = ({i, method, sortMethodCurrent, changeSortMethod, handleToggle}) => {
+const SortMethod = ({i, method, sortMethodCurrent, onChangeSortMethod, handleToggle}) => {
   const handleClick = () => {
-    changeSortMethod(method);
+    onChangeSortMethod(method);
     handleToggle();
   };
 
@@ -13,6 +13,24 @@ const SortMethod = ({i, method, sortMethodCurrent, changeSortMethod, handleToggl
     onClick = {handleClick}>
     {method.name}
   </li>;
+};
+
+SortMethod.propTypes = {
+  i: PropTypes.number.isRequired,
+  sortMethodsList: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    method: PropTypes.func.isRequired,
+  })),
+  sortMethodCurrent: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    method: PropTypes.func.isRequired,
+  }),
+  method: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    method: PropTypes.func.isRequired,
+  }),
+  onChangeSortMethod: PropTypes.func.isRequired,
+  handleToggle: PropTypes.func.isRequired
 };
 
 export default SortMethod;

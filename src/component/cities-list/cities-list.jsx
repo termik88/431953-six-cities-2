@@ -2,7 +2,8 @@ import React from "react";
 import PropTypes from 'prop-types';
 import {ActionsCreator} from "../../reducer/data/data";
 import {connect} from "react-redux";
-import {getCitiesList, getCityCurrent} from "../../reducer/data/selectors";
+
+import {getCitiesList, getCityCurrent} from "../../reducer/data/selectors.js";
 
 const CitiesList = ({cityCurrent, citiesList, onChangeCurrentCity}) => {
 

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import SortMethod from "../sort-method/sort-method.jsx";
 
-const SortMethodsList = ({sortMethodCurrent, sortMethodsList, changeSortMethod, handleToggle, isOpen}) => {
+const SortMethodsList = ({sortMethodCurrent, sortMethodsList, onChangeSortMethod, handleToggle, isOpen}) => {
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by</span>
@@ -20,7 +20,7 @@ const SortMethodsList = ({sortMethodCurrent, sortMethodsList, changeSortMethod, 
             i = {i}
             method = {method}
             sortMethodCurrent = {sortMethodCurrent}
-            changeSortMethod = {changeSortMethod}
+            onChangeSortMethod = {onChangeSortMethod}
             handleToggle = {handleToggle}
           />
         ))
@@ -28,6 +28,20 @@ const SortMethodsList = ({sortMethodCurrent, sortMethodsList, changeSortMethod, 
       </ul>
     </form>
   );
+};
+
+SortMethodsList.propTypes = {
+  sortMethodsList: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    method: PropTypes.func.isRequired,
+  })),
+  sortMethodCurrent: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    method: PropTypes.func.isRequired,
+  }),
+  onChangeSortMethod: PropTypes.func.isRequired,
+  handleToggle: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool.isRequired
 };
 
 export default SortMethodsList;
