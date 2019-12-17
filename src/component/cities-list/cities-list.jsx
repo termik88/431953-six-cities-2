@@ -4,11 +4,11 @@ import {ActionsCreator} from "../../reducer/data/data";
 import {connect} from "react-redux";
 import {getCitiesList, getCityCurrent} from "../../reducer/data/selectors";
 
-const CitiesList = ({cityCurrent, citiesList, changeCurrentCityAndPlaces}) => {
+const CitiesList = ({cityCurrent, citiesList, onChangeCurrentCity}) => {
 
   const handleClickCityName = (evt) => {
     evt.preventDefault();
-    changeCurrentCityAndPlaces(evt.target.textContent);
+    onChangeCurrentCity(evt.target.textContent);
   };
 
   return (
@@ -36,7 +36,7 @@ const CitiesList = ({cityCurrent, citiesList, changeCurrentCityAndPlaces}) => {
 CitiesList.propTypes = {
   cityCurrent: PropTypes.string.isRequired,
   citiesList: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-  changeCurrentCityAndPlaces: PropTypes.func.isRequired
+  onChangeCurrentCity: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state, ownProps) =>
@@ -46,7 +46,7 @@ const mapStateToProps = (state, ownProps) =>
   });
 
 const mapDispatchToProps = (dispatch) => ({
-  changeCurrentCityAndPlaces: (citySelected) => dispatch(ActionsCreator.changeCityCurrent(citySelected))
+  onChangeCurrentCity: (citySelected) => dispatch(ActionsCreator.changeCityCurrent(citySelected))
 });
 
 const CitiesListContainer = connect(mapStateToProps, mapDispatchToProps)(CitiesList);

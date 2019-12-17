@@ -8,7 +8,7 @@ export const RequestUrls = {
 export const BrowserPaths = {
   MAIN: `/`,
   SIG_IN: `/login`,
-  PLACE: `/offer`,
+  PLACE_ID: `/offer/:id`,
   FAVORITES: `/favorites`,
 };
 

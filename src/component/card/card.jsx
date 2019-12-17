@@ -64,6 +64,7 @@ const Card = ({cardName, place, handleAction = () => {}}) => {
 };
 
 Card.propTypes = {
+  cardName: PropTypes.string.isRequired,
   place: PropTypes.exact({
     id: PropTypes.number,
     city: PropTypes.exact({
@@ -98,8 +99,7 @@ Card.propTypes = {
       zoom: PropTypes.number
     })
   }).isRequired,
-  onMouseEnter: PropTypes.func,
-  onMouseLeave: PropTypes.func,
+  handleAction: PropTypes.func,
 };
 
 export default Card;

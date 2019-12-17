@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 import PropTypes from "prop-types";
 import {Route, Switch, Redirect} from "react-router-dom";
 
+import {BrowserPaths} from "../../constants/constants.js";
+
 import {Operations as OperationsData} from "../../reducer/data/data.js";
 import {Operations as OperationsUser} from "../../reducer/user/user.js";
 
@@ -30,11 +32,11 @@ class App extends PureComponent {
   render() {
     return (
       <Switch>
-        <Route path='/' exact component = {WrappedMainPage}/>
-        <Route path='/login' exact component = {WrappedSignInPageContainer} />
-        <Route path='/favorites' exact component = {WrappedFavoritesPageContainer}/>
-        <Route path='/offer/:id' exact component = {WrappedPropertyPageContainer}/>
-        <Redirect to='/' />
+        <Route path={BrowserPaths.MAIN} exact component = {WrappedMainPage}/>
+        <Route path={BrowserPaths.SIG_IN} exact component = {WrappedSignInPageContainer} />
+        <Route path={BrowserPaths.FAVORITES} exact component = {WrappedFavoritesPageContainer}/>
+        <Route path={BrowserPaths.PLACE_ID} exact component = {WrappedPropertyPageContainer}/>
+        <Redirect to={BrowserPaths.MAIN} />
       </Switch>
     );
   }
