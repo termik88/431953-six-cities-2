@@ -5,13 +5,14 @@ import PropTypes from 'prop-types';
 class Map extends PureComponent {
   constructor(props) {
     super(props);
+    this.mapContainer = React.createRef();
     this.map = null;
     this.markerCurrent = null;
     this.markersGroup = null;
   }
 
   renderMap() {
-    this.map = leaflet.map(`map`, {zoomControl: false, scrollWheelZoom: false});
+    this.map = leaflet.map(this.mapContainer.current, {zoomControl: false, scrollWheelZoom: false});
 
     leaflet
       .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`)
@@ -75,7 +76,7 @@ class Map extends PureComponent {
 
   render() {
     return <section className={`${this.props.nameMap}__map map`}>
-      <div style={{height: `100%`}} id="map"/>
+      <div style={{height: `100%`}} ref={this.map} id="map"/>
     </section>;
   }
 }

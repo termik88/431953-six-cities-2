@@ -1,23 +1,23 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import ReviewForm from "./review-form.jsx";
+import Review from "./review.jsx";
+import reviews from "../../mocks/reviews.js";
 
-describe(`ReviewForm component test.`, () => {
+describe(`Review component test.`, () => {
   it(`Correctly renders after relaunch`, () => {
     const mockDate = {
-      review: ``,
-      isActive: false,
-      isValidationReviewForm: true,
+      placeId: 1,
+      comments: reviews,
+      isAuthorizationRequired: false,
       isLoading: false,
       errorInfo: ``,
-      handleInputChange: jest.fn(),
-      handleSendComment: jest.fn()
+      onSendComment: jest.fn(),
     };
 
     const test = renderer
       .create(
-          <ReviewForm
+          <Review
             {...mockDate}
           />)
       .toJSON();

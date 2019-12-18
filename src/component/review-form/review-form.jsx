@@ -53,7 +53,7 @@ const ReviewForm = ({isActive, review, isValidationReviewForm, handleInputChange
 
 ReviewForm.propTypes = {
   review: PropTypes.string.isRequired,
-  isActive: PropTypes.node.isRequired,
+  isActive: PropTypes.bool.isRequired,
   isValidationReviewForm: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
   errorInfo: PropTypes.string.isRequired,

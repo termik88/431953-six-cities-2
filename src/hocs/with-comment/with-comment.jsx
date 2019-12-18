@@ -24,7 +24,9 @@ const withComment = (Component) => {
     }
 
     getInitialState() {
-      this.setState({isActive: -1});
+      this.setState((state) => {
+        return {isActive: !state.isActive};
+      });
       this.setState(initialState);
     }
 
