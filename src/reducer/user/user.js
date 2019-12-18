@@ -1,36 +1,35 @@
 import {prepareUser} from "../../until.js";
 import {RequestUrls, SuccessfulResponses} from "../../constants/constants.js";
 
-const initialState = {
-  isAuthorizationRequired: true,
-  userData: {},
+const getInitialState = () => {
+  return {
+    isAuthorizationRequired: true,
+    userData: {},
+  };
 };
 
-const ActionType = {
-  REQUIRE_AUTHORIZATION: `REQUIRE_AUTHORIZATION`,
+const ActionTypes = {
   LOAD_USER_DATA: `LOAD_USER_DATA`,
+  REQUIRE_AUTHORIZATION: `REQUIRE_AUTHORIZATION`
 };
 
 const ActionsCreator = {
   requiredAuthorization: (status) => ({
-    type: ActionType.REQUIRE_AUTHORIZATION,
+    type: ActionTypes.REQUIRE_AUTHORIZATION,
     payload: status
   }),
 
   loadUserData: (userData) => ({
-    type: ActionType.LOAD_USER_DATA,
+    type: ActionTypes.LOAD_USER_DATA,
     payload: userData
   }),
 };
 
-const reducer = (state = initialState, action) => {
+const reducer = (state = getInitialState(), action) => {
   const newState = Object.assign({}, state);
   switch (action.type) {
-    case ActionType.REQUIRE_AUTHORIZATION:
-      newState.isAuthorizationRequired = action.payload;
-      return newState;
-
-    case ActionType.LOAD_USER_DATA:
+    case ActionTypes.LOAD_USER_DATA:
+      newState.isAuthorizationRequired = false;
       newState.userData = Object.assign({}, action.payload);
       return newState;
   }
@@ -39,13 +38,12 @@ const reducer = (state = initialState, action) => {
 };
 
 const Operations = {
-  sendAuthorizationData: (email, password, collback) => (dispatch, getState, api) => {
+  sendAuthorizationData: (email, password, callback) => (dispatch, getState, api) => {
     return api.post(RequestUrls.LOGIN, {email, password})
       .then((response) => {
         if (response.status === SuccessfulResponses.OK) {
           dispatch(ActionsCreator.loadUserData(prepareUser(response.data)));
-          dispatch(ActionsCreator.requiredAuthorization(false));
-          collback();
+          callback();
         }
       });
   },
@@ -55,13 +53,14 @@ const Operations = {
       .then((response) => {
         if (response.status === SuccessfulResponses.OK) {
           dispatch(ActionsCreator.loadUserData(prepareUser(response.data)));
-          dispatch(ActionsCreator.requiredAuthorization(false));
         }
       });
   }
 };
 
 export {
+  getInitialState,
+  ActionTypes,
   ActionsCreator,
   Operations,
   reducer

@@ -59,7 +59,7 @@ const withComment = (Component) => {
   }
 
   WithComment.propTypes = {
-    placeId: PropTypes.number.isRequired,
+    placeId: PropTypes.number,
     review: PropTypes.string,
     rating: PropTypes.string,
     onSendComment: PropTypes.func.isRequired

@@ -8,17 +8,19 @@ export const sortMethodsList = [
   {name: `Price: high to low`, method: (a, b) => b.price - a.price},
   {name: `Top rated first`, method: (a, b) => b.rating - a.rating}];
 
-const initialState = {
-  sortMethodsList,
-  sortMethodCurrent: sortMethodsList[0],
-  cityCurrent: ``,
-  citiesList: [],
-  placesAll: [],
-  placesFavorites: [],
-  citiesListFavorites: [],
-  comments: [],
-  isLoading: false,
-  error: ``
+const getInitialState = () => {
+  return {
+    sortMethodsList,
+    sortMethodCurrent: sortMethodsList[0],
+    cityCurrent: ``,
+    citiesList: [],
+    placesAll: [],
+    placesFavorites: [],
+    citiesListFavorites: [],
+    comments: [],
+    isLoading: false,
+    error: ``
+  };
 };
 
 const ActionTypes = {
@@ -74,7 +76,7 @@ const ActionsCreator = {
   })
 };
 
-const reducer = (state = initialState, action) => {
+const reducer = (state = getInitialState(), action) => {
   const newState = Object.assign({}, state);
   switch (action.type) {
     case ActionTypes.CHANGE_SORT_METHOD:
@@ -187,6 +189,8 @@ const Operations = {
 };
 
 export {
+  ActionTypes,
+  getInitialState,
   Operations,
   ActionsCreator,
   reducer
