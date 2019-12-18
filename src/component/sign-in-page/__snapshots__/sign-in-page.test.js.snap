@@ -29,7 +29,7 @@ exports[`SignInPage component test. Correctly renders after relaunch 1`] = `
             E-mail
           </label>
           <input
-            className="login__input form__input"
+            className="login__input login__input--email form__input"
             name="email"
             onChange={[MockFunction]}
             placeholder="Email"
@@ -46,7 +46,7 @@ exports[`SignInPage component test. Correctly renders after relaunch 1`] = `
             Password
           </label>
           <input
-            className="login__input form__input"
+            className="login__input login__input--password form__input"
             name="password"
             onChange={[MockFunction]}
             placeholder="Password"

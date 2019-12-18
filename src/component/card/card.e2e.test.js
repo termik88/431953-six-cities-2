@@ -25,17 +25,15 @@ describe(`Card component e2e test.`, () => {
         />
       </Router>);
 
+  const button = component.find(`.place-card`);
+
   it(`Card mouse on Enter`, () => {
-    component
-      .find(`.place-card`)
-      .simulate(`mouseenter`);
+    button.simulate(`mouseenter`);
     expect(mockDate.handleAction).toHaveBeenCalled();
   });
 
   it(`Card mouse on Leave`, () => {
-    component
-      .find(`.place-card`)
-      .simulate(`mouseleave`);
+    button.simulate(`mouseleave`);
     expect(mockDate.handleAction).toHaveBeenCalled();
   });
 });

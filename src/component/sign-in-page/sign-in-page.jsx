@@ -27,7 +27,7 @@ const SignInPage = ({cityCurrent, email, password, isValidationInput, onInputCha
               <label className="visually-hidden">E-mail</label>
               <input
                 onChange={onInputChange}
-                className="login__input form__input"
+                className="login__input login__input--email form__input"
                 type="email"
                 name="email"
                 placeholder="Email"
@@ -37,7 +37,7 @@ const SignInPage = ({cityCurrent, email, password, isValidationInput, onInputCha
               <label className="visually-hidden">Password</label>
               <input
                 onChange={onInputChange}
-                className="login__input form__input"
+                className="login__input login__input--password form__input"
                 type="password"
                 name="password"
                 placeholder="Password"
@@ -52,7 +52,7 @@ const SignInPage = ({cityCurrent, email, password, isValidationInput, onInputCha
         </section>
         <section className="locations locations--login locations--current">
           <div className="locations__item">
-            <Link className="locations__item-link" to={`/`}>
+            <Link className="locations__item-link" to={BrowserPaths.MAIN}>
               <span>{cityCurrent}</span>
             </Link>
           </div>
