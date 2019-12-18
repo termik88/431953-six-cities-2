@@ -34,6 +34,7 @@ const FavoriteButton = ({buttonName = `place-card`, id, placesAll, onSendFavorit
   const isFavorite = placesAll.find((item) => item.id === id).isFavorite;
 
   return (
+    <>
     <button
       className={`button ${buttonName}__bookmark-button ${isFavorite ? `${buttonName}__bookmark-button--active` : ``}`}
       type="button"
@@ -46,6 +47,7 @@ const FavoriteButton = ({buttonName = `place-card`, id, placesAll, onSendFavorit
       </svg>
       <span className="visually-hidden">To bookmarks</span>
     </button>
+      </>
   );
 };
 

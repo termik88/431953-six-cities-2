@@ -1,28 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PlaceCard component test. Correctly renders after relaunch 1`] = `
+exports[`Card component test. Correctly renders after relaunch 1`] = `
 <article
-  className="cities__place-card place-card"
-  onMouseEnter={[MockFunction]}
-  onMouseLeave={[MockFunction]}
+  className="place-card place-card--cities"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
 >
   <div
-    className="cities__image-wrapper place-card__image-wrapper"
+    className="place-card__image-wrapper place-card__image-wrapper--cities"
   >
     <a
-      href="place-details/1"
+      href="/offer/1"
+      onClick={[Function]}
     >
       <img
-        alt="Beautiful & luxurious studio at great location"
+        alt="Canal View Prinsengracht"
         className="place-card__image"
         height="200"
-        src="img/1.png"
+        src="https://htmlacademy-react-2.appspot.com/six-cities/static/hotel/9.jpg"
         width="260"
       />
     </a>
   </div>
   <div
-    className="place-card__info"
+    className="place-card__info place-card__info--cities"
   >
     <div
       className="place-card__price-wrapper"
@@ -34,7 +35,7 @@ exports[`PlaceCard component test. Correctly renders after relaunch 1`] = `
           className="place-card__price-value"
         >
           €
-          120
+          101
         </b>
         <span
           className="place-card__price-text"
@@ -42,25 +43,6 @@ exports[`PlaceCard component test. Correctly renders after relaunch 1`] = `
           / night
         </span>
       </div>
-      <button
-        className="place-card__bookmark-button button"
-        type="button"
-      >
-        <svg
-          className="place-card__bookmark-icon"
-          height="19"
-          width="18"
-        >
-          <use
-            xlinkHref="#icon-bookmark"
-          />
-        </svg>
-        <span
-          className="visually-hidden"
-        >
-          To bookmarks
-        </span>
-      </button>
     </div>
     <div
       className="place-card__rating rating"
@@ -71,7 +53,7 @@ exports[`PlaceCard component test. Correctly renders after relaunch 1`] = `
         <span
           style={
             Object {
-              "width": "96%",
+              "width": "3.1%",
             }
           }
         />
@@ -86,15 +68,16 @@ exports[`PlaceCard component test. Correctly renders after relaunch 1`] = `
       className="place-card__name"
     >
       <a
-        href="place-details/1"
+        href="/offer/1"
+        onClick={[Function]}
       >
-        Beautiful & luxurious studio at great location
+        Canal View Prinsengracht
       </a>
     </h2>
     <p
       className="place-card__type"
     >
-      apartment
+      room
     </p>
   </div>
 </article>

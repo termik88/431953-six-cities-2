@@ -1,60 +1,41 @@
 import React from 'react';
-import Enzyme, {shallow} from 'enzyme';
+import Enzyme, {mount} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-import PlaceCard from './card.jsx';
+import Card from './card.jsx';
+import places from "../../mocks/mocks";
+import {Router} from "react-router";
+import {createBrowserHistory} from "history";
 
 Enzyme.configure({adapter: new Adapter()});
 
+jest.mock(`../favorite-button/favorite-button.jsx`);
+
 const mockDate = {
-  place: {
-    id: 1,
-    city: {
-      name: `Amsterdam`,
-      location: {
-        latitude: 52.370216,
-        longitude: 4.895168,
-        zoom: 10
-      }
-    },
-    previewImage: `img/1.png`,
-    images: [`img/1.png`, `img/2.png`],
-    title: `Beautiful & luxurious studio at great location`,
-    isFavorite: false,
-    isPremium: false,
-    rating: 4.8,
-    type: `apartment`,
-    bedrooms: 3,
-    maxAdults: 4,
-    price: 120,
-    goods: [`Heating`, `Kitchen`, `Cable TV`, `Washing machine`, `Coffee machine`, `Dishwasher`],
-    host: {
-      id: 3,
-      isPro: true,
-      name: `Angelina`,
-      avatarUrl: `img/1.png`
-    },
-    description: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.`,
-    location: {
-      latitude: 52.35514938496378,
-      longitude: 4.673877537499948,
-      zoom: 8
-    }
-  },
-  onMouseEnter: jest.fn(),
-  onMouseLeave: jest.fn()
+  cardName: `cities`,
+  place: places[0],
+  handleAction: jest.fn(),
 };
 
-describe(`PlaceCard component e2e test.`, () => {
-  const component = shallow(<PlaceCard
-    {...mockDate}
-  />);
+describe(`Card component e2e test.`, () => {
+  const component = mount(
+      <Router history={createBrowserHistory()}>
+        <Card
+          {...mockDate}
+        />
+      </Router>);
 
-  it(`Card mouse on`, () => {
+  it(`Card mouse on Enter`, () => {
     component
       .find(`.place-card`)
-      .simulate(`mouseEnter`);
-    expect(mockDate.onMouseEnter).toHaveBeenCalled();
-    expect(mockDate.onMouseEnter).toHaveBeenCalled();
+      .simulate(`mouseenter`);
+    expect(mockDate.handleAction).toHaveBeenCalled();
+  });
+
+  it(`Card mouse on Leave`, () => {
+    component
+      .find(`.place-card`)
+      .simulate(`mouseleave`);
+    expect(mockDate.handleAction).toHaveBeenCalled();
   });
 });

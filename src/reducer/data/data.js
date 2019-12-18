@@ -2,7 +2,7 @@ import {preparePlaces, preparePlace, prepareComments, getCitiesList, getRandomCi
 import {getPlacesAll, getIsLoading} from "./selectors.js";
 import {RequestUrls, SuccessfulResponses} from "../../constants/constants.js";
 
-const sortMethodsList = [
+export const sortMethodsList = [
   {name: `Popular`, method: () => {}},
   {name: `Price: low to high`, method: (a, b) => a.price - b.price},
   {name: `Price: high to low`, method: (a, b) => b.price - a.price},
