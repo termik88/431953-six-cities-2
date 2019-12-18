@@ -5,7 +5,7 @@ import {Router} from "react-router";
 import {createBrowserHistory} from "history";
 
 import {getCitiesList} from "../../until.js";
-import places from "../../mocks/mocks.js";
+import places from "../../mocks/places.js";
 import {SignInPage} from "./sign-in-page.jsx";
 
 Enzyme.configure({adapter: new Adapter()});

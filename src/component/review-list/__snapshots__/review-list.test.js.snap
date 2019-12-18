@@ -1,0 +1,190 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReviewList component test. Correctly renders after relaunch 1`] = `
+<ul
+  className="reviews__list"
+>
+  <li
+    className="reviews__item"
+  >
+    <div
+      className="reviews__user user"
+    >
+      <div
+        className="reviews__avatar-wrapper user__avatar-wrapper"
+      >
+        <img
+          alt="Review avatar"
+          className="reviews__avatar user__avatar"
+          height="54"
+          src="https://htmlacademy-react-2.appspot.com/six-cities/static/avatar/6.jpg"
+          width="54"
+        />
+      </div>
+      <span
+        className="reviews__user-name"
+      >
+        Kendall
+      </span>
+    </div>
+    <div
+      className="reviews__info"
+    >
+      <div
+        className="reviews__rating rating"
+      >
+        <div
+          className="reviews__stars rating__stars"
+        >
+          <span
+            style={
+              Object {
+                "width": "80%",
+              }
+            }
+          />
+          <span
+            className="visually-hidden"
+          >
+            Rating
+          </span>
+        </div>
+      </div>
+      <p
+        className="reviews__text"
+      >
+        We loved it so much, the house, the veiw, the location just great.. Highly reccomend :)
+      </p>
+      <time
+        className="reviews__time"
+        dateTime="2019-04-24"
+      >
+        December 2019
+      </time>
+    </div>
+  </li>
+  <li
+    className="reviews__item"
+  >
+    <div
+      className="reviews__user user"
+    >
+      <div
+        className="reviews__avatar-wrapper user__avatar-wrapper"
+      >
+        <img
+          alt="Review avatar"
+          className="reviews__avatar user__avatar"
+          height="54"
+          src="https://htmlacademy-react-2.appspot.com/six-cities/static/avatar/5.jpg"
+          width="54"
+        />
+      </div>
+      <span
+        className="reviews__user-name"
+      >
+        Corey
+      </span>
+      <span
+        className="reviews__user-status"
+      >
+        Pro
+      </span>
+    </div>
+    <div
+      className="reviews__info"
+    >
+      <div
+        className="reviews__rating rating"
+      >
+        <div
+          className="reviews__stars rating__stars"
+        >
+          <span
+            style={
+              Object {
+                "width": "60%",
+              }
+            }
+          />
+          <span
+            className="visually-hidden"
+          >
+            Rating
+          </span>
+        </div>
+      </div>
+      <p
+        className="reviews__text"
+      >
+        What an amazing view! The house is stunning and in an amazing location. The large glass wall had an amazing view of the river!
+      </p>
+      <time
+        className="reviews__time"
+        dateTime="2019-04-24"
+      >
+        December 2019
+      </time>
+    </div>
+  </li>
+  <li
+    className="reviews__item"
+  >
+    <div
+      className="reviews__user user"
+    >
+      <div
+        className="reviews__avatar-wrapper user__avatar-wrapper"
+      >
+        <img
+          alt="Review avatar"
+          className="reviews__avatar user__avatar"
+          height="54"
+          src="https://htmlacademy-react-2.appspot.com/six-cities/static/avatar/10.jpg"
+          width="54"
+        />
+      </div>
+      <span
+        className="reviews__user-name"
+      >
+        Christina
+      </span>
+    </div>
+    <div
+      className="reviews__info"
+    >
+      <div
+        className="reviews__rating rating"
+      >
+        <div
+          className="reviews__stars rating__stars"
+        >
+          <span
+            style={
+              Object {
+                "width": "60%",
+              }
+            }
+          />
+          <span
+            className="visually-hidden"
+          >
+            Rating
+          </span>
+        </div>
+      </div>
+      <p
+        className="reviews__text"
+      >
+        What an amazing view! The house is stunning and in an amazing location. The large glass wall had an amazing view of the river!
+      </p>
+      <time
+        className="reviews__time"
+        dateTime="2019-04-24"
+      >
+        December 2019
+      </time>
+    </div>
+  </li>
+</ul>
+`;

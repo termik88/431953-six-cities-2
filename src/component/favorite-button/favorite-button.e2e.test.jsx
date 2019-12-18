@@ -5,7 +5,7 @@ import {Router} from "react-router";
 import {createBrowserHistory} from "history";
 
 import {FavoriteButton} from "./favorite-button.jsx";
-import places from "../../mocks/mocks";
+import places from "../../mocks/places";
 
 Enzyme.configure({adapter: new Adapter()});
 

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const ReviewFormStart = ({star, handleInputChange, isLoading}) => {
+const ReviewFormStar = ({star, handleInputChange, isLoading}) => {
   const {
     number,
     title
@@ -32,7 +32,7 @@ const ReviewFormStart = ({star, handleInputChange, isLoading}) => {
   );
 };
 
-ReviewFormStart.propTypes = {
+ReviewFormStar.propTypes = {
   star: PropTypes.shape({
     number: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired
@@ -41,4 +41,4 @@ ReviewFormStart.propTypes = {
   isLoading: PropTypes.bool.isRequired
 };
 
-export default ReviewFormStart;
+export default ReviewFormStar;

@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import ReviewFormStart from "../review-form-star/review-form-start.jsx";
+import ReviewFormStar from "../review-form-star/review-form-star.jsx";
 
-const stars = [
+export const stars = [
   {number: 5, title: `perfect`},
   {number: 4, title: `good`},
   {number: 3, title: `not bad`},
@@ -20,7 +20,7 @@ const ReviewForm = ({isActive, review, isValidationReviewForm, handleInputChange
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {stars.map((star) => (
-          <ReviewFormStart
+          <ReviewFormStar
             key = {`key-star-${star.number}-${isActive}`}
             star = {star}
             handleInputChange = {handleInputChange}

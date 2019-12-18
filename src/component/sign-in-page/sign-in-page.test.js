@@ -4,7 +4,7 @@ import {Router} from 'react-router-dom';
 import {createBrowserHistory} from 'history';
 
 import {getCitiesList} from "../../until.js";
-import places from "../../mocks/mocks.js";
+import places from "../../mocks/places.js";
 import {SignInPage} from "./sign-in-page.jsx";
 
 describe(`SignInPage component test.`, () => {

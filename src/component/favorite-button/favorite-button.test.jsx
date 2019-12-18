@@ -4,7 +4,7 @@ import {createBrowserHistory} from 'history';
 import {Router} from 'react-router-dom';
 
 import {FavoriteButton} from "./favorite-button.jsx";
-import places from "../../mocks/mocks";
+import places from "../../mocks/places";
 
 it(`FavoriteButton is correctly rendered after launch`, () => {
   const mockDate = {

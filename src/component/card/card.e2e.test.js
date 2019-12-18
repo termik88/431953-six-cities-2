@@ -3,7 +3,7 @@ import Enzyme, {mount} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 import Card from './card.jsx';
-import places from "../../mocks/mocks";
+import places from "../../mocks/places";
 import {Router} from "react-router";
 import {createBrowserHistory} from "history";
 

@@ -18,11 +18,11 @@ describe(`Card component test.`, () => {
 
     const test = renderer
       .create(
-          <Router history={createBrowserHistory()}>
-            <Card
-              {...mockDate}
-            />
-          </Router>)
+        <Router history={createBrowserHistory()}>
+          <Card
+            {...mockDate}
+          />
+        </Router>)
       .toJSON();
 
     expect(test).toMatchSnapshot();
