@@ -22,7 +22,7 @@ const SignInPage = ({cityCurrent, email, password, isValidationInput, onInputCha
       <div className="page__login-container container">
         <section className="login">
           <h1 className="login__title">Sign in</h1>
-          <form onSubmit={handleSend} className="login__form form" action="#" method="post">
+          <form className="login__form form" action="#" method="post">
             <div className="login__input-wrapper form__input-wrapper">
               <label className="visually-hidden">E-mail</label>
               <input
@@ -44,6 +44,7 @@ const SignInPage = ({cityCurrent, email, password, isValidationInput, onInputCha
                 required=""/>
             </div>
             <button
+              onClick={handleSend}
               className="login__submit form__submit button"
               type="submit"
               disabled={!isValidationInput}>Sign in</button>
