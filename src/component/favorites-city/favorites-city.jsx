@@ -10,7 +10,7 @@ const FavoritesCity = ({cityName, path, handleClickCityName, favoritesOffers}) =
       <div className="favorites__locations locations locations--current">
         <div className="locations__item">
           <Link
-            className="locations__item-link"
+            className="locations__item-link locations__item-link--test"
             to={path}
             onClick={handleClickCityName}>
             <span>{cityName}</span>

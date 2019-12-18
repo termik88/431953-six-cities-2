@@ -593,6 +593,9 @@ exports[`PropertyPage component test. Correctly renders after relaunch 1`] = `
         </section>
       </div>
     </div>
+    <section
+      className="property__map map"
+    />
   </section>
   <div
     className="container"

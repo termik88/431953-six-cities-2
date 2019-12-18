@@ -5,28 +5,28 @@ import PropTypes from 'prop-types';
 class Map extends PureComponent {
   constructor(props) {
     super(props);
-    this.mapContainer = React.createRef();
-    this.map = null;
+    this.map = React.createRef();
+    this.container = null;
     this.markerCurrent = null;
     this.markersGroup = null;
   }
 
   renderMap() {
-    this.map = leaflet.map(this.mapContainer.current, {zoomControl: false, scrollWheelZoom: false});
+    this.container = leaflet.map(this.map.current, {zoomControl: false, scrollWheelZoom: false});
 
     leaflet
       .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`)
-      .addTo(this.map);
+      .addTo(this.container);
 
-    this.markerCurrent = leaflet.layerGroup().addTo(this.map);
-    this.markersGroup = leaflet.layerGroup().addTo(this.map);
+    this.markerCurrent = leaflet.layerGroup().addTo(this.container);
+    this.markersGroup = leaflet.layerGroup().addTo(this.container);
   }
 
   setOptionsMap(places) {
     const city = [places[0].city.location.latitude, places[0].city.location.longitude];
     const zoom = places[0].city.location.zoom;
 
-    this.map.setView(city, zoom);
+    this.container.setView(city, zoom);
   }
 
   getPin(isActive) {
@@ -75,9 +75,7 @@ class Map extends PureComponent {
   }
 
   render() {
-    return <section className={`${this.props.nameMap}__map map`}>
-      <div style={{height: `100%`}} ref={this.map} id="map"/>
-    </section>;
+    return <div id="map" ref={this.map} style={{height: `100%`}}/>;
   }
 }
 
@@ -125,8 +123,6 @@ Map.propTypes = {
       zoom: PropTypes.number
     })
   }),
-
-  nameMap: PropTypes.string.isRequired
 };
 
 export default Map;

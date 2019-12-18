@@ -37,4 +37,12 @@ const reviews = [
   }
 ];
 
+export const userData = {
+  id: 1,
+  email: `Oliver.conner@gmail.com`,
+  name: `Oliver.conner`,
+  avatarUrl: `img/1.png`,
+  isPro: false
+};
+
 export default reviews;

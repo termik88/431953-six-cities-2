@@ -3,27 +3,23 @@ import renderer from 'react-test-renderer';
 import {Router} from "react-router";
 import {createBrowserHistory} from "history";
 
-import places from "../../mocks/places";
-import Card from './card.jsx';
+import {userData} from "../../mocks/reviews";
+import {Header} from "./header.jsx";
 
-jest.mock(`../favorite-button/favorite-button.jsx`);
-
-describe(`Card component test.`, () => {
+describe(`Header component test.`, () => {
   it(`Correctly renders after relaunch`, () => {
     const mockDate = {
-      cardName: `cities`,
-      place: places[0],
-      handleAction: jest.fn(),
+      userData,
+      isAuthorizationRequired: false
     };
 
     const test = renderer
       .create(
           <Router history={createBrowserHistory()}>
-            <Card
+            <Header
               {...mockDate}
             />
-          </Router>)
-      .toJSON();
+          </Router>).toJSON();
 
     expect(test).toMatchSnapshot();
   });

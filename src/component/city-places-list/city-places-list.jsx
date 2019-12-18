@@ -35,11 +35,12 @@ const CityPlacesList = ({cityCurrent, placesSelected, handleAction, active, sort
               />
             </section>
             <div className="cities__right-section">
-              <Map
-                nameMap = {`cities`}
-                places = {placesSelected}
-                active = {active}
-              />
+              <section className="cities__map map">
+                <Map
+                  places = {placesSelected}
+                  active = {active}
+                />
+              </section>
             </div>
           </> :
           <>

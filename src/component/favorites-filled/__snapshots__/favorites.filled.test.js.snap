@@ -1,0 +1,1039 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FavoritesCity component test. Correctly renders after relaunch 1`] = `
+<main
+  className="page__main page__main--favorites"
+>
+  <div
+    className="page__favorites-container container"
+  >
+    <section
+      className="favorites"
+    >
+      <h1
+        className="favorites__title"
+      >
+        Saved listing
+      </h1>
+      <ul
+        className="favorites__list"
+      >
+        <li
+          className="favorites__locations-items"
+        >
+          <div
+            className="favorites__locations locations locations--current"
+          >
+            <div
+              className="locations__item"
+            >
+              <a
+                className="locations__item-link locations__item-link--test"
+                href="/"
+                onClick={[Function]}
+              >
+                <span>
+                  Dusseldorf
+                </span>
+              </a>
+            </div>
+          </div>
+          <div
+            className="favorites__places"
+          >
+            <article
+              className="place-card place-card--favorites"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+            >
+              <div
+                className="place-card__image-wrapper place-card__image-wrapper--favorites"
+              >
+                <a
+                  href="/offer/1"
+                  onClick={[Function]}
+                >
+                  <img
+                    alt="Canal View Prinsengracht"
+                    className="place-card__image"
+                    height="200"
+                    src="https://htmlacademy-react-2.appspot.com/six-cities/static/hotel/9.jpg"
+                    width="260"
+                  />
+                </a>
+              </div>
+              <div
+                className="place-card__info place-card__info--favorites"
+              >
+                <div
+                  className="place-card__price-wrapper"
+                >
+                  <div
+                    className="place-card__price"
+                  >
+                    <b
+                      className="place-card__price-value"
+                    >
+                      €
+                      101
+                    </b>
+                    <span
+                      className="place-card__price-text"
+                    >
+                      / night
+                    </span>
+                  </div>
+                </div>
+                <div
+                  className="place-card__rating rating"
+                >
+                  <div
+                    className="place-card__stars rating__stars"
+                  >
+                    <span
+                      style={
+                        Object {
+                          "width": "3.1%",
+                        }
+                      }
+                    />
+                    <span
+                      className="visually-hidden"
+                    >
+                      Rating
+                    </span>
+                  </div>
+                </div>
+                <h2
+                  className="place-card__name"
+                >
+                  <a
+                    href="/offer/1"
+                    onClick={[Function]}
+                  >
+                    Canal View Prinsengracht
+                  </a>
+                </h2>
+                <p
+                  className="place-card__type"
+                >
+                  room
+                </p>
+              </div>
+            </article>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </li>
+        <li
+          className="favorites__locations-items"
+        >
+          <div
+            className="favorites__locations locations locations--current"
+          >
+            <div
+              className="locations__item"
+            >
+              <a
+                className="locations__item-link locations__item-link--test"
+                href="/"
+                onClick={[Function]}
+              >
+                <span>
+                  Amsterdam
+                </span>
+              </a>
+            </div>
+          </div>
+          <div
+            className="favorites__places"
+          >
+            
+            <article
+              className="place-card place-card--favorites"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+            >
+              <div
+                className="place-card__mark"
+              >
+                <span>
+                  Premium
+                </span>
+              </div>
+              <div
+                className="place-card__image-wrapper place-card__image-wrapper--favorites"
+              >
+                <a
+                  href="/offer/2"
+                  onClick={[Function]}
+                >
+                  <img
+                    alt="House in countryside"
+                    className="place-card__image"
+                    height="200"
+                    src="https://htmlacademy-react-2.appspot.com/six-cities/static/hotel/16.jpg"
+                    width="260"
+                  />
+                </a>
+              </div>
+              <div
+                className="place-card__info place-card__info--favorites"
+              >
+                <div
+                  className="place-card__price-wrapper"
+                >
+                  <div
+                    className="place-card__price"
+                  >
+                    <b
+                      className="place-card__price-value"
+                    >
+                      €
+                      163
+                    </b>
+                    <span
+                      className="place-card__price-text"
+                    >
+                      / night
+                    </span>
+                  </div>
+                </div>
+                <div
+                  className="place-card__rating rating"
+                >
+                  <div
+                    className="place-card__stars rating__stars"
+                  >
+                    <span
+                      style={
+                        Object {
+                          "width": "4.5%",
+                        }
+                      }
+                    />
+                    <span
+                      className="visually-hidden"
+                    >
+                      Rating
+                    </span>
+                  </div>
+                </div>
+                <h2
+                  className="place-card__name"
+                >
+                  <a
+                    href="/offer/2"
+                    onClick={[Function]}
+                  >
+                    House in countryside
+                  </a>
+                </h2>
+                <p
+                  className="place-card__type"
+                >
+                  room
+                </p>
+              </div>
+            </article>
+            
+            
+            <article
+              className="place-card place-card--favorites"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+            >
+              <div
+                className="place-card__mark"
+              >
+                <span>
+                  Premium
+                </span>
+              </div>
+              <div
+                className="place-card__image-wrapper place-card__image-wrapper--favorites"
+              >
+                <a
+                  href="/offer/5"
+                  onClick={[Function]}
+                >
+                  <img
+                    alt="Beautiful & luxurious apartment at great location"
+                    className="place-card__image"
+                    height="200"
+                    src="https://htmlacademy-react-2.appspot.com/six-cities/static/hotel/2.jpg"
+                    width="260"
+                  />
+                </a>
+              </div>
+              <div
+                className="place-card__info place-card__info--favorites"
+              >
+                <div
+                  className="place-card__price-wrapper"
+                >
+                  <div
+                    className="place-card__price"
+                  >
+                    <b
+                      className="place-card__price-value"
+                    >
+                      €
+                      463
+                    </b>
+                    <span
+                      className="place-card__price-text"
+                    >
+                      / night
+                    </span>
+                  </div>
+                </div>
+                <div
+                  className="place-card__rating rating"
+                >
+                  <div
+                    className="place-card__stars rating__stars"
+                  >
+                    <span
+                      style={
+                        Object {
+                          "width": "4.9%",
+                        }
+                      }
+                    />
+                    <span
+                      className="visually-hidden"
+                    >
+                      Rating
+                    </span>
+                  </div>
+                </div>
+                <h2
+                  className="place-card__name"
+                >
+                  <a
+                    href="/offer/5"
+                    onClick={[Function]}
+                  >
+                    Beautiful & luxurious apartment at great location
+                  </a>
+                </h2>
+                <p
+                  className="place-card__type"
+                >
+                  hotel
+                </p>
+              </div>
+            </article>
+            
+            
+            
+            
+            
+          </div>
+        </li>
+        <li
+          className="favorites__locations-items"
+        >
+          <div
+            className="favorites__locations locations locations--current"
+          >
+            <div
+              className="locations__item"
+            >
+              <a
+                className="locations__item-link locations__item-link--test"
+                href="/"
+                onClick={[Function]}
+              >
+                <span>
+                  Cologne
+                </span>
+              </a>
+            </div>
+          </div>
+          <div
+            className="favorites__places"
+          >
+            
+            
+            <article
+              className="place-card place-card--favorites"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+            >
+              <div
+                className="place-card__image-wrapper place-card__image-wrapper--favorites"
+              >
+                <a
+                  href="/offer/3"
+                  onClick={[Function]}
+                >
+                  <img
+                    alt="Beautiful & luxurious apartment at great location"
+                    className="place-card__image"
+                    height="200"
+                    src="https://htmlacademy-react-2.appspot.com/six-cities/static/hotel/9.jpg"
+                    width="260"
+                  />
+                </a>
+              </div>
+              <div
+                className="place-card__info place-card__info--favorites"
+              >
+                <div
+                  className="place-card__price-wrapper"
+                >
+                  <div
+                    className="place-card__price"
+                  >
+                    <b
+                      className="place-card__price-value"
+                    >
+                      €
+                      254
+                    </b>
+                    <span
+                      className="place-card__price-text"
+                    >
+                      / night
+                    </span>
+                  </div>
+                </div>
+                <div
+                  className="place-card__rating rating"
+                >
+                  <div
+                    className="place-card__stars rating__stars"
+                  >
+                    <span
+                      style={
+                        Object {
+                          "width": "2.1%",
+                        }
+                      }
+                    />
+                    <span
+                      className="visually-hidden"
+                    >
+                      Rating
+                    </span>
+                  </div>
+                </div>
+                <h2
+                  className="place-card__name"
+                >
+                  <a
+                    href="/offer/3"
+                    onClick={[Function]}
+                  >
+                    Beautiful & luxurious apartment at great location
+                  </a>
+                </h2>
+                <p
+                  className="place-card__type"
+                >
+                  apartment
+                </p>
+              </div>
+            </article>
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </li>
+        <li
+          className="favorites__locations-items"
+        >
+          <div
+            className="favorites__locations locations locations--current"
+          >
+            <div
+              className="locations__item"
+            >
+              <a
+                className="locations__item-link locations__item-link--test"
+                href="/"
+                onClick={[Function]}
+              >
+                <span>
+                  Paris
+                </span>
+              </a>
+            </div>
+          </div>
+          <div
+            className="favorites__places"
+          >
+            
+            
+            
+            <article
+              className="place-card place-card--favorites"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+            >
+              <div
+                className="place-card__image-wrapper place-card__image-wrapper--favorites"
+              >
+                <a
+                  href="/offer/4"
+                  onClick={[Function]}
+                >
+                  <img
+                    alt="The Joshua Tree House"
+                    className="place-card__image"
+                    height="200"
+                    src="https://htmlacademy-react-2.appspot.com/six-cities/static/hotel/1.jpg"
+                    width="260"
+                  />
+                </a>
+              </div>
+              <div
+                className="place-card__info place-card__info--favorites"
+              >
+                <div
+                  className="place-card__price-wrapper"
+                >
+                  <div
+                    className="place-card__price"
+                  >
+                    <b
+                      className="place-card__price-value"
+                    >
+                      €
+                      284
+                    </b>
+                    <span
+                      className="place-card__price-text"
+                    >
+                      / night
+                    </span>
+                  </div>
+                </div>
+                <div
+                  className="place-card__rating rating"
+                >
+                  <div
+                    className="place-card__stars rating__stars"
+                  >
+                    <span
+                      style={
+                        Object {
+                          "width": "4.3%",
+                        }
+                      }
+                    />
+                    <span
+                      className="visually-hidden"
+                    >
+                      Rating
+                    </span>
+                  </div>
+                </div>
+                <h2
+                  className="place-card__name"
+                >
+                  <a
+                    href="/offer/4"
+                    onClick={[Function]}
+                  >
+                    The Joshua Tree House
+                  </a>
+                </h2>
+                <p
+                  className="place-card__type"
+                >
+                  room
+                </p>
+              </div>
+            </article>
+            
+            
+            
+            
+            
+            
+          </div>
+        </li>
+        <li
+          className="favorites__locations-items"
+        >
+          <div
+            className="favorites__locations locations locations--current"
+          >
+            <div
+              className="locations__item"
+            >
+              <a
+                className="locations__item-link locations__item-link--test"
+                href="/"
+                onClick={[Function]}
+              >
+                <span>
+                  Brussels
+                </span>
+              </a>
+            </div>
+          </div>
+          <div
+            className="favorites__places"
+          >
+            
+            
+            
+            
+            
+            <article
+              className="place-card place-card--favorites"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+            >
+              <div
+                className="place-card__image-wrapper place-card__image-wrapper--favorites"
+              >
+                <a
+                  href="/offer/6"
+                  onClick={[Function]}
+                >
+                  <img
+                    alt="Tile House"
+                    className="place-card__image"
+                    height="200"
+                    src="https://htmlacademy-react-2.appspot.com/six-cities/static/hotel/2.jpg"
+                    width="260"
+                  />
+                </a>
+              </div>
+              <div
+                className="place-card__info place-card__info--favorites"
+              >
+                <div
+                  className="place-card__price-wrapper"
+                >
+                  <div
+                    className="place-card__price"
+                  >
+                    <b
+                      className="place-card__price-value"
+                    >
+                      €
+                      241
+                    </b>
+                    <span
+                      className="place-card__price-text"
+                    >
+                      / night
+                    </span>
+                  </div>
+                </div>
+                <div
+                  className="place-card__rating rating"
+                >
+                  <div
+                    className="place-card__stars rating__stars"
+                  >
+                    <span
+                      style={
+                        Object {
+                          "width": "2.9%",
+                        }
+                      }
+                    />
+                    <span
+                      className="visually-hidden"
+                    >
+                      Rating
+                    </span>
+                  </div>
+                </div>
+                <h2
+                  className="place-card__name"
+                >
+                  <a
+                    href="/offer/6"
+                    onClick={[Function]}
+                  >
+                    Tile House
+                  </a>
+                </h2>
+                <p
+                  className="place-card__type"
+                >
+                  room
+                </p>
+              </div>
+            </article>
+            
+            
+            
+            
+          </div>
+        </li>
+        <li
+          className="favorites__locations-items"
+        >
+          <div
+            className="favorites__locations locations locations--current"
+          >
+            <div
+              className="locations__item"
+            >
+              <a
+                className="locations__item-link locations__item-link--test"
+                href="/"
+                onClick={[Function]}
+              >
+                <span>
+                  Hamburg
+                </span>
+              </a>
+            </div>
+          </div>
+          <div
+            className="favorites__places"
+          >
+            
+            
+            
+            
+            
+            
+            <article
+              className="place-card place-card--favorites"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+            >
+              <div
+                className="place-card__image-wrapper place-card__image-wrapper--favorites"
+              >
+                <a
+                  href="/offer/7"
+                  onClick={[Function]}
+                >
+                  <img
+                    alt="Penthouse, 4-5 rooms + 5 balconies"
+                    className="place-card__image"
+                    height="200"
+                    src="https://htmlacademy-react-2.appspot.com/six-cities/static/hotel/18.jpg"
+                    width="260"
+                  />
+                </a>
+              </div>
+              <div
+                className="place-card__info place-card__info--favorites"
+              >
+                <div
+                  className="place-card__price-wrapper"
+                >
+                  <div
+                    className="place-card__price"
+                  >
+                    <b
+                      className="place-card__price-value"
+                    >
+                      €
+                      194
+                    </b>
+                    <span
+                      className="place-card__price-text"
+                    >
+                      / night
+                    </span>
+                  </div>
+                </div>
+                <div
+                  className="place-card__rating rating"
+                >
+                  <div
+                    className="place-card__stars rating__stars"
+                  >
+                    <span
+                      style={
+                        Object {
+                          "width": "4.4%",
+                        }
+                      }
+                    />
+                    <span
+                      className="visually-hidden"
+                    >
+                      Rating
+                    </span>
+                  </div>
+                </div>
+                <h2
+                  className="place-card__name"
+                >
+                  <a
+                    href="/offer/7"
+                    onClick={[Function]}
+                  >
+                    Penthouse, 4-5 rooms + 5 balconies
+                  </a>
+                </h2>
+                <p
+                  className="place-card__type"
+                >
+                  apartment
+                </p>
+              </div>
+            </article>
+            <article
+              className="place-card place-card--favorites"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+            >
+              <div
+                className="place-card__image-wrapper place-card__image-wrapper--favorites"
+              >
+                <a
+                  href="/offer/8"
+                  onClick={[Function]}
+                >
+                  <img
+                    alt="Loft Studio in the Central Area"
+                    className="place-card__image"
+                    height="200"
+                    src="https://htmlacademy-react-2.appspot.com/six-cities/static/hotel/7.jpg"
+                    width="260"
+                  />
+                </a>
+              </div>
+              <div
+                className="place-card__info place-card__info--favorites"
+              >
+                <div
+                  className="place-card__price-wrapper"
+                >
+                  <div
+                    className="place-card__price"
+                  >
+                    <b
+                      className="place-card__price-value"
+                    >
+                      €
+                      215
+                    </b>
+                    <span
+                      className="place-card__price-text"
+                    >
+                      / night
+                    </span>
+                  </div>
+                </div>
+                <div
+                  className="place-card__rating rating"
+                >
+                  <div
+                    className="place-card__stars rating__stars"
+                  >
+                    <span
+                      style={
+                        Object {
+                          "width": "3.5%",
+                        }
+                      }
+                    />
+                    <span
+                      className="visually-hidden"
+                    >
+                      Rating
+                    </span>
+                  </div>
+                </div>
+                <h2
+                  className="place-card__name"
+                >
+                  <a
+                    href="/offer/8"
+                    onClick={[Function]}
+                  >
+                    Loft Studio in the Central Area
+                  </a>
+                </h2>
+                <p
+                  className="place-card__type"
+                >
+                  room
+                </p>
+              </div>
+            </article>
+            <article
+              className="place-card place-card--favorites"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+            >
+              <div
+                className="place-card__image-wrapper place-card__image-wrapper--favorites"
+              >
+                <a
+                  href="/offer/9"
+                  onClick={[Function]}
+                >
+                  <img
+                    alt="The Joshua Tree House"
+                    className="place-card__image"
+                    height="200"
+                    src="https://htmlacademy-react-2.appspot.com/six-cities/static/hotel/18.jpg"
+                    width="260"
+                  />
+                </a>
+              </div>
+              <div
+                className="place-card__info place-card__info--favorites"
+              >
+                <div
+                  className="place-card__price-wrapper"
+                >
+                  <div
+                    className="place-card__price"
+                  >
+                    <b
+                      className="place-card__price-value"
+                    >
+                      €
+                      519
+                    </b>
+                    <span
+                      className="place-card__price-text"
+                    >
+                      / night
+                    </span>
+                  </div>
+                </div>
+                <div
+                  className="place-card__rating rating"
+                >
+                  <div
+                    className="place-card__stars rating__stars"
+                  >
+                    <span
+                      style={
+                        Object {
+                          "width": "3.3%",
+                        }
+                      }
+                    />
+                    <span
+                      className="visually-hidden"
+                    >
+                      Rating
+                    </span>
+                  </div>
+                </div>
+                <h2
+                  className="place-card__name"
+                >
+                  <a
+                    href="/offer/9"
+                    onClick={[Function]}
+                  >
+                    The Joshua Tree House
+                  </a>
+                </h2>
+                <p
+                  className="place-card__type"
+                >
+                  house
+                </p>
+              </div>
+            </article>
+            <article
+              className="place-card place-card--favorites"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+            >
+              <div
+                className="place-card__image-wrapper place-card__image-wrapper--favorites"
+              >
+                <a
+                  href="/offer/10"
+                  onClick={[Function]}
+                >
+                  <img
+                    alt="Beautiful & luxurious apartment at great location"
+                    className="place-card__image"
+                    height="200"
+                    src="https://htmlacademy-react-2.appspot.com/six-cities/static/hotel/7.jpg"
+                    width="260"
+                  />
+                </a>
+              </div>
+              <div
+                className="place-card__info place-card__info--favorites"
+              >
+                <div
+                  className="place-card__price-wrapper"
+                >
+                  <div
+                    className="place-card__price"
+                  >
+                    <b
+                      className="place-card__price-value"
+                    >
+                      €
+                      273
+                    </b>
+                    <span
+                      className="place-card__price-text"
+                    >
+                      / night
+                    </span>
+                  </div>
+                </div>
+                <div
+                  className="place-card__rating rating"
+                >
+                  <div
+                    className="place-card__stars rating__stars"
+                  >
+                    <span
+                      style={
+                        Object {
+                          "width": "2%",
+                        }
+                      }
+                    />
+                    <span
+                      className="visually-hidden"
+                    >
+                      Rating
+                    </span>
+                  </div>
+                </div>
+                <h2
+                  className="place-card__name"
+                >
+                  <a
+                    href="/offer/10"
+                    onClick={[Function]}
+                  >
+                    Beautiful & luxurious apartment at great location
+                  </a>
+                </h2>
+                <p
+                  className="place-card__type"
+                >
+                  room
+                </p>
+              </div>
+            </article>
+          </div>
+        </li>
+      </ul>
+    </section>
+  </div>
+</main>
+`;
