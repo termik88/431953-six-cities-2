@@ -2,16 +2,19 @@ import React from "react";
 import {connect} from 'react-redux';
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 
+import {BrowserPaths} from "../../constants/constants.js";
 import {getCityCurrent} from "../../reducer/data/selectors.js";
 import {Operations} from "../../reducer/user/user.js";
 
-const SignInPage = ({cityCurrent, email, password, isValidationInput, onInputChange, handleSendAuthorizationData, history}) => {
-  const handleRedirect = () => history.push(`/`);
+const SignInPage = ({cityCurrent, email, password, isValidationInput, onInputChange, onSendAuthorizationData}) => {
+  const history = useHistory();
+  const handleRedirect = () => history.push(BrowserPaths.MAIN);
 
   const handleSend = (evt) => {
     evt.preventDefault();
-    handleSendAuthorizationData(email, password, handleRedirect);
+    onSendAuthorizationData(email, password, handleRedirect);
   };
 
   return (
@@ -19,12 +22,12 @@ const SignInPage = ({cityCurrent, email, password, isValidationInput, onInputCha
       <div className="page__login-container container">
         <section className="login">
           <h1 className="login__title">Sign in</h1>
-          <form onSubmit={handleSend} className="login__form form" action="#" method="post">
+          <form className="login__form form" action="#" method="post">
             <div className="login__input-wrapper form__input-wrapper">
               <label className="visually-hidden">E-mail</label>
               <input
                 onChange={onInputChange}
-                className="login__input form__input"
+                className="login__input login__input--email form__input"
                 type="email"
                 name="email"
                 placeholder="Email"
@@ -34,13 +37,14 @@ const SignInPage = ({cityCurrent, email, password, isValidationInput, onInputCha
               <label className="visually-hidden">Password</label>
               <input
                 onChange={onInputChange}
-                className="login__input form__input"
+                className="login__input login__input--password form__input"
                 type="password"
                 name="password"
                 placeholder="Password"
                 required=""/>
             </div>
             <button
+              onClick={handleSend}
               className="login__submit form__submit button"
               type="submit"
               disabled={!isValidationInput}>Sign in</button>
@@ -48,7 +52,7 @@ const SignInPage = ({cityCurrent, email, password, isValidationInput, onInputCha
         </section>
         <section className="locations locations--login locations--current">
           <div className="locations__item">
-            <Link className="locations__item-link" to={`/`}>
+            <Link className="locations__item-link" to={BrowserPaths.MAIN}>
               <span>{cityCurrent}</span>
             </Link>
           </div>
@@ -63,7 +67,8 @@ SignInPage.propTypes = {
   email: PropTypes.string,
   password: PropTypes.string,
   onInputChange: PropTypes.func.isRequired,
-  handleSendAuthorizationData: PropTypes.func.isRequired
+  onSendAuthorizationData: PropTypes.func.isRequired,
+  isValidationInput: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -71,7 +76,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  handleSendAuthorizationData: (email, password, handleRedirect) => dispatch(Operations.sendAuthorizationData(email, password, handleRedirect))
+  onSendAuthorizationData: (email, password, handleRedirect) => dispatch(Operations.sendAuthorizationData(email, password, handleRedirect))
 });
 
 const SignInPageContainer = connect(mapStateToProps, mapDispatchToProps)(SignInPage);

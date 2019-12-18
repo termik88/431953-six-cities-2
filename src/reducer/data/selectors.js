@@ -39,5 +39,13 @@ export const getCitiesListFavorites = (state) => {
 };
 
 export const getComments = (state) => {
-  return state[NAME_SPACE].comments;
+  return state[NAME_SPACE].comments.sort((a, b) => new Date(b.date) - new Date(a.date));
+};
+
+export const getIsLoading = (state) => {
+  return state[NAME_SPACE].isLoading;
+};
+
+export const getErrorInfo = (state) => {
+  return state[NAME_SPACE].error;
 };

@@ -1,19 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from "react-redux";
 
-import {getCityCurrent, getPlacesSelected, getSortMethodCurrent, getSortMethodsList} from "../../reducer/data/selectors.js";
-import {ActionsCreator} from "../../reducer/data/data.js";
-
-import SortMethodsList from "../sort-methods-list/sort-methods-list.jsx";
-import PlacesList from '../places-list/places-list.jsx';
 import Map from "../map/map.jsx";
+import PlacesList from '../places-list/places-list.jsx';
+import SortMethodsList from "../sort-methods-list/sort-methods-list.jsx";
 
 import withToggle from "../../hocs/with-toggle/with-toggle.jsx";
 
 const WrappedSortMethodsList = withToggle(SortMethodsList);
 
-const CityPlacesList = ({cityCurrent, placesSelected, handleAction, active, sortMethodsList, sortMethodCurrent, changeSortMethod}) => {
+const CityPlacesList = ({cityCurrent, placesSelected, handleAction, active, sortMethodsList, sortMethodCurrent, onChangeSortMethod}) => {
   const isPlacesSelectedExist = placesSelected.length > 0;
 
   return (
@@ -29,7 +25,7 @@ const CityPlacesList = ({cityCurrent, placesSelected, handleAction, active, sort
               <WrappedSortMethodsList
                 sortMethodsList = {sortMethodsList}
                 sortMethodCurrent = {sortMethodCurrent}
-                changeSortMethod = {changeSortMethod}
+                onChangeSortMethod = {onChangeSortMethod}
               />
 
               <PlacesList
@@ -39,11 +35,12 @@ const CityPlacesList = ({cityCurrent, placesSelected, handleAction, active, sort
               />
             </section>
             <div className="cities__right-section">
-              <Map
-                nameMap = {`cities`}
-                offers = {placesSelected}
-                active = {active}
-              />
+              <section className="cities__map map">
+                <Map
+                  places = {placesSelected}
+                  active = {active}
+                />
+              </section>
             </div>
           </> :
           <>
@@ -98,7 +95,6 @@ CityPlacesList.propTypes = {
       zoom: PropTypes.number
     })
   })).isRequired,
-  handleAction: PropTypes.func.isRequired,
   active: PropTypes.exact({
     id: PropTypes.number,
     location: PropTypes.exact({
@@ -106,23 +102,17 @@ CityPlacesList.propTypes = {
       longitude: PropTypes.number,
       zoom: PropTypes.number
     })
-  })
+  }),
+  sortMethodsList: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    method: PropTypes.func.isRequired,
+  })),
+  sortMethodCurrent: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    method: PropTypes.func.isRequired,
+  }),
+  handleAction: PropTypes.func.isRequired,
+  onChangeSortMethod: PropTypes.func.isRequired
 };
 
 export default CityPlacesList;
-
-const mapStateToProps = (state, ownProps) =>
-  Object.assign({}, ownProps, {
-    cityCurrent: getCityCurrent(state),
-    placesSelected: getPlacesSelected(state),
-    sortMethodsList: getSortMethodsList(state),
-    sortMethodCurrent: getSortMethodCurrent(state)
-  });
-
-const mapDispatchToProps = (dispatch) => ({
-  changeSortMethod: (method) => dispatch(ActionsCreator.changeSortMethod(method))
-});
-
-const CityPlacesListContainer = connect(mapStateToProps, mapDispatchToProps)(CityPlacesList);
-
-export {CityPlacesList, CityPlacesListContainer};

@@ -20,7 +20,7 @@ const withInputChange = (Component) => {
     }
 
     isValidationInput() {
-      return isValidationEmail(this.state.email) && this.state.password;
+      return !!(isValidationEmail(this.state.email) && this.state.password);
     }
 
     render() {
@@ -41,6 +41,10 @@ const withInputChange = (Component) => {
   };
 
   return WithInputChange;
+};
+
+withInputChange.propTypes = {
+  Component: PropTypes.element.isRequired,
 };
 
 export default withInputChange;

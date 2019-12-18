@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App is correctly rendered after launch 1`] = `
+<div
+  className="page page--gray page--main"
+/>
+`;

@@ -1,29 +1,101 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CitiesList component test. Correctly renders after relaunch 1`] = `
-<div
-  className="tabs"
->
-  <section
-    className="locations container"
+Array [
+  <h1
+    className="visually-hidden"
   >
-    <ul
-      className="locations__list tabs__list"
+    Cities
+  </h1>,
+  <div
+    className="tabs"
+  >
+    <section
+      className="locations container"
     >
-      <li
-        className="locations__item"
+      <ul
+        className="locations__list tabs__list"
       >
-        <a
-          className="locations__item-link tabs__item tabs__item--active"
-          href="#"
-          onClick={[Function]}
+        <li
+          className="locations__item"
         >
-          <span>
-            Amsterdam
-          </span>
-        </a>
-      </li>
-    </ul>
-  </section>
-</div>
+          <a
+            className="locations__item-link tabs__item tabs__item--active"
+            href="#"
+            onClick={[Function]}
+          >
+            <span>
+              Dusseldorf
+            </span>
+          </a>
+        </li>
+        <li
+          className="locations__item"
+        >
+          <a
+            className="locations__item-link tabs__item "
+            href="#"
+            onClick={[Function]}
+          >
+            <span>
+              Amsterdam
+            </span>
+          </a>
+        </li>
+        <li
+          className="locations__item"
+        >
+          <a
+            className="locations__item-link tabs__item "
+            href="#"
+            onClick={[Function]}
+          >
+            <span>
+              Cologne
+            </span>
+          </a>
+        </li>
+        <li
+          className="locations__item"
+        >
+          <a
+            className="locations__item-link tabs__item "
+            href="#"
+            onClick={[Function]}
+          >
+            <span>
+              Paris
+            </span>
+          </a>
+        </li>
+        <li
+          className="locations__item"
+        >
+          <a
+            className="locations__item-link tabs__item "
+            href="#"
+            onClick={[Function]}
+          >
+            <span>
+              Brussels
+            </span>
+          </a>
+        </li>
+        <li
+          className="locations__item"
+        >
+          <a
+            className="locations__item-link tabs__item "
+            href="#"
+            onClick={[Function]}
+          >
+            <span>
+              Hamburg
+            </span>
+          </a>
+        </li>
+      </ul>
+    </section>
+  </div>,
+]
 `;

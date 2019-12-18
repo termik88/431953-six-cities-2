@@ -2,30 +2,31 @@ import React, {PureComponent} from 'react';
 import leaflet from 'leaflet';
 import PropTypes from 'prop-types';
 
-class PropertyMap extends PureComponent {
+class Map extends PureComponent {
   constructor(props) {
     super(props);
-    this.map = null;
+    this.map = React.createRef();
+    this.container = null;
     this.markerCurrent = null;
     this.markersGroup = null;
   }
 
   renderMap() {
-    this.map = leaflet.map(`map`, {zoomControl: false, scrollWheelZoom: false});
+    this.container = leaflet.map(this.map.current, {zoomControl: false, scrollWheelZoom: false});
 
     leaflet
       .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`)
-      .addTo(this.map);
+      .addTo(this.container);
 
-    this.markerCurrent = leaflet.layerGroup().addTo(this.map);
-    this.markersGroup = leaflet.layerGroup().addTo(this.map);
+    this.markerCurrent = leaflet.layerGroup().addTo(this.container);
+    this.markersGroup = leaflet.layerGroup().addTo(this.container);
   }
 
-  setOptionsMap(offers) {
-    const city = [offers[0].city.location.latitude, offers[0].city.location.longitude];
-    const zoom = offers[0].city.location.zoom;
+  setOptionsMap(places) {
+    const city = [places[0].city.location.latitude, places[0].city.location.longitude];
+    const zoom = places[0].city.location.zoom;
 
-    this.map.setView(city, zoom);
+    this.container.setView(city, zoom);
   }
 
   getPin(isActive) {
@@ -37,31 +38,31 @@ class PropertyMap extends PureComponent {
     return {icon};
   }
 
-  renderPin(offer, groupLayers, isActive) {
+  renderPin(place, groupLayers, isActive) {
     leaflet
-      .marker([offer.location.latitude, offer.location.longitude], this.getPin(isActive))
+      .marker([place.location.latitude, place.location.longitude], this.getPin(isActive))
       .addTo(groupLayers);
   }
 
-  renderPins(offers) {
-    for (let offer of offers) {
-      this.renderPin(offer, this.markersGroup, false);
+  renderPins(places) {
+    for (let place of places) {
+      this.renderPin(place, this.markersGroup, false);
     }
   }
 
   componentDidMount() {
     this.renderMap();
-    if (this.props.offers.length !== 0) {
-      this.setOptionsMap(this.props.offers);
-      this.renderPins(this.props.offers);
+    if (this.props.places.length !== 0) {
+      this.setOptionsMap(this.props.places);
+      this.renderPins(this.props.places);
     }
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.offers !== prevProps.offers) {
-      this.setOptionsMap(this.props.offers);
+    if (this.props.places !== prevProps.places) {
+      this.setOptionsMap(this.props.places);
       this.markersGroup.clearLayers();
-      this.renderPins(this.props.offers);
+      this.renderPins(this.props.places);
     }
 
     if (prevProps.active) {
@@ -74,14 +75,12 @@ class PropertyMap extends PureComponent {
   }
 
   render() {
-    return <section className={`${this.props.nameMap}__map map`}>
-      <div style={{height: `100%`}} id="map"/>
-    </section>;
+    return <div id="map" ref={this.map} style={{height: `100%`}}/>;
   }
 }
 
 Map.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.exact({
+  places: PropTypes.arrayOf(PropTypes.exact({
     id: PropTypes.number,
     city: PropTypes.exact({
       name: PropTypes.string,
@@ -116,14 +115,14 @@ Map.propTypes = {
     })
   })).isRequired,
 
-  active: PropTypes.exact({
+  active: PropTypes.shape({
     id: PropTypes.number,
-    location: PropTypes.exact({
+    location: PropTypes.shape({
       latitude: PropTypes.number,
       longitude: PropTypes.number,
       zoom: PropTypes.number
     })
-  })
+  }),
 };
 
-export default PropertyMap;
+export default Map;

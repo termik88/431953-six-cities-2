@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SortMethod component test. Correctly renders after relaunch 1`] = `
+<li
+  className="places__option places__option--active"
+  onClick={[Function]}
+  tabIndex={1}
+>
+  Popular
+</li>
+`;

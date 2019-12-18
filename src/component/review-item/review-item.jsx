@@ -1,12 +1,16 @@
 import React from "react";
+import PropTypes from "prop-types";
+
+import {getMonthYear} from "../../until.js";
 
 const ReviewItem = ({comment}) => {
-const {
+  const {
     user: {id, name, avatarUrl, isPro},
     rating,
     date,
     commentText
   } = comment;
+
   return (
     <li className="reviews__item">
       <div key={id} className="reviews__user user">
@@ -26,10 +30,26 @@ const {
         <p className="reviews__text">
           {commentText}
         </p>
-        <time className="reviews__time" dateTime="2019-04-24">{date}</time>
+        <time className="reviews__time" dateTime="2019-04-24">{getMonthYear(date)}</time>
       </div>
     </li>
   );
 };
+
+ReviewItem.propTypes = {
+  comment: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    user: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      isPro: PropTypes.bool.isRequired,
+      name: PropTypes.string.isRequired,
+      avatarUrl: PropTypes.string.isRequired,
+    }).isRequired,
+    rating: PropTypes.number.isRequired,
+    commentText: PropTypes.string,
+    date: PropTypes.string.isRequired,
+  }),
+};
+
 
 export default ReviewItem;

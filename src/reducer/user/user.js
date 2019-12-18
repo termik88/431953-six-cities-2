@@ -1,68 +1,66 @@
 import {prepareUser} from "../../until.js";
+import {RequestUrls, SuccessfulResponses} from "../../constants/constants.js";
 
-const REQUEST_URL = {
-  LOGIN: `/login`
+const getInitialState = () => {
+  return {
+    isAuthorizationRequired: true,
+    userData: {},
+  };
 };
 
-const initialState = {
-  isAuthorizationRequired: true,
-  userData: {}
-};
-
-const ActionType = {
-  REQUIRE_AUTHORIZATION: `REQUIRE_AUTHORIZATION`,
-  LOAD_USER_DATA: `LOAD_USER_DATA`
+const ActionTypes = {
+  LOAD_USER_DATA: `LOAD_USER_DATA`,
+  REQUIRE_AUTHORIZATION: `REQUIRE_AUTHORIZATION`
 };
 
 const ActionsCreator = {
   requiredAuthorization: (status) => ({
-    type: ActionType.REQUIRE_AUTHORIZATION,
+    type: ActionTypes.REQUIRE_AUTHORIZATION,
     payload: status
   }),
+
   loadUserData: (userData) => ({
-    type: ActionType.LOAD_USER_DATA,
+    type: ActionTypes.LOAD_USER_DATA,
     payload: userData
-  })
+  }),
 };
 
-const reducer = (state = initialState, action) => {
+const reducer = (state = getInitialState(), action) => {
+  const newState = Object.assign({}, state);
   switch (action.type) {
-    case ActionType.REQUIRE_AUTHORIZATION:
-      return Object.assign({}, state, {
-        isAuthorizationRequired: action.payload
-      });
-    case ActionType.LOAD_USER_DATA:
-      return Object.assign({}, state, {
-        userData: action.payload
-      });
+    case ActionTypes.LOAD_USER_DATA:
+      newState.isAuthorizationRequired = false;
+      newState.userData = Object.assign({}, action.payload);
+      return newState;
   }
 
   return state;
 };
 
 const Operations = {
-  sendAuthorizationData: (email, password, handleRedirect) => (dispatch, _, api) => {
-    return api.post(REQUEST_URL.LOGIN, {email, password})
+  sendAuthorizationData: (email, password, callback) => (dispatch, getState, api) => {
+    return api.post(RequestUrls.LOGIN, {email, password})
       .then((response) => {
-        if (response.status === 200) {
-          dispatch(ActionsCreator.requiredAuthorization(false));
+        if (response.status === SuccessfulResponses.OK) {
           dispatch(ActionsCreator.loadUserData(prepareUser(response.data)));
-          handleRedirect();
+          callback();
         }
       });
   },
 
-  // checkAuthorization: () => (dispatch, _, api) => {
-  //   return api.get(REQUEST_URL.LOGIN)
-  //     .then((response) => {
-  //       if (response.status === 200) {
-  //         dispatch(ActionCreator.signIn(prepareUser(response.data)));
-  //       }
-  //     });
-  // }
+  checkAuthorization: () => (dispatch, getState, api) => {
+    return api.get(RequestUrls.LOGIN)
+      .then((response) => {
+        if (response.status === SuccessfulResponses.OK) {
+          dispatch(ActionsCreator.loadUserData(prepareUser(response.data)));
+        }
+      });
+  }
 };
 
 export {
+  getInitialState,
+  ActionTypes,
   ActionsCreator,
   Operations,
   reducer

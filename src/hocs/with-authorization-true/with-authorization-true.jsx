@@ -2,31 +2,34 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
+
+import {BrowserPaths} from "../../constants/constants.js";
+
 import {getAuthorizationStatus} from "../../reducer/user/selector.js";
 
-const withAuthorization = (Component) => {
-  class WithAuthorization extends React.Component {
+const withAuthorizationTrue = (Component) => {
+  class WithAuthorizationTrue extends React.Component {
 
     render() {
       return this.props.isAuthorizationRequired ?
         <Component {...this.props} /> :
-        <Redirect to="/login"/>;
+        <Redirect to={BrowserPaths.MAIN}/>;
     }
   }
 
   const mapStateToProps = (state) => ({
-    isAuthorizationRequired: !getAuthorizationStatus(state)
+    isAuthorizationRequired: getAuthorizationStatus(state)
   });
 
-  WithAuthorization.propTypes = {
+  WithAuthorizationTrue.propTypes = {
     isAuthorizationRequired: PropTypes.bool.isRequired,
   };
 
-  return connect(mapStateToProps)(WithAuthorization);
+  return connect(mapStateToProps)(WithAuthorizationTrue);
 };
 
-withAuthorization.propTypes = {
+withAuthorizationTrue.propTypes = {
   Component: PropTypes.element.isRequired,
 };
 
-export default withAuthorization;
+export default withAuthorizationTrue;
